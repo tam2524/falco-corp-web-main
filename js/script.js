@@ -258,3 +258,37 @@ document.addEventListener('DOMContentLoaded', function () {
                 scrollObserver.observe(element);
             });
         });
+
+         // Basic JavaScript to handle scroll animations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Reveal animation on scroll
+            const revealElements = document.querySelectorAll('.reveal');
+            
+            function checkReveal() {
+                const windowHeight = window.innerHeight;
+                const revealPoint = 150;
+                
+                revealElements.forEach(element => {
+                    const elementTop = element.getBoundingClientRect().top;
+                    
+                    if (elementTop < windowHeight - revealPoint) {
+                        element.classList.add('visible');
+                    }
+                });
+            }
+            
+            // Initial check
+            checkReveal();
+            
+            // Check on scroll
+            window.addEventListener('scroll', checkReveal);
+            
+            // Handle iOS viewport height change on scroll
+            let vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
+            
+            window.addEventListener('resize', () => {
+                let vh = window.innerHeight * 0.01;
+                document.documentElement.style.setProperty('--vh', `${vh}px`);
+            });
+        });
