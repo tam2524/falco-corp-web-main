@@ -714,6 +714,38 @@ img.hero-background {
     transform: translateY(0);
 }
 
+/* --- Add this entire block to the end of your style.css file --- */
+
+@media (max-width: 767px) {
+    .product-card {
+        height: auto;
+        /* Allow card height to adjust to its content */
+        min-height: 320px;
+        /* Set a minimum height for a consistent look */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    /* Disable hover effects that don't work well on touch */
+    .product-card:hover {
+        transform: none;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .product-card:hover .product-content {
+        transform: none;
+    }
+
+    /* Make the description visible by default on mobile */
+    .product-description {
+        max-height: 200px;
+        /* A large enough value to show the text */
+        opacity: 0.9;
+        transform: translateY(0);
+    }
+}
+
 /* Background image for hero section */
 .page-header[style*="IMG_8686.JPG"] {
     position: relative;
