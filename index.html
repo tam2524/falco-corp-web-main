@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,851 +11,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="https://unpkg.com/leaflet-ant-path@1.3.0/dist/leaflet-ant-path.js"></script>
-    <style>
-        :root {
-            --color-primary-blue: #1e3a8a; 
-            --color-accent-blue: #3b82f6;
-            --color-light-gray: #f8fafc;
-            --color-medium-gray: #e2e8f0;
-            --color-text: #111827;
-            --color-text-light: #f9fafb;
-        }
-        html { scroll-behavior: smooth; }
-        body { font-family: 'Inter', sans-serif; color: var(--color-text); background-color: white; }
-        .bg-primary-blue { background-color: var(--color-primary-blue); }
-        .text-primary-blue { color: var(--color-primary-blue); }
-        .border-primary-blue { border-color: var(--color-primary-blue); }
-
-        /* Header */
-        #header { transition: background-color 0.3s ease, box-shadow 0.3s ease; }
-        #header.scrolled { background-color: white; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
-        #header.scrolled .logo-img { filter: none; }
-        #header.scrolled .menu-icon, #header.scrolled .search-icon { color: var(--color-text); }
-        .logo-img { filter: brightness(0) invert(1); transition: filter 0.3s ease; }
-        .menu-icon, .search-icon { transition: color 0.3s ease; }
-
-        /* Fullscreen Menu */
-        #fullscreen-menu {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-color: var(--color-primary-blue); z-index: 100;
-            transform: translateY(-100%); transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1);
-            display: flex; flex-direction: column; justify-content: center;
-            align-items: center; /* Center horizontally */
-            overflow-y: auto;
-        }
-        #fullscreen-menu.open { transform: translateY(0); }
-        #fullscreen-menu a {
-            color: var(--color-text-light); font-size: 2rem; /* Reduced font size */
-            font-weight: 700; margin: 1rem 0;
-            text-transform: uppercase; letter-spacing: 0.05em;
-            transition: color 0.3s ease, transform 0.3s ease; transform: translateX(-20px); opacity: 0;
-        }
-        #fullscreen-menu a:hover { color: var(--color-accent-blue); }
-        #fullscreen-menu.open a {
-            transform: translateX(0); opacity: 1;
-            transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.5s ease;
-        }
-        
-        /* Add a simple media query for smaller screens */
-        @media (max-width: 640px) {
-            #fullscreen-menu a {
-                font-size: 1.5rem; /* Further reduced font size for mobile */
-                margin: 0.75rem 0;
-            }
-        }
-
-        /* Hero & Page Headers */
-        .hero-section, .page-header {
-            background-color: var(--color-primary-blue); color: var(--color-text-light);
-            display: flex; align-items: center; justify-content: center; text-align: center;
-            position: relative; overflow: hidden;
-        }
-        .hero-section { height: 100vh; }
-        .page-header { height: 60vh; min-height: 400px; }
-        .hero-background {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            object-fit: cover; opacity: 0.15; filter: grayscale(100%);
-        }
-        img.hero-background {
-            animation: slowZoom 20s infinite alternate ease-in-out;
-        }
-        @keyframes slowZoom { from { transform: scale(1); } to { transform: scale(1.1); } }
-        
-        .themed-button {
-            background-color: transparent; border: 2px solid var(--color-text-light);
-            padding: 1rem 2rem; border-radius: 0;
-            font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-        .themed-button:hover { background-color: var(--color-text-light); color: var(--color-primary-blue); }
-
-        /* Animations */
-        .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
-        .reveal.visible { opacity: 1; transform: translateY(0); }
-
-        /* News Slider */
-        .slider-container { position: relative; }
-        .slider-track { display: flex; transition: transform 0.5s ease-in-out; }
-        .slider-item { min-width: 90%; }
-        @media (min-width: 768px) { .slider-item { min-width: 45%; } }
-        @media (min-width: 1024px) { .slider-item { min-width: 30%; } }
-        .slider-card {
-            border: 1px solid var(--color-medium-gray); padding: 2rem; height: 100%;
-            display: flex; flex-direction: column; justify-content: space-between;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .slider-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
-        .slider-arrow-button {
-            border: 1px solid var(--color-medium-gray); width: 40px; height: 40px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            transition: background-color 0.3s, border-color 0.3s;
-        }
-        .slider-arrow-button:hover { background-color: var(--color-light-gray); }
-
-        .link-arrow { display: inline-flex; align-items: center; font-weight: 600; color: var(--color-primary-blue); }
-        .link-arrow span { transition: transform 0.3s ease; display: inline-block; }
-        .link-arrow:hover span { transform: translateX(4px); }
-        
-        /* General Styling */
-        .section-title { font-size: 2.25rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
-        
-        /* New animated backgrounds */
-        .abstract-bg {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            z-index: 1;
-        }
-        .abstract-bg::before, .abstract-bg::after {
-            content: '';
-            position: absolute;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.05);
-            animation: move 20s infinite ease-in-out;
-            opacity: 0.5;
-        }
-        .abstract-bg::before {
-            width: 500px;
-            height: 500px;
-            top: -100px;
-            left: -150px;
-            animation-delay: 2s;
-        }
-        .abstract-bg::after {
-            width: 700px;
-            height: 700px;
-            bottom: -200px;
-            right: -250px;
-            animation-delay: 5s;
-        }
-
-        @keyframes move {
-            0% { transform: translate(0, 0) scale(1); }
-            25% { transform: translate(50px, -50px) scale(1.1); }
-            50% { transform: translate(-50px, 50px) scale(0.9); }
-            75% { transform: translate(50px, 50px) scale(1.2); }
-            100% { transform: translate(0, 0) scale(1); }
-        }
-        /* Modern Value Cards */
-        .value-card-modern {
-            background-color: white;
-            padding: 2rem;
-            border-radius: 0.5rem;
-            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        .value-card-modern:hover {
-            transform: translateY(-10px) scale(1.05);
-            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
-        }
-        .value-card-modern .icon {
-            font-size: 3rem;
-            color: var(--color-primary-blue);
-            margin-bottom: 1rem;
-            transition: transform 0.3s ease;
-        }
-        .value-card-modern:hover .icon {
-            transform: scale(1.2) rotate(-15deg);
-        }
-        .value-card-modern .title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #1f2937;
-        }
-        /* Modern styling for the new layout */
-        .modern-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 2rem;
-            justify-content: center;
-        }
-
-        .modern-card {
-            background-color: #ffffff;
-            border-radius: 1.5rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            overflow: hidden;
-            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-            width: 100%;
-            max-width: 300px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-        }
-
-        .modern-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
-        }
-
-        .modern-card-content {
-            padding: 2rem;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .card-image {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .modern-card:hover .card-image {
-            transform: scale(1.1);
-        }
-
-        .title-card {
-            background: linear-gradient(45deg, #1e3a8a, #3b82f6);
-            color: #ffffff;
-            padding: 2rem;
-            border-radius: 1.5rem;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Scroll-based animation */
-        .scroll-animate {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-        }
-
-        .scroll-animate.is-visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        /* Hero Section Style */
-        .page-header[style*="hero-bg.jpg"] {
-            position: relative; background-size: cover; background-position: center;
-            color: white; text-align: center; padding: 8rem 0;
-            display: flex; align-items: center; justify-content: center;
-        }
-        .page-header[style*="hero-bg.jpg"]::before {
-            content: ''; position: absolute; top: 0; left: 0;
-            width: 100%; height: 100%;
-            background-color: rgba(30, 58, 138, 0.7); /* Dark blue overlay */
-        }
-
-        /* Project Cards Style */
-        .project-card {
-            background: #ffffff;
-            border-radius: 0.75rem;
-            padding: 2.5rem;
-            text-align: center;
-            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.07), 0 4px 6px -2px rgba(0,0,0,0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .project-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
-        }
-        .project-icon-wrapper {
-            width: 80px; height: 80px;
-            margin: 0 auto 1.5rem;
-            border-radius: 50%;
-            background: linear-gradient(145deg, var(--color-primary-blue), #1e40af);
-            display: flex; align-items: center; justify-content: center;
-            color: white;
-        }
-        .project-icon {
-            font-size: 2.5rem;
-        }
-        .project-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: #1f2937;
-        }
-        .project-description {
-            font-size: 1rem;
-            line-height: 1.6;
-            color: #4b5563;
-        }
-        /* Keyframe Animations */
-        @keyframes pulse {
-            0%, 100% { box-shadow: 0 0 0 4px var(--color-primary-blue), 0 0 0 0 rgba(59, 130, 246, 0.7); }
-            50% { box-shadow: 0 0 0 4px var(--color-primary-blue), 0 0 0 12px rgba(59, 130, 246, 0); }
-        }
-        @keyframes gradient-shine {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        /* Hero Section Style */
-        .page-header {
-            position: relative; background-size: cover; background-position: center;
-            color: white; text-align: center; padding: 8rem 0;
-            display: flex; align-items: center; justify-content: center;
-        }
-        .page-header::before {
-            content: ''; position: absolute; top: 0; left: 0;
-            width: 100%; height: 100%;
-            background-color: rgba(30, 58, 138, 0.7);
-        }
-        
-        /* Timeline Styles */
-        .timeline-line {
-            position: absolute; left: 50%; top: 0; height: 100%; width: 3px;
-            background: linear-gradient(to bottom, var(--color-primary-blue), #a5b4fc);
-            transform: translateX(-50%);
-        }
-        .timeline-item {
-            position: relative;
-            margin-bottom: 3rem;
-            display: flex;
-            align-items: flex-start;
-        }
-        /* Set items to alternate on the left and right */
-        .timeline-item:nth-child(even) {
-            flex-direction: row-reverse;
-        }
-        .timeline-item:last-child { margin-bottom: 0; }
-        
-        .timeline-dot {
-            position: absolute;
-            top: 8px;
-            left: 50%;
-            width: 20px; height: 20px;
-            background-color: #ffffff;
-            border-radius: 50%;
-            transform: translateX(-50%);
-            border: 4px solid var(--color-primary-blue);
-            z-index: 10;
-            animation: pulse 2s infinite;
-        }
-
-        .timeline-content {
-            position: relative;
-            width: calc(50% - 3rem);
-            padding: 2rem;
-            background-color: #ffffff;
-            border-radius: 0.75rem;
-            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.07), 0 4px 6px -4px rgba(0,0,0,0.07);
-            transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-        }
-        .timeline-item:nth-child(odd) .timeline-content {
-            border-left: 4px solid var(--color-primary-blue);
-            margin-right: 3rem;
-        }
-        .timeline-item:nth-child(even) .timeline-content {
-            border-right: 4px solid var(--color-primary-blue);
-            margin-left: 3rem;
-        }
-        .timeline-content:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1);
-        }
-        .timeline-icon {
-            font-size: 2.5rem;
-            color: var(--color-primary-blue);
-            margin-bottom: 1rem;
-            transition: transform 0.3s ease;
-        }
-        .timeline-content:hover .timeline-icon {
-            transform: scale(1.1) rotate(-10deg);
-        }
-        .timeline-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 0.75rem;
-            color: #111827;
-        }
-        .timeline-text {
-            font-size: 1rem;
-            line-height: 1.7;
-            color: #4b5563;
-        }
-        
-        /* Highlight Style for Breakthroughs */
-        .timeline-content.highlight {
-            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #1e3a8a 100%);
-            background-size: 200% 200%;
-            color: white;
-            border: none;
-            box-shadow: 0 25px 50px -12px rgba(30, 64, 175, 0.35);
-            animation: gradient-shine 5s ease infinite;
-        }
-        .timeline-content.highlight .timeline-title { color: white; }
-        .timeline-content.highlight .timeline-text { color: #dbeafe; }
-        .highlight-icon {
-            position: absolute; top: 1.5rem; right: 1.5rem;
-            font-size: 2rem; color: white; opacity: 0.2;
-            transform: rotate(-15deg);
-        }
-
-        /* Mobile Timeline Adjustments */
-        @media (max-width: 767px) {
-            .timeline-line { left: 10px; transform: none; }
-            .timeline-item {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            .timeline-item:nth-child(even) {
-                flex-direction: column;
-            }
-            .timeline-dot { left: 10px; transform: none; }
-            .timeline-content {
-                width: 100%;
-                margin-left: 3rem;
-                border-left: 4px solid var(--color-primary-blue);
-                border-right: none;
-            }
-            .timeline-item:nth-child(even) .timeline-content {
-                margin-left: 3rem;
-                border-right: none;
-            }
-        }
-        /* Ensure you have Font Awesome linked in your main header for the icon */
-        .product-card {
-            position: relative;
-            height: 380px;
-            border-radius: 0.75rem;
-            overflow: hidden;
-            background: linear-gradient(145deg, #1e3a8a, #2563eb);
-            background-size: 150% 150%;
-            transition: transform 0.4s ease, box-shadow 0.4s ease, background-position 0.8s ease;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            color: white;
-        }
-        .product-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 25px -5px rgba(30, 58, 138, 0.2), 0 10px 10px -5px rgba(30, 58, 138, 0.1);
-            background-position: 100% 100%;
-        }
-        .product-overlay {
-            position: absolute;
-            inset: 0;
-            padding: 2rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            background: linear-gradient(180deg, rgba(0,0,0,0.1), rgba(0,0,0,0.3));
-        }
-        .product-content {
-            transition: transform 0.4s ease;
-        }
-        
-        .product-card:hover .product-content {
-            transform: translateY(-10px);
-        }
-        .product-icon {
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
-            transition: transform 0.4s ease;
-            opacity: 0.9;
-        }
-        
-        .product-card:hover .product-icon {
-            transform: scale(1.1);
-        }
-        .product-title {
-            font-size: 1.75rem;
-            font-weight: bold;
-        }
-        
-        .product-description {
-            font-size: 0.95rem;
-            margin-top: 0.5rem;
-            line-height: 1.6;
-            max-height: 0;
-            opacity: 0;
-            transform: translateY(10px);
-            transition: max-height 0.4s ease, opacity 0.4s ease, transform 0.4s ease;
-        }
-        .product-card:hover .product-description {
-            max-height: 150px; /* Adjust as needed */
-            opacity: 0.9;
-            transform: translateY(0);
-        }
-        
-        /* Style for the "Future Innovations" card */
-        .product-card-future {
-            background: linear-gradient(145deg, var(--color-primary-blue), #1e40af);
-        }
-        .future-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            opacity: 0.7;
-            transition: transform 0.4s ease;
-        }
-        .product-card-future:hover .future-icon {
-            transform: scale(1.1) rotate(-15deg);
-        }
-        
-        .product-card-future .product-description {
-            max-height: 150px;
-            opacity: 0.9;
-            transform: translateY(0);
-        }
-        /* Background image for hero section */
-        .page-header[style*="IMG_8686.JPG"] {
-            position: relative;
-            background-size: cover;
-            background-position: center;
-            color: white;
-            text-align: center;
-            padding: 8rem 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .page-header[style*="IMG_8686.JPG"]::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(30, 58, 138, 0.7); /* Dark blue overlay */
-        }
-        /* Base Styles */
-        .sustainability-section {
-            font-family: 'Inter', sans-serif;
-            color: #334155;
-        }
-        .icon-card {
-            background-color: #ffffff;
-            border-radius: 1.5rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-            padding: 2rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-        }
-        .icon-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
-        }
-        .icon-circle {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background-color: #e5e7eb;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1.5rem;
-            transition: background-color 0.3s ease;
-        }
-        .icon-card:hover .icon-circle {
-            background-color: #d1d5db;
-        }
-        .icon {
-            font-size: 2.5rem;
-            color: #1e3a8a;
-        }
-        /* Specific Section Styles */
-        .bg-light-gray {
-            background-color: #f8f9fa;
-        }
-        .commitment-section img {
-            border-radius: 1.5rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-        /* Base Styles */
-        .team-section {
-            font-family: 'Inter', sans-serif;
-            color: #334155;
-        }
-        .team-grid {
-            display: grid;
-            grid-template-columns: repeat(1, 1fr);
-            gap: 2.5rem;
-        }
-        @media (min-width: 640px) {
-            .team-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-        @media (min-width: 1024px) {
-            .team-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-        /* Card Styles */
-        .team-card {
-            background-color: #ffffff;
-            border-radius: 1.5rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            overflow: hidden;
-            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            padding: 2rem;
-            position: relative;
-            perspective: 1000px;
-            height: 350px; /* Added a fixed height to prevent content shifting on flip */
-        }
-        .team-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
-        }
-        .card-inner {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            text-align: center;
-            transition: transform 0.6s;
-            transform-style: preserve-3d;
-        }
-        .team-card:hover .card-inner {
-            transform: rotateY(180deg);
-        }
-        .card-front, .card-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 2rem;
-            border-radius: 1.5rem;
-        }
-        .card-front {
-            background: #ffffff;
-            z-index: 2;
-        }
-        .card-back {
-            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
-            color: #ffffff;
-            transform: rotateY(180deg);
-        }
-        .profile-image-container {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            overflow: hidden;
-            margin-bottom: 1.5rem;
-            border: 4px solid #f9fafb;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-        .profile-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-        .team-card:hover .profile-image {
-            transform: scale(1.1);
-        }
-        /* Social Icons */
-        .social-icons {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-        .social-icon {
-            color: #ffffff;
-            transition: color 0.3s ease;
-        }
-        .social-icon:hover {
-            color: #e5e7eb;
-        }
-        /* === KEY ANIMATION FIX IS HERE === */
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-        @keyframes spin-reverse {
-            /* This now includes translateX to keep items centered while rotating */
-            from { transform: translateX(-50%) rotate(0deg); }
-            to { transform: translateX(-50%) rotate(-360deg); }
-        }
-        .cycle-wrapper {
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            min-height: 600px;
-        }
-        .cycle-center {
-            position: absolute;
-            width: 180px;
-            height: 180px;
-            background: linear-gradient(145deg, var(--color-primary-blue), #1e40af);
-            border-radius: 50%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            box-shadow: 0 0 30px rgba(30, 58, 138, 0.4);
-            z-index: 20;
-        }
-        .cycle-animator {
-            position: absolute;
-            width: 550px;
-            height: 550px;
-            animation: spin 30s linear infinite;
-        }
-        .cycle-path {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border: 3px dashed #cbd5e1;
-            border-radius: 50%;
-        }
-        .cycle-node {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-        }
-        .cycle-node:nth-child(1) { transform: rotate(0deg); }
-        .cycle-node:nth-child(2) { transform: rotate(90deg); }
-        .cycle-node:nth-child(3) { transform: rotate(180deg); }
-        .cycle-node:nth-child(4) { transform: rotate(270deg); }
-        .cycle-item {
-            position: absolute;
-            top: -80px;
-            left: 50%;
-            /* The transform is now handled by the animation itself */
-            width: 160px;
-            height: 160px;
-            background: white;
-            border-radius: 50%;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 1rem;
-            text-align: center;
-            animation: spin-reverse 30s linear infinite;
-            transition: transform 0.3s ease;
-        }
-        
-        .cycle-wrapper:hover .cycle-animator,
-        .cycle-wrapper:hover .cycle-item {
-            animation-play-state: paused;
-        }
-        .cycle-item:hover {
-            /* The hover state needs to re-apply the translateX */
-            transform: translateX(-50%) scale(1.1);
-            box-shadow: 0 12px 24px rgba(30, 58, 138, 0.2);
-            cursor: pointer;
-            z-index: 10;
-        }
-        .cycle-icon {
-            font-size: 2rem;
-            color: var(--color-primary-blue);
-            margin-bottom: 0.5rem;
-        }
-        .cycle-item h4 {
-            font-size: 0.9rem;
-            color: #334155;
-        }
-        .cycle-node::after {
-            content: '\f061';
-            font-family: 'Font Awesome 5 Free';
-            font-weight: 900;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            font-size: 1.75rem;
-            color: var(--color-primary-blue);
-            transform: translate(195px, -195px) rotate(90deg);
-            /* This animation was missing for the arrows, added it here */
-            animation: spin-reverse 30s linear infinite;
-        }
-        @media (max-width: 768px) {
-            .cycle-wrapper { min-height: 450px; }
-            .cycle-animator { width: 400px; height: 400px; }
-            .cycle-center { width: 130px; height: 130px; }
-            .cycle-center h3 { font-size: 0.9rem; }
-            .cycle-item { width: 120px; height: 120px; top: -60px; }
-            .cycle-icon { font-size: 1.5rem; }
-            .cycle-item h4 { font-size: 0.75rem; }
-            .cycle-node::after {
-                font-size: 1.5rem;
-                transform: translate(140px, -140px) rotate(90deg);
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .cycle-wrapper { min-height: initial; padding: 2rem 0; }
-            .cycle-animator {
-                position: static;
-                width: 100%;
-                height: auto;
-                animation: none;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                gap: 2.5rem;
-            }
-            .cycle-path, .cycle-center, .cycle-node::after { display: none; }
-            .cycle-node {
-                position: static;
-                width: 80%;
-                height: auto;
-                transform: none !important;
-            }
-            .cycle-item {
-                position: static;
-                transform: none !important;
-                animation: none;
-                width: 100%;
-                height: auto;
-                border-radius: 0.75rem;
-                padding: 1.5rem;
-            }
-            .cycle-item h4 { font-size: 1rem; }
-            .cycle-node:not(:last-child)::before {
-                content: '\f063';
-                font-family: 'Font Awesome 5 Free';
-                font-weight: 900;
-                display: block;
-                text-align: center;
-                font-size: 1.75rem;
-                color: #cbd5e1;
-                margin-top: 1.25rem;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/script.js" ></script>
 </head>
+
 <body>
 
     <header id="header" class="fixed top-0 left-0 right-0 z-50">
@@ -862,7 +25,10 @@
             <div class="flex justify-between items-center h-20">
                 <div class="flex-1 flex justify-start">
                     <button id="menu-toggle" class="p-2">
-                        <svg class="menu-icon h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                        <svg class="menu-icon h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16m-7 6h7"></path>
+                        </svg>
                     </button>
                 </div>
                 <div class="flex-1 flex justify-center">
@@ -872,7 +38,11 @@
                 </div>
                 <div class="flex-1 flex justify-end">
                     <button id="search-toggle" class="p-2">
-                           <svg class="search-icon h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                        <svg class="search-icon h-6 w-6 text-white" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
                     </button>
                 </div>
             </div>
@@ -882,32 +52,37 @@
     <div id="fullscreen-menu" class="relative">
         <div class="abstract-bg"></div>
         <button id="menu-close" class="absolute top-7 right-7 p-2 text-white z-20">
-            <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
         </button>
         <div class="flex flex-col items-center justify-center space-y-4 relative z-20">
             <a href="#about" style="transition-delay: 0.1s;">Who we are</a>
             <a href="#what-we-do" style="transition-delay: 0.2s;">What we do</a>
             <a href="#products" style="transition-delay: 0.2s;">Products & Solutions</a>
             <a href="#global-reach" style="transition-delay: 0.2s;">Global Reach</a>
-            <a href="#future-goals" style="transition-delay: 0.2s;">Future Goals</a>
             <a href="#milestones" style="transition-delay: 0.2s;">Achievements & Milestones</a>
+            <a href="#future-goals" style="transition-delay: 0.2s;">Future Goals</a>
+            <a href="#teams" style="transition-delay: 0.2s;">Leadership & Team</a>
             <a href="#history" style="transition-delay: 0.4s;">History</a>
-            <a href="#sustainability" style="transition-delay: 0.3s;">Sustainability</a>
-            <a href="#teams" style="transition-delay: 0.2s;">Leadership & Teams</a>
-            <a href="#careers" style="transition-delay: 0.4s;">Careers</a>
-            <a href="#home#news" style="transition-delay: 0.5s;">News & Insights</a>
-            <a href="#contact" style="transition-delay: 0.6s;">Contact</a>
+            <a href="#sustainability" style="transition-delay: 0.3s;">Sustainability & Responsibility</a>
+            <a href="#contact" style="transition-delay: 0.6s;">Contact Us</a>
         </div>
     </div>
 
-    <div id="search-modal" class="fixed inset-0 bg-gray-800 bg-opacity-95 z-50 hidden flex-col items-center justify-start p-8">
+    <div id="search-modal"
+        class="fixed inset-0 bg-gray-800 bg-opacity-95 z-50 hidden flex-col items-center justify-start p-8">
         <button id="search-close" class="absolute top-7 right-7 p-2 text-white">
-            <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
         </button>
         <div class="w-full max-w-2xl mt-24">
-            <input type="text" id="search-input" class="w-full text-lg md:text-2xl p-4 bg-transparent border-b-2 border-white text-white focus:outline-none placeholder-gray-400" placeholder="Type to search...">
+            <input type="text" id="search-input"
+                class="w-full text-lg md:text-2xl p-4 bg-transparent border-b-2 border-white text-white focus:outline-none placeholder-gray-400"
+                placeholder="Type to search...">
             <div id="search-results" class="mt-8 text-white max-h-96 overflow-y-auto">
-                </div>
+            </div>
         </div>
     </div>
 
@@ -923,10 +98,12 @@
                         Falco Corporation
                         <span class="block text-2xl md:text-4xl font-light mt-2">A Global Energy Trading Leader</span>
                     </h1>
-                    <p class="text-lg md:text-xl mt-4 mb-10 max-w-3xl mx-auto reveal visible" style="transition-delay: 0.2s;">
+                    <p class="text-lg md:text-xl mt-4 mb-10 max-w-3xl mx-auto reveal visible"
+                        style="transition-delay: 0.2s;">
                         Innovation, sustainability, and worldwide energy solutions.
                     </p>
-                    <div class="flex flex-col sm:flex-row justify-center items-center gap-4 reveal visible" style="transition-delay: 0.3s;">
+                    <div class="flex flex-col sm:flex-row justify-center items-center gap-4 reveal visible"
+                        style="transition-delay: 0.3s;">
                         <a href="#about" class="themed-button nav-link">
                             About Us
                         </a>
@@ -939,56 +116,41 @@
                     </div>
                 </div>
             </section>
-            
-            <section id="news" class="py-20 lg:py-32 bg-white">
-                <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="flex flex-col md:flex-row justify-between md:items-center mb-12">
-                        <h2 class="section-title text-primary-blue mb-4 md:mb-0">Latest news and insights</h2>
-                        <div class="flex items-center space-x-4">
-                            <button id="prev-btn" class="slider-arrow-button">
-                                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
-                            </button>
-                            <button id="next-btn" class="slider-arrow-button">
-                                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="slider-container overflow-hidden">
-                        <div id="slider-track" class="slider-track -mx-4">
-                            <div class="slider-item px-4"><div class="slider-card"><p class="text-sm text-gray-500 mb-4">20 Sep 2025 | Press release</p><h3 class="text-xl font-bold text-primary-blue">Falco signs long-term LNG supply agreement</h3><a href="#" class="link-arrow mt-8 self-start">Read more <span>&rarr;</span></a></div></div>
-                            <div class="slider-item px-4"><div class="slider-card"><p class="text-sm text-gray-500 mb-4">17 Sep 2025 | Announcement</p><h3 class="text-xl font-bold text-primary-blue">New Board Leadership to drive sustainable growth</h3><a href="#" class="link-arrow mt-8 self-start">Read more <span>&rarr;</span></a></div></div>
-                            <div class="slider-item px-4"><div class="slider-card"><p class="text-sm text-gray-500 mb-4">13 Sep 2025 | Insight</p><h3 class="text-xl font-bold text-primary-blue">Financing agreement to support shipping companies</h3><a href="#" class="link-arrow mt-8 self-start">Read more <span>&rarr;</span></a></div></div>
-                            <div class="slider-item px-4"><div class="slider-card"><p class="text-sm text-gray-500 mb-4">10 Sep 2025 | Market Update</p><h3 class="text-xl font-bold text-primary-blue">Falco returns to USD debt market with new bond</h3><a href="#" class="link-arrow mt-8 self-start">Read more <span>&rarr;</span></a></div></div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            
+
+
             <section class="py-20 lg:py-32 bg-light-gray">
                 <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="grid lg:grid-cols-2 gap-12 items-center">
                         <div class="reveal">
-                            <img loading="lazy" src="images/what we do/2bdd46ce-de04-4773-9c34-17202b3f0c72.JPG" alt="Global logistics network" class="w-full h-full object-cover" style="filter: grayscale(100%);">
+                            <img loading="lazy" src="images/2bdd46ce-de04-4773-9c34-17202b3f0c72.JPG"
+                                alt="Global logistics network" class="w-full h-full object-cover"
+                                style="filter: grayscale(100%);">
                         </div>
                         <div class="reveal">
                             <h2 class="section-title text-primary-blue mb-6">What we do</h2>
-                            <p class="text-lg text-gray-700 mb-8">We physically trade and logistically support the movement of oil and petroleum products, metals and minerals, and gas and power.</p>
-                            <a href="#what-we-do" class="link-arrow text-lg nav-link">Discover what we do <span>&rarr;</span></a>
+                            <p class="text-lg text-gray-700 mb-8">We physically trade and logistically support the
+                                movement of oil and petroleum products, metals and minerals, and gas and power.</p>
+                            <a href="#what-we-do" class="link-arrow text-lg nav-link">Discover what we do
+                                <span>&rarr;</span></a>
                         </div>
                     </div>
                 </div>
             </section>
-            
+
             <section class="py-20 lg:py-32 bg-white">
                 <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="grid lg:grid-cols-2 gap-12 items-center">
                         <div class="reveal lg:order-last">
-                            <img loading="lazy" src="images/future goals/f91dd928e4a110edd2c07c88550a1184 2.JPG" alt="Renewable energy infrastructure" class="w-full h-full object-cover" style="filter: grayscale(100%);">
+                            <img loading="lazy" src="images/f91dd928e4a110edd2c07c88550a1184 2.JPG"
+                                alt="Renewable energy infrastructure" class="w-full h-full object-cover"
+                                style="filter: grayscale(100%);">
                         </div>
                         <div class="reveal">
                             <h2 class="section-title text-primary-blue mb-6">Our role in the energy transition</h2>
-                            <p class="text-lg text-gray-700 mb-8">We are investing in projects and technologies that will help accelerate the transition to a lower-carbon future.</p>
-                            <a href="#sustainability" class="link-arrow text-lg nav-link">Learn about our commitment <span>&rarr;</span></a>
+                            <p class="text-lg text-gray-700 mb-8">We are investing in projects and technologies that
+                                will help accelerate the transition to a lower-carbon future.</p>
+                            <a href="#sustainability" class="link-arrow text-lg nav-link">Learn about our commitment
+                                <span>&rarr;</span></a>
                         </div>
                     </div>
                 </div>
@@ -997,7 +159,8 @@
 
         <section id="about" data-page-title="About Falco" class="page-content hidden">
             <section class="page-header relative">
-                <img src="images/about us/IMG_8277.JPG" alt="Falco Corporation Team" class="hero-background" loading="eager">
+                <img src="images/IMG_8277.JPG" alt="Falco Corporation Team" class="hero-background"
+                    loading="eager">
                 <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-60"></div>
                 <div class="relative z-10 px-4">
                     <h1 class="text-4xl md:text-6xl font-bold reveal visible">About Falco</h1>
@@ -1006,22 +169,34 @@
                     </p>
                 </div>
             </section>
-            
+
             <section class="py-20 lg:py-32 bg-white">
                 <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="grid lg:grid-cols-2 gap-16 items-center">
                         <div class="reveal">
                             <h2 class="text-4xl font-bold text-gray-800 mb-8">Our Story</h2>
-                            <p class="text-lg text-gray-600 mb-8 leading-relaxed">Founded in the UAE in 2021, Falco Corporation's journey has been defined by rapid global growth and a swift evolution into a leading player in the energy sector.</p>
+                            <p class="text-lg text-gray-600 mb-8 leading-relaxed">Founded in the UAE in 2021, Falco
+                                Corporation's journey has been defined by rapid global growth and a swift evolution into
+                                a leading player in the energy sector.</p>
 
                             <h3 class="text-2xl font-semibold text-primary-blue mb-3">Diversified Operations</h3>
-                            <p class="text-lg text-gray-600 mb-6 leading-relaxed">Our success is built on the integration of oilfield development, overseas terminals, shipping management, and import/export trade, providing comprehensive expertise as a dynamic energy trading company.</p>
+                            <p class="text-lg text-gray-600 mb-6 leading-relaxed">Our success is built on the
+                                integration of oilfield development, overseas terminals, shipping management, and
+                                import/export trade, providing comprehensive expertise as a dynamic energy trading
+                                company.</p>
 
-                            <h3 class="text-2xl font-semibold text-primary-blue mb-3">Versatility in International Business</h3>
-                            <p class="text-lg text-gray-600 mb-6 leading-relaxed">We are engaged in diverse sectors such as crude oil import and export trade, crude oil refining, supply chain trade, and oil fields.</p>
+                            <h3 class="text-2xl font-semibold text-primary-blue mb-3">Versatility in International
+                                Business</h3>
+                            <p class="text-lg text-gray-600 mb-6 leading-relaxed">We are engaged in diverse sectors such
+                                as crude oil import and export trade, crude oil refining, supply chain trade, and oil
+                                fields.</p>
 
                             <h3 class="text-2xl font-semibold text-primary-blue mb-3">Visionary Approach</h3>
-                            <p class="text-lg text-gray-600 leading-relaxed">At Falco Corporation, we embrace innovation, sustainability, and excellence. Our commitment extends beyond borders, creating a global impact in the energy trading arena. Join us as we navigate the complexities of the international energy market, setting new standards and forging lasting partnerships.</p>
+                            <p class="text-lg text-gray-600 leading-relaxed">At Falco Corporation, we embrace
+                                innovation, sustainability, and excellence. Our commitment extends beyond borders,
+                                creating a global impact in the energy trading arena. Join us as we navigate the
+                                complexities of the international energy market, setting new standards and forging
+                                lasting partnerships.</p>
                         </div>
                         <div class="reveal grid grid-cols-2 gap-8 text-center">
                             <div class="bg-light-gray p-8 rounded-lg">
@@ -1036,19 +211,21 @@
                     </div>
                 </div>
             </section>
-            
-            <div class="bg-light-gray" style="height: 150px; overflow: hidden;" >
+
+            <div class="bg-light-gray" style="height: 150px; overflow: hidden;">
                 <svg viewBox="0 0 500 150" preserveAspectRatio="none" style="height: 100%; width: 100%;">
-                    <path d="M0.00,49.98 C149.99,150.00 349.20,-49.98 500.00,49.98 L500.00,150.00 L0.00,150.00 Z" style="stroke: none; fill: #ffffff;"></path>
+                    <path d="M0.00,49.98 C149.99,150.00 349.20,-49.98 500.00,49.98 L500.00,150.00 L0.00,150.00 Z"
+                        style="stroke: none; fill: #ffffff;"></path>
                 </svg>
             </div>
-            
+
             <section class="py-20 lg:py-32 bg-light-gray">
                 <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="text-center max-w-3xl mx-auto reveal">
                         <h2 class="text-4xl font-bold mb-6">Our Mission & Values</h2>
                         <p class="text-lg text-gray-700 mb-16">
-                            We are guided by four core principles that define our work and our commitment to our partners.
+                            We are guided by four core principles that define our work and our commitment to our
+                            partners.
                         </p>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
@@ -1071,29 +248,32 @@
                     </div>
                 </div>
             </section>
-            
+
             <section class="py-20 lg:py-32 bg-white">
                 <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="text-center max-w-3xl mx-auto reveal mb-16">
                         <h2 class="text-4xl font-bold mb-6">Our Global Presence</h2>
-                        <p class="text-lg text-gray-700">From our headquarters in the Middle East, we connect supply with demand efficiently and reliably on a global scale.</p>
+                        <p class="text-lg text-gray-700">From our headquarters in the Middle East, we connect supply
+                            with demand efficiently and reliably on a global scale.</p>
                     </div>
                     <div class="reveal relative overflow-hidden rounded-lg shadow-2xl" style="height: 500px;">
                         <div id="map-about" style="width: 100%; height: 100%;"></div>
                     </div>
                 </div>
             </section>
-            
-            <div class="bg-light-gray" style="height: 150px; overflow: hidden;" >
+
+            <div class="bg-light-gray" style="height: 150px; overflow: hidden;">
                 <svg viewBox="0 0 500 150" preserveAspectRatio="none" style="height: 100%; width: 100%;">
-                    <path d="M0.00,49.98 C149.99,150.00 271.49,-49.98 500.00,49.98 L500.00,0.00 L0.00,0.00 Z" style="stroke: none; fill: #ffffff;"></path>
+                    <path d="M0.00,49.98 C149.99,150.00 271.49,-49.98 500.00,49.98 L500.00,0.00 L0.00,0.00 Z"
+                        style="stroke: none; fill: #ffffff;"></path>
                 </svg>
             </div>
         </section>
 
         <section id="contact" data-page-title="Contact us" class="page-content hidden">
             <section class="page-header">
-                <img src="images/about us/IMG_8272.JPG" alt="Global office network" class="hero-background" loading="eager">
+                <img src="images/IMG_8272.JPG" alt="Global office network" class="hero-background"
+                    loading="eager">
                 <div class="relative z-10 px-4">
                     <h1 class="text-4xl md:text-6xl font-bold reveal visible">Contact us</h1>
                     <p class="text-xl mt-4 max-w-3xl mx-auto reveal visible" style="transition-delay: 0.2s;">
@@ -1101,7 +281,7 @@
                     </p>
                 </div>
             </section>
-            
+
             <section class="py-20 lg:py-32 bg-white">
                 <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="grid lg:grid-cols-2 gap-16">
@@ -1110,17 +290,24 @@
                             <form action="#" method="POST">
                                 <div class="mb-4">
                                     <label for="name" class="block font-semibold mb-2">Full Name</label>
-                                    <input type="text" id="name" name="name" class="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple" required>
+                                    <input type="text" id="name" name="name"
+                                        class="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple"
+                                        required>
                                 </div>
                                 <div class="mb-4">
                                     <label for="email" class="block font-semibold mb-2">Email Address</label>
-                                    <input type="email" id="email" name="email" class="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple" required>
+                                    <input type="email" id="email" name="email"
+                                        class="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple"
+                                        required>
                                 </div>
                                 <div class="mb-6">
                                     <label for="message" class="block font-semibold mb-2">Message</label>
-                                    <textarea id="message" name="message" rows="5" class="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple" required></textarea>
+                                    <textarea id="message" name="message" rows="5"
+                                        class="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple"
+                                        required></textarea>
                                 </div>
-                                <button type="submit" class="bg-purple text-white font-semibold py-3 px-8 rounded-full w-full hover:opacity-90 transition-opacity">Submit</button>
+                                <button type="submit"
+                                    class="bg-purple text-white font-semibold py-3 px-8 rounded-full w-full hover:opacity-90 transition-opacity">Submit</button>
                             </form>
                         </div>
                         <div class="reveal">
@@ -1147,24 +334,27 @@
 
         <section id="future-goals" data-page-title="Future Goals" class="page-content hidden">
             <section class="page-header">
-                <img src="images/what we do/8af66ebb-d81c-40a6-a3ef-82a0b09181c0.JPG" alt="Global logistics and operations" class="hero-background" loading="eager">
+                <img src="images/8af66ebb-d81c-40a6-a3ef-82a0b09181c0.JPG"
+                    alt="Global logistics and operations" class="hero-background" loading="eager">
                 <div class="relative z-10 px-4">
                     <h1 class="text-4xl md:text-6xl font-bold reveal visible">Future Goals</h1>
                     <p class="text-xl mt-4 max-w-3xl mx-auto reveal visible" style="transition-delay: 0.2s;">
-                        Our vision extends beyond present achievements as we strategically chart our course for the future.
+                        Our vision extends beyond present achievements as we strategically chart our course for the
+                        future.
                     </p>
                 </div>
             </section>
-            
+
             <section class="py-20 lg:py-32 bg-gray-50">
                 <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="title-card mb-16 scroll-animate">
                         <h2 class="text-4xl font-bold mb-4">Our Focus Will Be On Four Key Aspects</h2>
                     </div>
-            
+
                     <div class="modern-grid">
                         <div class="modern-card scroll-animate" style="transition-delay: 0s;">
-                            <img src="images/future goals/f91dd928e4a110edd2c07c88550a1184 2.JPG" alt="Ports and Shipping Infrastructure" class="card-image">
+                            <img src="images/f91dd928e4a110edd2c07c88550a1184 2.JPG"
+                                alt="Ports and Shipping Infrastructure" class="card-image">
                             <div class="modern-card-content">
                                 <h3 class="text-xl font-bold text-primary-blue mb-3">Ports & Shipping</h3>
                                 <p class="text-gray-600 text-sm leading-relaxed">
@@ -1172,9 +362,10 @@
                                 </p>
                             </div>
                         </div>
-            
+
                         <div class="modern-card scroll-animate" style="transition-delay: 0.1s;">
-                            <img src="images/future goals/01feef42-7a30-44ea-aefa-8243d08b99d5.JPG" alt="Oilfield Exploration and Production" class="card-image">
+                            <img src="images/01feef42-7a30-44ea-aefa-8243d08b99d5.JPG"
+                                alt="Oilfield Exploration and Production" class="card-image">
                             <div class="modern-card-content">
                                 <h3 class="text-xl font-bold text-primary-blue mb-3">Oil Fields</h3>
                                 <p class="text-gray-600 text-sm leading-relaxed">
@@ -1182,23 +373,27 @@
                                 </p>
                             </div>
                         </div>
-            
+
                         <div class="modern-card scroll-animate" style="transition-delay: 0.2s;">
-                            <img src="images/future goals/4218ff09-9fe4-4b8e-8a6b-f9a1dd438b17.JPG" alt="Supply Chain and Oil Terminals" class="card-image">
+                            <img src="images/4218ff09-9fe4-4b8e-8a6b-f9a1dd438b17.JPG"
+                                alt="Supply Chain and Oil Terminals" class="card-image">
                             <div class="modern-card-content">
                                 <h3 class="text-xl font-bold text-primary-blue mb-3">Supply Chain Growth</h3>
                                 <p class="text-gray-600 text-sm leading-relaxed">
-                                    Utilize our self-operated terminals for strategic cooperation and improved oil product distribution.
+                                    Utilize our self-operated terminals for strategic cooperation and improved oil
+                                    product distribution.
                                 </p>
                             </div>
                         </div>
-                        
+
                         <div class="modern-card scroll-animate" style="transition-delay: 0.3s;">
-                            <img src="images/future goals/4350d9e1425c011d6c612524d339e2ef.JPG" alt="Diversified Oil Product Operations" class="card-image">
+                            <img src="images/4350d9e1425c011d6c612524d339e2ef.JPG"
+                                alt="Diversified Oil Product Operations" class="card-image">
                             <div class="modern-card-content">
                                 <h3 class="text-xl font-bold text-primary-blue mb-3">Diversified Operations</h3>
                                 <p class="text-gray-600 text-sm leading-relaxed">
-                                    Deepen our involvement in oil product export, warehousing, and ship supply businesses.
+                                    Deepen our involvement in oil product export, warehousing, and ship supply
+                                    businesses.
                                 </p>
                             </div>
                         </div>
@@ -1206,76 +401,93 @@
                 </div>
             </section>
         </section>
+
+
         <section id="milestones" data-page-title="Future Goals" class="page-content hidden">
-            <section class="page-header" style="background-image: url('images/future goals/7adb8996a706c315f977951431d9a299.JPG');">
-                 <div class="relative z-10 px-4">
-        <h1 class="text-4xl md:text-6xl font-bold reveal">Achievements & Milestones</h1>
-        <p class="text-xl mt-4 max-w-3xl mx-auto reveal" style="transition-delay: 0.2s;">
-            Highlighting major breakthroughs, like the first foreign trade asphalt mixtures.
-        </p>
-    </div>
-</section>
-
-<section class="py-20 lg:py-32 bg-gray-50">
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center max-w-4xl mx-auto reveal mb-16">
-            <h2 class="text-3xl lg:text-4xl font-bold mb-6">Navigating Success: Milestones and Breakthroughs</h2>
-            <p class="text-lg text-gray-700">At Falco Corporation, our journey has been marked by strategic vision, adaptability to economic shifts, and a relentless pursuit of excellence. Here are some key achievements.</p>
-        </div>
-
-        <div class="relative max-w-4xl mx-auto">
-            <div class="timeline-line"></div>
-
-            <div class="timeline-item reveal">
-                <div class="timeline-dot"></div>
-                <div class="timeline-content highlight">
-                    <i class="fas fa-star highlight-icon"></i>
-                    <h3 class="timeline-title">Scope Expansion and Breakthroughs</h3>
-                    <p class="timeline-text">In May 2020, initiated the export of asphalt mixtures and fuel oil. Completed the first trade of foreign trade asphalt mixtures in August and September, delivering 500,000 barrels—a major breakthrough in business scope.</p>
+            <section class="page-header"
+                style="background-image: url('images/7adb8996a706c315f977951431d9a299.JPG');">
+                <div class="relative z-10 px-4">
+                    <h1 class="text-4xl md:text-6xl font-bold reveal">Achievements & Milestones</h1>
+                    <p class="text-xl mt-4 max-w-3xl mx-auto reveal" style="transition-delay: 0.2s;">
+                        Highlighting major breakthroughs, like the first foreign trade asphalt mixtures.
+                    </p>
                 </div>
-            </div>
+            </section>
 
-            <div class="timeline-item reveal">
-                <div class="timeline-dot"></div>
-                <div class="timeline-content">
-                    <i class="fas fa-chart-line timeline-icon"></i>
-                    <h3 class="timeline-title">Market Insight and Direction</h3>
-                    <p class="timeline-text">Vigilant attention to domestic and international economic situations and macro policies. Continuous study of market trends to clarity the company's direction and goals.</p>
-                </div>
-            </div>
+            <section class="py-20 lg:py-32 bg-gray-50">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center max-w-4xl mx-auto reveal mb-16">
+                        <h2 class="text-3xl lg:text-4xl font-bold mb-6">Navigating Success: Milestones and Breakthroughs
+                        </h2>
+                        <p class="text-lg text-gray-700">At Falco Corporation, our journey has been marked by strategic
+                            vision, adaptability to economic shifts, and a relentless pursuit of excellence. Here are
+                            some key achievements.</p>
+                    </div>
 
-            <div class="timeline-item reveal">
-                <div class="timeline-dot"></div>
-                <div class="timeline-content">
-                    <i class="fas fa-cogs timeline-icon"></i>
-                    <h3 class="timeline-title">Business Expansion and Optimization</h3>
-                    <p class="timeline-text">Continuous development of new business varieties. Ongoing efforts to optimize the business structure and cultivate a mature operation team.</p>
-                </div>
-            </div>
+                    <div class="relative max-w-4xl mx-auto">
+                        <div class="timeline-line"></div>
 
-            <div class="timeline-item reveal">
-                <div class="timeline-dot"></div>
-                <div class="timeline-content">
-                    <i class="fas fa-handshake timeline-icon"></i>
-                    <h3 class="timeline-title">Market Development and Partnerships</h3>
-                    <p class="timeline-text">Successfully developed markets in Shandong and Northeast China for fuel oil and bitumen mixture. Established deals with key partners such as PanjinYijiu Petrochemical Co., Ltd. and Baolai Bioenergy. Secured the oil from Hebei Lunt Group.</p>
+                        <div class="timeline-item reveal">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content highlight">
+                                <i class="fas fa-star highlight-icon"></i>
+                                <h3 class="timeline-title">Scope Expansion and Breakthroughs</h3>
+                                <p class="timeline-text">In May 2020, initiated the export of asphalt mixtures and fuel
+                                    oil. Completed the first trade of foreign trade asphalt mixtures in August and
+                                    September, delivering 500,000 barrels—a major breakthrough in business scope.</p>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item reveal">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <i class="fas fa-chart-line timeline-icon"></i>
+                                <h3 class="timeline-title">Market Insight and Direction</h3>
+                                <p class="timeline-text">Vigilant attention to domestic and international economic
+                                    situations and macro policies. Continuous study of market trends to clarity the
+                                    company's direction and goals.</p>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item reveal">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <i class="fas fa-cogs timeline-icon"></i>
+                                <h3 class="timeline-title">Business Expansion and Optimization</h3>
+                                <p class="timeline-text">Continuous development of new business varieties. Ongoing
+                                    efforts to optimize the business structure and cultivate a mature operation team.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item reveal">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <i class="fas fa-handshake timeline-icon"></i>
+                                <h3 class="timeline-title">Market Development and Partnerships</h3>
+                                <p class="timeline-text">Successfully developed markets in Shandong and Northeast China
+                                    for fuel oil and bitumen mixture. Established deals with key partners such as
+                                    PanjinYijiu Petrochemical Co., Ltd. and Baolai Bioenergy. Secured the oil from Hebei
+                                    Lunt Group.</p>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item reveal">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <i class="fas fa-shipping-fast timeline-icon"></i>
+                                <h3 class="timeline-title">Infrastructure and Export Achievement</h3>
+                                <p class="timeline-text">Achieved a significant milestone with a monthly export of
+                                    approximately 600,000 tons.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            
-            <div class="timeline-item reveal">
-                <div class="timeline-dot"></div>
-                <div class="timeline-content">
-                    <i class="fas fa-shipping-fast timeline-icon"></i>
-                    <h3 class="timeline-title">Infrastructure and Export Achievement</h3>
-                    <p class="timeline-text">Achieved a significant milestone with a monthly export of approximately 600,000 tons.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+            </section>
+        </section>
 
         <section id="global-reach" data-page-title="Global Reach" class="page-content hidden">
-            <section class="page-header" style="background-image: url('images/global-reach/hero-bg.jpg');">
+            <section class="page-header" style="background-image: url('images/fbbd727f-fc9e-4751-84a0-523f3a385d43.jpeg');">
                 <div class="relative z-10 px-4 text-center">
                     <h1 class="text-4xl md:text-6xl font-bold reveal">Global Reach</h1>
                     <p class="text-xl mt-4 max-w-3xl mx-auto reveal" style="transition-delay: 0.2s;">
@@ -1283,49 +495,59 @@
                     </p>
                 </div>
             </section>
-            
+
             <section class="py-20 lg:py-32 bg-white">
                 <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="text-center max-w-3xl mx-auto reveal mb-16">
                         <h2 class="text-4xl font-bold mb-6">Our Global Presence</h2>
-                        <p class="text-lg text-gray-700">From our strategic headquarters in the Middle East, we have successfully expanded our operations worldwide. We specialize in navigating complex and politically unstable environments, ensuring safe, ethical, and optimized performance in every market we serve.</p>
+                        <p class="text-lg text-gray-700">From our strategic headquarters in the Middle East, we have
+                            successfully expanded our operations worldwide. We specialize in navigating complex and
+                            politically unstable environments, ensuring safe, ethical, and optimized performance in
+                            every market we serve.</p>
                     </div>
                     <div class="reveal relative overflow-hidden rounded-lg shadow-2xl" style="height: 550px;">
                         <div id="map-global" style="width: 100%; height: 100%;"></div>
                     </div>
                 </div>
             </section>
-            
+
             <section class="py-20 lg:py-32 bg-gray-50">
                 <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="text-center max-w-3xl mx-auto reveal mb-16">
                         <h2 class="text-4xl font-bold mb-6">Partnerships & Successful Projects</h2>
-                        <p class="text-lg text-gray-700">Our journey is marked by significant milestones and strategic alliances that highlight our capability and commitment to excellence in the global energy trade.</p>
+                        <p class="text-lg text-gray-700">Our journey is marked by significant milestones and
+                            strategic alliances that highlight our capability and commitment to excellence in the
+                            global energy trade.</p>
                     </div>
-            
+
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         <div class="project-card reveal">
                             <div class="project-icon-wrapper">
                                 <i class="fas fa-box-open project-icon"></i>
                             </div>
                             <h3 class="project-title">Major Business Breakthrough</h3>
-                            <p class="project-description">In a major expansion of our business scope, we successfully delivered 500,000 barrels in our first foreign trade of asphalt mixtures, marking a significant achievement.</p>
+                            <p class="project-description">In a major expansion of our business scope, we
+                                successfully delivered 500,000 barrels in our first foreign trade of asphalt
+                                mixtures, marking a significant achievement.</p>
                         </div>
                         <div class="project-card reveal" style="transition-delay: 0.1s;">
-                             <div class="project-icon-wrapper">
+                            <div class="project-icon-wrapper">
                                 <i class="fas fa-map-marked-alt project-icon"></i>
                             </div>
                             <h3 class="project-title">New Market Development</h3>
-                            <p class="project-description">Successfully developed and established a strong presence in the fuel oil and bitumen mixture markets in Shandong and Northeast China.</p>
+                            <p class="project-description">Successfully developed and established a strong presence
+                                in the fuel oil and bitumen mixture markets in Shandong and Northeast China.</p>
                         </div>
                         <div class="project-card reveal" style="transition-delay: 0.2s;">
-                             <div class="project-icon-wrapper">
+                            <div class="project-icon-wrapper">
                                 <i class="fas fa-handshake project-icon"></i>
                             </div>
                             <h3 class="project-title">Key Strategic Partnerships</h3>
-                            <p class="project-description">Forged key partnerships with industry leaders such as PanjinYijiu Petrochemical Co., Ltd., Baolai Bioenergy, and secured oil from the Hebei Lunt Group.</p>
+                            <p class="project-description">Forged key partnerships with industry leaders such as
+                                PanjinYijiu Petrochemical Co., Ltd., Baolai Bioenergy, and secured oil from the
+                                Hebei Lunt Group.</p>
                         </div>
-                        
+
                     </div>
                 </div>
             </section>
@@ -1333,7 +555,8 @@
 
         <section id="history" data-page-title="History" class="page-content hidden">
             <section class="page-header">
-                <img src="images/future goals/7adb8996a706c315f977951431d9a299.JPG" alt="A representation of Falco's history and growth" class="hero-background" loading="eager">
+                <img src="images/7adb8996a706c315f977951431d9a299.JPG"
+                    alt="A representation of Falco's history and growth" class="hero-background" loading="eager">
                 <div class="relative z-10 px-4">
                     <h1 class="text-4xl md:text-6xl font-bold reveal visible">Our History</h1>
                     <p class="text-xl mt-4 max-w-3xl mx-auto reveal visible" style="transition-delay: 0.2s;">
@@ -1341,22 +564,35 @@
                     </p>
                 </div>
             </section>
-            
+
             <section class="py-20 lg:py-32 bg-white">
                 <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="max-w-3xl mx-auto">
                         <div class="reveal">
                             <p class="text-lg text-gray-700 mb-6 leading-relaxed">
-                                Falco Corporation was founded in the United Arab Emirates in 2021 with a clear ambition — to establish a strong presence in the global oil and gas trading industry.
+                                Falco Corporation was founded in the United Arab Emirates in 2021 with a clear
+                                ambition — to establish a strong presence in the global oil and gas trading
+                                industry.
                             </p>
                             <p class="text-lg text-gray-700 mb-6 leading-relaxed">
-                                From the start, our focus has been on building a business that combines reliable trading with efficient logistics, storage, and shipping solutions. Within a short span, we expanded our reach beyond the UAE, establishing operations across Asia, the Middle East, North and South America, and Africa. This growth reflects our ability to navigate complex markets and build strong partnerships that stand the test of time.
+                                From the start, our focus has been on building a business that combines reliable
+                                trading with efficient logistics, storage, and shipping solutions. Within a short
+                                span, we expanded our reach beyond the UAE, establishing operations across Asia, the
+                                Middle East, North and South America, and Africa. This growth reflects our ability
+                                to navigate complex markets and build strong partnerships that stand the test of
+                                time.
                             </p>
                             <p class="text-lg text-gray-700 mb-6 leading-relaxed">
-                                Though Falco is a young company, our strength lies in the experience of our people. Our leadership and team together bring over 60 years of combined expertise in global energy trading, logistics, and supply chain management. This legacy of knowledge and industry know-how ensures that every decision we make is guided by deep understanding and proven capability.
+                                Though Falco is a young company, our strength lies in the experience of our people.
+                                Our leadership and team together bring over 60 years of combined expertise in global
+                                energy trading, logistics, and supply chain management. This legacy of knowledge and
+                                industry know-how ensures that every decision we make is guided by deep
+                                understanding and proven capability.
                             </p>
                             <p class="text-lg text-gray-700 leading-relaxed">
-                                Today, Falco continues to grow with the same entrepreneurial spirit that defined our beginnings — committed to meeting the evolving needs of the energy market and creating long-term value for our partners worldwide.
+                                Today, Falco continues to grow with the same entrepreneurial spirit that defined our
+                                beginnings — committed to meeting the evolving needs of the energy market and
+                                creating long-term value for our partners worldwide.
                             </p>
                         </div>
                     </div>
@@ -1365,7 +601,7 @@
         </section>
 
         <section id="products" data-page-title="Products & Solutions" class="page-content hidden">
-            <section class="page-header" style="background-image: url('images/product/IMG_8686.JPG');">
+            <section class="page-header" style="background-image: url('images/IMG_8686.JPG');">
                 <div class="relative z-10 px-4 text-center">
                     <h1 class="text-4xl md:text-6xl font-bold reveal">Products & Solutions</h1>
                     <p class="text-xl mt-4 max-w-3xl mx-auto reveal" style="transition-delay: 0.2s;">
@@ -1373,41 +609,49 @@
                     </p>
                 </div>
             </section>
-            
+
             <section class="py-20 lg:py-32 bg-white">
                 <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="text-center max-w-3xl mx-auto mb-16">
                         <h2 class="text-4xl font-bold mb-4 reveal">Our Core Offerings</h2>
                         <p class="text-lg text-gray-700 reveal">
-                            From the foundational crude oil that marks our legacy to advanced, cleaner energy solutions, our product portfolio is designed to meet the dynamic needs of a global market. We are committed to quality, reliability, and innovation in every barrel we deliver.
+                            From the foundational crude oil that marks our legacy to advanced, cleaner energy
+                            solutions, our product portfolio is designed to meet the dynamic needs of a global
+                            market. We are committed to quality, reliability, and innovation in every barrel we
+                            deliver.
                         </p>
                     </div>
-            
+
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                         <div class="product-card reveal">
                             <div class="product-overlay">
                                 <div class="product-content">
                                     <i class="fas fa-tint product-icon"></i>
                                     <h3 class="product-title">Crude Oil</h3>
-                                    <p class="product-description">At Falco Corporation, we recognize crude oil as the foundation of our legacy, we continue to excel in the procurement and trading of crude oil.</p>
+                                    <p class="product-description">At Falco Corporation, we recognize crude oil as
+                                        the foundation of our legacy, we continue to excel in the procurement and
+                                        trading of crude oil.</p>
                                 </div>
                             </div>
                         </div>
                         <div class="product-card reveal" style="transition-delay: 0.1s;">
-                             <div class="product-overlay">
-                                 <div class="product-content">
+                            <div class="product-overlay">
+                                <div class="product-content">
                                     <i class="fas fa-ship product-icon"></i>
-                                     <h3 class="product-title">Fuel Oil</h3>
-                                     <p class="product-description">At Falco Corporation, our expertise extends to fuel oil, catering to the varied needs of industries with reliable and quality supplies.</p>
-                                 </div>
-                             </div>
+                                    <h3 class="product-title">Fuel Oil</h3>
+                                    <p class="product-description">At Falco Corporation, our expertise extends to
+                                        fuel oil, catering to the varied needs of industries with reliable and
+                                        quality supplies.</p>
+                                </div>
+                            </div>
                         </div>
                         <div class="product-card reveal" style="transition-delay: 0.2s;">
                             <div class="product-overlay">
                                 <div class="product-content">
                                     <i class="fas fa-fire-alt product-icon"></i>
                                     <h3 class="product-title">LPG</h3>
-                                    <p class="product-description">Falco Corporation is a trusted source for LPG, providing a clean and efficient energy solution. </p>
+                                    <p class="product-description">Falco Corporation is a trusted source for LPG,
+                                        providing a clean and efficient energy solution. </p>
                                 </div>
                             </div>
                         </div>
@@ -1416,7 +660,8 @@
                                 <div class="product-content">
                                     <i class="fas fa-gas-pump product-icon"></i>
                                     <h3 class="product-title">Diesel</h3>
-                                    <p class="product-description">At Falco Corporation, with a focus on quality and efficiency, our diesel offerings meet the highest industry standards. </p>
+                                    <p class="product-description">At Falco Corporation, with a focus on quality and
+                                        efficiency, our diesel offerings meet the highest industry standards. </p>
                                 </div>
                             </div>
                         </div>
@@ -1425,21 +670,27 @@
                                 <div class="product-content">
                                     <i class="fas fa-flask product-icon"></i>
                                     <h3 class="product-title">Naphtha</h3>
-                                    <p class="product-description">At Falco Corporation, we source and supply high-quality naphtha to meet the needs of both the petrochemical and energy sectors. Through reliable procurement and efficient logistics, we ensure our clients receive consistent and timely deliveries across global markets.</p>
+                                    <p class="product-description">At Falco Corporation, we source and supply
+                                        high-quality naphtha to meet the needs of both the petrochemical and energy
+                                        sectors. Through reliable procurement and efficient logistics, we ensure our
+                                        clients receive consistent and timely deliveries across global markets.</p>
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="product-card reveal product-card-future" style="transition-delay: 0.5s;">
                             <div class="product-overlay">
                                 <div class="product-content">
-                                     <i class="fas fa-arrow-right future-icon"></i>
+                                    <i class="fas fa-arrow-right future-icon"></i>
                                     <h3 class="product-title">Future Innovations</h3>
-                                    <p class="product-description">At Falco Corporation, we are committed to pioneering the future of energy by exploring new frontiers and expanding our portfolio. Our focus is on sustainable solutions and innovative products that will meet the dynamic demands of the evolving global market.</p>
+                                    <p class="product-description">At Falco Corporation, we are committed to
+                                        pioneering the future of energy by exploring new frontiers and expanding our
+                                        portfolio. Our focus is on sustainable solutions and innovative products
+                                        that will meet the dynamic demands of the evolving global market.</p>
                                 </div>
                             </div>
                         </div>
-            
+
                     </div>
                 </div>
             </section>
@@ -1447,43 +698,53 @@
 
         <section id="sustainability" data-page-title="Sustainability & Responsibility" class="page-content hidden">
             <section class="page-header">
-                <img src="images/future goals/f91dd928e4a110edd2c07c4ca24fe.JPG" alt="Wind turbines in a field, representing renewable energy" class="hero-background" loading="eager">
+                <img src="images/fbbd727f-fc9e-4751-84a0-523f3a385d43.jpeg"    class="hero-background"
+                    loading="eager">
                 <div class="relative z-10 px-4">
                     <h1 class="text-4xl md:text-6xl font-bold reveal visible">Sustainability & Responsibility</h1>
                     <p class="text-xl mt-4 max-w-3xl mx-auto reveal visible" style="transition-delay: 0.2s;">
-                        Committed to responsible practices that safeguard our planet and support the global energy transition.
+                        Committed to responsible practices that safeguard our planet and support the global energy
+                        transition.
                     </p>
                 </div>
             </section>
-            
+
             <section class="py-20 lg:py-32 bg-white sustainability-section commitment-section">
                 <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="grid lg:grid-cols-2 gap-12 items-center">
-                         <div class="scroll-animate" style="transition-delay: 0s;">
-                            <img loading="lazy" src="images/future goals/0fc71065f03b21fa2489b267c4ca24fe.JPG" alt="Close-up of solar panels" class="w-full h-full object-cover rounded-lg">
+                        <div class="scroll-animate" style="transition-delay: 0s;">
+                            <img loading="lazy" src="images/0fc71065f03b21fa2489b267c4ca24fe.JPG"
+                                alt="Close-up of solar panels" class="w-full h-full object-cover rounded-lg">
                         </div>
                         <div class="scroll-animate" style="transition-delay: 0.2s;">
-                            <h2 class="text-3xl lg:text-4xl font-bold mb-6">Our Commitment to a Sustainable Future</h2>
+                            <h2 class="text-3xl lg:text-4xl font-bold mb-6">Our Commitment to a Sustainable Future
+                            </h2>
                             <p class="text-lg text-gray-700 mb-6 leading-relaxed">
-                                Falco is dedicated to safe, ethical trading and pioneering cleaner energy solutions. We adhere to the highest Environmental, Social, and Governance (ESG) standards and responsible practices to ensure a sustainable future for our industry and the communities we serve.
+                                Falco is dedicated to safe, ethical trading and pioneering cleaner energy solutions.
+                                We adhere to the highest Environmental, Social, and Governance (ESG) standards and
+                                responsible practices to ensure a sustainable future for our industry and the
+                                communities we serve.
                             </p>
                             <p class="text-lg text-gray-700 leading-relaxed">
-                                Our strategy focuses on reducing our operational footprint, investing in renewable energy, and promoting a culture of safety and responsibility across our entire value chain.
+                                Our strategy focuses on reducing our operational footprint, investing in renewable
+                                energy, and promoting a culture of safety and responsibility across our entire value
+                                chain.
                             </p>
                         </div>
                     </div>
                 </div>
             </section>
-            
+
             <section class="py-20 lg:py-32 bg-light-gray sustainability-section">
                 <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="text-center max-w-3xl mx-auto mb-16 scroll-animate">
                         <h2 class="text-3xl lg:text-4xl font-bold mb-4">Our ESG Approach</h2>
                         <p class="text-lg text-gray-700">
-                            We integrate ESG principles into every aspect of our business, from investment decisions to daily operations, to create long-term value for all our stakeholders.
+                            We integrate ESG principles into every aspect of our business, from investment decisions
+                            to daily operations, to create long-term value for all our stakeholders.
                         </p>
                     </div>
-            
+
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-8">
                         <div class="icon-card scroll-animate" style="transition-delay: 0s;">
                             <div class="icon-circle">
@@ -1517,84 +778,130 @@
             </section>
         </section>
 
-        <section id="teams" data-page-title="Leadership & Teams" class="page-content hidden">
-            <section class="page-header">
-                <img src="images/team/1a3f05d5-9271-4775-802c-47a3e793d5f1.JPG" class="hero-background" loading="eager">
-                <div class="relative z-10 px-4">
-                    <h1 class="text-4xl md:text-6xl font-bold reveal visible">Leadership & Team</h1>
-                    <p class="text-xl mt-4 max-w-3xl mx-auto reveal visible" style="transition-delay: 0.2s;">
-                        Our success is fueled by a team of seasoned professionals with deep industry expertise.
-                    </p>
-                </div>
-            </section>
-            
-            <section class="py-20 lg:py-32 bg-gray-50 team-section">
-                <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="text-center max-w-4xl mx-auto mb-16 scroll-animate">
-                        <h2 class="text-4xl font-bold mb-4">Empowering Success Through Expert Leadership</h2>
-                        <p class="text-lg text-gray-700">
-                            Our team of senior professional managers brings a wealth of experience and rich industry resources to guide our strategic direction and deliver unparalleled value.
-                        </p>
+      <section id="teams" data-page-title="Our Team" class="page-content hidden">
+    <section class="page-header">
+        <img src="images/01feef42-7a30-44ea-aefa-8243d08b99d5.jpg" class="hero-background" loading="eager">
+        <div class="relative z-10 px-4">
+            <h1 class="text-4xl md:text-6xl font-bold reveal visible">Leadership & Team</h1>
+        </div>
+    </section>
+
+    <section class="py-20 lg:py-32 bg-gray-50 team-section">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-4xl mx-auto mb-16 scroll-animate">
+                <h2 class="text-4xl font-bold mb-4">Empowering Success Through Expert Leadership</h2>
+                <p class="text-lg text-gray-700">
+                    At Falco Corporation, our success is fuelled by a team of seasoned professionals, carefully selected for their expertise, leadership, and rich industry resources.
+                </p>
+            </div>
+
+            <div class="max-w-3xl mx-auto space-y-4">
+                <h3 class="text-3xl font-bold mb-6 text-center">Key Team Features</h3>
+
+                <details class="bg-white p-6 rounded-lg shadow-md cursor-pointer transition-all duration-300 open:bg-blue-50 open:text-blue-900">
+                    <summary class="flex justify-between items-center text-xl font-semibold leading-7">
+                        <span class="flex items-center space-x-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                            </svg>
+                            <span>Unique Trade Partnership Modes</span>
+                        </span>
+                        <span class="transform transition-transform duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </span>
+                    </summary>
+                    <div class="mt-4 text-gray-600 leading-relaxed">
+                        <p>Innovative and effective trade partnership nodes drive our success, ensuring dynamic and mutually beneficial collaborations.</p>
                     </div>
-            
-                    <div class="team-grid">
-                        <div class="team-card scroll-animate" style="transition-delay: 0s;">
-                            <div class="card-inner">
-                                <div class="card-front">
-                                    <div class="profile-image-container">
-                                        <img src="images/team/placeholder-1.jpg" alt="Profile of Team Member 1" class="profile-image">
-                                    </div>
-                                    <h3 class="text-2xl font-bold mb-1">John Doe</h3>
-                                    <p class="text-lg text-gray-500 mb-4">CEO & Founder</p>
-                                </div>
-                                <div class="card-back">
-                                    <p class="leading-relaxed text-center">
-                                        With over 20 years of experience in the energy sector, John leads with a visionary approach, focusing on innovation and strategic growth.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="team-card scroll-animate" style="transition-delay: 0.1s;">
-                            <div class="card-inner">
-                                <div class="card-front">
-                                    <div class="profile-image-container">
-                                        <img src="images/team/placeholder-2.jpg" alt="Profile of Team Member 2" class="profile-image">
-                                    </div>
-                                    <h3 class="text-2xl font-bold mb-1">Jane Smith</h3>
-                                    <p class="text-lg text-gray-500 mb-4">Head of Operations</p>
-                                </div>
-                                <div class="card-back">
-                                    <p class="leading-relaxed text-center">
-                                        Jane's expertise in logistical management ensures safe and timely operations across our global supply chains.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="team-card scroll-animate" style="transition-delay: 0.2s;">
-                            <div class="card-inner">
-                                <div class="card-front">
-                                    <div class="profile-image-container">
-                                        <img src="images/team/placeholder-3.jpg" alt="Profile of Team Member 3" class="profile-image">
-                                    </div>
-                                    <h3 class="text-2xl font-bold mb-1">Michael Chen</h3>
-                                    <p class="text-lg text-gray-500 mb-4">Chief Financial Officer</p>
-                                </div>
-                                <div class="card-back">
-                                    <p class="leading-relaxed text-center">
-                                        Michael's sharp financial acumen and market insights drive our profitability and sustainable growth strategies.
-                                    </p>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
+                </details>
+
+                <details class="bg-white p-6 rounded-lg shadow-md cursor-pointer transition-all duration-300 open:bg-blue-50 open:text-blue-900">
+                    <summary class="flex justify-between items-center text-xl font-semibold leading-7">
+                        <span class="flex items-center space-x-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                            </svg>
+                            <span>Resource Integration</span>
+                        </span>
+                        <span class="transform transition-transform duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </span>
+                    </summary>
+                    <div class="mt-4 text-gray-600 leading-relaxed">
+                        <p>Our team possesses a strong ability to integrate resources, creating synergies that enhance our operational efficiency.</p>
                     </div>
-                </div>
-            </section>
-        </section>
+                </details>
+
+                <details class="bg-white p-6 rounded-lg shadow-md cursor-pointer transition-all duration-300 open:bg-blue-50 open:text-blue-900">
+                    <summary class="flex justify-between items-center text-xl font-semibold leading-7">
+                        <span class="flex items-center space-x-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.023 12.023 0 002 12c0 4.237 2.213 7.907 5.762 10.046A12.023 12.023 0 0012 22c4.237 0 7.907-2.213 10.046-5.762A12.023 12.023 0 0022 12c0-3.34-1.226-6.413-3.382-8.816z" />
+                            </svg>
+                            <span>Leadership Excellence</span>
+                        </span>
+                        <span class="transform transition-transform duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </span>
+                    </summary>
+                    <div class="mt-4 text-gray-600 leading-relaxed">
+                        <p>Led by senior professional managers, our leadership brings a wealth of experience and industry insights to guide our strategic direction.</p>
+                    </div>
+                </details>
+
+                <details class="bg-white p-6 rounded-lg shadow-md cursor-pointer transition-all duration-300 open:bg-blue-50 open:text-blue-900">
+                    <summary class="flex justify-between items-center text-xl font-semibold leading-7">
+                        <span class="flex items-center space-x-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.921-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.382-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                            </svg>
+                            <span>Partnership Alliance</span>
+                        </span>
+                        <span class="transform transition-transform duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </span>
+                    </summary>
+                    <div class="mt-4 text-gray-600 leading-relaxed">
+                        <p>We believe in building lasting relationships based on trust, integrity, and mutual benefit. Collaborate with us, and experience the advantage of working with a team committed to excellence.</p>
+                    </div>
+                </details>
+
+                <details class="bg-white p-6 rounded-lg shadow-md cursor-pointer transition-all duration-300 open:bg-blue-50 open:text-blue-900">
+                    <summary class="flex justify-between items-center text-xl font-semibold leading-7">
+                        <span class="flex items-center space-x-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path d="M12 14l9-5-9-5-9 5 9 5z" />
+                                <path d="M12 14l6.16-3.422a12.083 12.083 0 01.944 4.093c-.09.84-.45 1.638-1.049 2.215L12 21l-5.051-4.714c-.599-.577-.959-1.375-1.049-2.215a12.083 12.083 0 01.944-4.093L12 14z" />
+                            </svg>
+                            <span>Commitment to Excellence</span>
+                        </span>
+                        <span class="transform transition-transform duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </span>
+                    </summary>
+                    <div class="mt-4 text-gray-600 leading-relaxed">
+                        <p>With a commitment to good faith and mutual benefit, Falco Corporation is dedicated to providing you with our best services.</p>
+                    </div>
+                </details>
+            </div>
+        </div>
+    </section>
+</section>
 
         <section id="what-we-do" data-page-title="What We Do" class="page-content hidden">
             <section class="page-header">
-                <img src="images/what we do/8af66ebb-d81c-40a6-a3ef-82a0b09181c0.JPG" alt="Global logistics and operations" class="hero-background" loading="eager">
+                <img src="images/8af66ebb-d81c-40a6-a3ef-82a0b09181c0.JPG"
+                    alt="Global logistics and operations" class="hero-background" loading="eager">
                 <div class="relative z-10 px-4">
                     <h1 class="text-4xl md:text-6xl font-bold reveal visible">What We Do</h1>
                     <p class="text-xl mt-4 max-w-3xl mx-auto reveal visible" style="transition-delay: 0.2s;">
@@ -1602,7 +909,7 @@
                     </p>
                 </div>
             </section>
-            
+
             <section class="py-20 lg:py-32 bg-gray-50 overflow-hidden">
                 <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="cycle-wrapper">
@@ -1624,10 +931,10 @@
                                 </div>
                             </div>
                             <div class="cycle-node">
-                                 <div class="cycle-item">
+                                <div class="cycle-item">
                                     <i class="fas fa-globe-americas cycle-icon"></i>
-                                     <h4 class="font-bold">Import & Export Trade</h4>
-                                 </div>
+                                    <h4 class="font-bold">Import & Export Trade</h4>
+                                </div>
                             </div>
                             <div class="cycle-node">
                                 <div class="cycle-item">
@@ -1644,45 +951,61 @@
                     <div class="text-center max-w-3xl mx-auto mb-16">
                         <h2 class="text-4xl font-bold mb-4 reveal">Our Integrated Operations</h2>
                         <p class="text-lg text-gray-700 reveal">
-                            Our expertise spans the entire value chain. Each business area is a vital component of our integrated approach, working in synergy to deliver excellence in the global energy market.
+                            Our expertise spans the entire value chain. Each business area is a vital component of
+                            our integrated approach, working in synergy to deliver excellence in the global energy
+                            market.
                         </p>
                     </div>
-            
+
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                        <div class="reveal bg-white rounded-lg shadow-lg overflow-hidden transform transition-all duration-300 hover:shadow-2xl hover:-translate-y-2">
-                            <img src="images/what we do/2bdd46ce-de04-4773-9c34-17202b3f0c72.JPG" alt="Oilfield Development Infrastructure" class="w-full h-48 object-cover">
+                        <div
+                            class="reveal bg-white rounded-lg shadow-lg overflow-hidden transform transition-all duration-300 hover:shadow-2xl hover:-translate-y-2">
+                            <img src="images/2bdd46ce-de04-4773-9c34-17202b3f0c72.JPG"
+                                alt="Oilfield Development Infrastructure" class="w-full h-48 object-cover">
                             <div class="p-6">
-                                <h3 class="text-xl font-bold text-primary-blue mb-3">Oilfield Development & Terminals</h3>
+                                <h3 class="text-xl font-bold text-primary-blue mb-3">Oilfield Development &
+                                    Terminals</h3>
                                 <p class="text-gray-600 text-sm leading-relaxed">
-                                    We build our foundation on developing and acquiring oil fields, complemented by the strategic operation of overseas storage terminals.
+                                    We build our foundation on developing and acquiring oil fields, complemented by
+                                    the strategic operation of overseas storage terminals.
                                 </p>
                             </div>
                         </div>
-                        <div class="reveal bg-white rounded-lg shadow-lg overflow-hidden transform transition-all duration-300 hover:shadow-2xl hover:-translate-y-2" style="transition-delay: 0.1s;">
-                            <img src="images/what we do/fcd01457-900f-421e-9dd4-460227f5f2a4.JPG" alt="Shipping and Maritime Logistics" class="w-full h-48 object-cover">
+                        <div class="reveal bg-white rounded-lg shadow-lg overflow-hidden transform transition-all duration-300 hover:shadow-2xl hover:-translate-y-2"
+                            style="transition-delay: 0.1s;">
+                            <img src="images/fcd01457-900f-421e-9dd4-460227f5f2a4.JPG"
+                                alt="Shipping and Maritime Logistics" class="w-full h-48 object-cover">
                             <div class="p-6">
                                 <h3 class="text-xl font-bold text-primary-blue mb-3">Shipping & Logistics</h3>
                                 <p class="text-gray-600 text-sm leading-relaxed">
-                                    Acting as the logistical backbone, we manage complex global transit to ensure the safe and timely movement of energy products.
+                                    Acting as the logistical backbone, we manage complex global transit to ensure
+                                    the safe and timely movement of energy products.
                                 </p>
                             </div>
                         </div>
-                        <div class="reveal bg-white rounded-lg shadow-lg overflow-hidden transform transition-all duration-300 hover:shadow-2xl hover:-translate-y-2" style="transition-delay: 0.2s;">
-                            <img src="images/what we do/8af66ebb-d81c-40a6-a3ef-82a0b09181c0.JPG" alt="Global Trade and Export Terminal" class="w-full h-48 object-cover">
+                        <div class="reveal bg-white rounded-lg shadow-lg overflow-hidden transform transition-all duration-300 hover:shadow-2xl hover:-translate-y-2"
+                            style="transition-delay: 0.2s;">
+                            <img src="images/8af66ebb-d81c-40a6-a3ef-82a0b09181c0.JPG"
+                                alt="Global Trade and Export Terminal" class="w-full h-48 object-cover">
                             <div class="p-6">
                                 <h3 class="text-xl font-bold text-primary-blue mb-3">Import & Export Trade</h3>
                                 <p class="text-gray-600 text-sm leading-relaxed">
-                                    We are deeply engaged in the global trade of diverse energy products, highlighting our breakthroughs and strong market presence.
+                                    We are deeply engaged in the global trade of diverse energy products,
+                                    highlighting our breakthroughs and strong market presence.
                                 </p>
                             </div>
                         </div>
-                        
-                        <div class="reveal bg-white rounded-lg shadow-lg overflow-hidden transform transition-all duration-300 hover:shadow-2xl hover:-translate-y-2" style="transition-delay: 0.3s;">
-                             <img src="images/what we do/2bdd46ce-de04-4773-9c34-17202b3f0c72.JPG" alt="Energy Trading Operations" class="w-full h-48 object-cover">
+
+                        <div class="reveal bg-white rounded-lg shadow-lg overflow-hidden transform transition-all duration-300 hover:shadow-2xl hover:-translate-y-2"
+                            style="transition-delay: 0.3s;">
+                            <img src="images/2bdd46ce-de04-4773-9c34-17202b3f0c72.JPG"
+                                alt="Energy Trading Operations" class="w-full h-48 object-cover">
                             <div class="p-6">
-                                <h3 class="text-xl font-bold text-primary-blue mb-3">Energy Trading & Supply Chain</h3>
+                                <h3 class="text-xl font-bold text-primary-blue mb-3">Energy Trading & Supply Chain
+                                </h3>
                                 <p class="text-gray-600 text-sm leading-relaxed">
-                                    As a dynamic trading company, we forge strategic cooperation in the supply chain to optimize performance and maximize profitability.
+                                    As a dynamic trading company, we forge strategic cooperation in the supply chain
+                                    to optimize performance and maximize profitability.
                                 </p>
                             </div>
                         </div>
@@ -1696,41 +1019,66 @@
         <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 <div>
-                     <a href="#home"><img src="images/logo.png" alt="Falco Corporation Logo" class="h-8 w-auto mb-4"></a>
-                     <p class="text-sm text-gray-500">A Global Energy Trading Powerhouse</p>
-                     <div class="flex space-x-4 mt-4">
-                         <a href="#" class="text-gray-500 hover:text-primary-blue transition-colors duration-200"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.71v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"></path></svg></a>
-                         <a href="#" class="text-gray-500 hover:text-primary-blue transition-colors duration-200"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M16.338 16.338H13.67V12.16c0-.995-.017-2.277-1.387-2.277-1.39 0-1.601 1.086-1.601 2.207v4.248H8.014v-8.59h2.559v1.174h.037c.356-.675 1.227-1.387 2.526-1.387 2.703 0 3.203 1.778 3.203 4.092v4.711zM5.005 6.575a1.548 1.548 0 11-.003-3.096 1.548 1.548 0 01.003 3.096zm-1.28 1.545H6.285v8.59H3.725v-8.59zM17.638 2H6.362A4.362 4.362 0 002 6.362v11.276A4.362 4.362 0 006.362 22h11.276A4.362 4.362 0 0022 17.638V6.362A4.362 4.362 0 0017.638 2z" clip-rule="evenodd"></path></svg></a>
-                     </div>
-                 </div>
-                 <div>
-                     <h5 class="font-bold mb-4 uppercase">Company</h5>
-                     <ul>
-                          <li class="mb-2"><a href="#about" class="hover:text-primary-blue transition-colors duration-200 nav-link">Who we are</a></li>
-                          <li class="mb-2"><a href="#what-we-do" class="hover:text-primary-blue transition-colors duration-200 nav-link">What we do</a></li>
-                          <li class="mb-2"><a href="#contact" class="hover:text-primary-blue transition-colors duration-200 nav-link">Contact us</a></li>
-                          <li class="mb-2"><a href="#sustainability" class="hover:text-primary-blue transition-colors duration-200 nav-link">Sustainability</a></li>
-                      </ul>
-                 </div>
-                 <div>
-                     <h5 class="font-bold mb-4 uppercase">Explore</h5>
-                     <ul>
-                          <li class="mb-2"><a href="#products" class="hover:text-primary-blue transition-colors duration-200 nav-link">Products & Solutions</a></li>
-                          <li class="mb-2"><a href="#future-goals" class="hover:text-primary-blue transition-colors duration-200 nav-link">Future Goals</a></li>
-                          <li class="mb-2"><a href="#teams" class="hover:text-primary-blue transition-colors duration-200 nav-link">Leadership & Teams</a></li>
-                          <li class="mb-2"><a href="#careers" class="hover:text-primary-blue transition-colors duration-200 nav-link">Careers</a></li>
-                      </ul>
-                 </div>
-                 
+                    <a href="#home"><img src="images/logo.png" alt="Falco Corporation Logo" class="h-8 w-auto mb-4"></a>
+                    <p class="text-sm text-gray-500">A Global Energy Trading Powerhouse</p>
+                    <div class="flex space-x-4 mt-4">
+                        <a href="#" class="text-gray-500 hover:text-primary-blue transition-colors duration-200"><svg
+                                class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.71v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84">
+                                </path>
+                            </svg></a>
+                        <a href="#" class="text-gray-500 hover:text-primary-blue transition-colors duration-200"><svg
+                                class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path fill-rule="evenodd"
+                                    d="M16.338 16.338H13.67V12.16c0-.995-.017-2.277-1.387-2.277-1.39 0-1.601 1.086-1.601 2.207v4.248H8.014v-8.59h2.559v1.174h.037c.356-.675 1.227-1.387 2.526-1.387 2.703 0 3.203 1.778 3.203 4.092v4.711zM5.005 6.575a1.548 1.548 0 11-.003-3.096 1.548 1.548 0 01.003 3.096zm-1.28 1.545H6.285v8.59H3.725v-8.59zM17.638 2H6.362A4.362 4.362 0 002 6.362v11.276A4.362 4.362 0 006.362 22h11.276A4.362 4.362 0 0022 17.638V6.362A4.362 4.362 0 0017.638 2z"
+                                    clip-rule="evenodd"></path>
+                            </svg></a>
+                    </div>
+                </div>
+                <div>
+                    <h5 class="font-bold mb-4 uppercase">Company</h5>
+                    <ul>
+                        <li class="mb-2"><a href="#about"
+                                class="hover:text-primary-blue transition-colors duration-200 nav-link">Who we are</a>
+                        </li>
+                        <li class="mb-2"><a href="#what-we-do"
+                                class="hover:text-primary-blue transition-colors duration-200 nav-link">What we do</a>
+                        </li>
+                        <li class="mb-2"><a href="#contact"
+                                class="hover:text-primary-blue transition-colors duration-200 nav-link">Contact us</a>
+                        </li>
+                        <li class="mb-2"><a href="#sustainability"
+                                class="hover:text-primary-blue transition-colors duration-200 nav-link">Sustainability</a>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="font-bold mb-4 uppercase">Explore</h5>
+                    <ul>
+                        <li class="mb-2"><a href="#products"
+                                class="hover:text-primary-blue transition-colors duration-200 nav-link">Products &
+                                Solutions</a></li>
+                        <li class="mb-2"><a href="#future-goals"
+                                class="hover:text-primary-blue transition-colors duration-200 nav-link">Future Goals</a>
+                        </li>
+                        <li class="mb-2"><a href="#teams"
+                                class="hover:text-primary-blue transition-colors duration-200 nav-link">Leadership &
+                                Teams</a></li>
+                        <li class="mb-2"><a href="#careers"
+                                class="hover:text-primary-blue transition-colors duration-200 nav-link">Careers</a></li>
+                    </ul>
+                </div>
+
             </div>
-             <div class="mt-12 border-t border-gray-200 pt-8 text-sm text-gray-500 text-center">
-                 <p>&copy; 2025 Falco Corporation. All Rights Reserved.</p>
-             </div>
+            <div class="mt-12 border-t border-gray-200 pt-8 text-sm text-gray-500 text-center">
+                <p>&copy; 2025 Falco Corporation. All Rights Reserved.</p>
+            </div>
         </div>
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const header = document.getElementById('header');
             const menuToggle = document.getElementById('menu-toggle');
             const menuClose = document.getElementById('menu-close');
@@ -1753,7 +1101,7 @@
                 { title: 'Future Goals', url: '#future-goals', content: 'At Falco Corporation, our vision extends beyond the present achievements as we strategically chart our course for the future. In the coming phases, our focus will be on four key aspects: Ports: Comprehensive development of in-port vehicles and ships. Strategic initiatives to maximize the operational efficiency of our ports. Oil Fields: Aggressive development and acquisition in the field of oil exploration and production. Leveraging our expertise to capitalize on the opportunities within the oil field sector. Supply Chain Business: Utilizing the complementary advantages of our self-operated oil export terminals. Forging strategic business cooperation in the oil product supply chain. Diversified Operation of Oil Products: Capitalizing on our comprehensive strengths, including capital, oil product resources, and port location advantages. Deepening involvement in oil product export trade, warehousing, and ship supply businesses.' },
                 { title: 'History', url: '#history', content: 'In May 2020, initiated the export of asphalt mixtures and fuel oil. Completed the first trade of foreign trade asphalt mixtures in August and September, delivering 500,000 barrels-a major breakthrough in business scope. Market Development and Partnerships: Successfully developed markets in Shandong and Northeast China for fuel oil and bitumen mixture. Established deals with key partners such as PanjinYijiu Petrochemical Co., Ltd. and Baolai Bioenergy. Secured the oil from Hebei Lunt Group. Infrastructure and Export Achievement: Achieved a significant milestone with a monthly export of approximately 600,000 tons.' },
                 { title: 'Sustainability', url: '#sustainability', content: 'Committed to responsible practices that safeguard our planet and support the global energy transition. Falco is dedicated to safe, ethical trading and pioneering cleaner energy solutions. We adhere to the highest Environmental, Social, and Governance (ESG) standards and responsible practices to ensure a sustainable future for our industry and the communities we serve. Our strategy focuses on reducing our operational footprint, investing in renewable energy, and promoting a culture of safety and responsibility across our entire value chain.' },
-                { title: 'Leadership & Teams', url: '#teams', content: 'At Falco Corporation, our success is fuelled by a team of seasoned professionals, carefully selected for their expertise, leadership, and rich industry resources. Key Team Features: Unique Trade Partnership Modes: Innovative and effective trade partnership modes drive our success, ensuring dynamic and mutually beneficial collaborations. Leadership Excellence: Led by senior professional managers, our leadership brings a wealth of experience and industry insights to guide our strategic direction. Partnership Alliance: We believe in building lasting relationships based on trust, integrity, and mutual benefit.' },
+                { title: 'Leadership & Team', url: '#teams', content: 'At Falco Corporation, our success is fuelled by a team of seasoned professionals, carefully selected for their expertise, leadership, and rich industry resources. Key Team Features: Unique Trade Partnership Modes: Innovative and effective trade partnership modes drive our success, ensuring dynamic and mutually beneficial collaborations. Leadership Excellence: Led by senior professional managers, our leadership brings a wealth of experience and industry insights to guide our strategic direction. Partnership Alliance: We believe in building lasting relationships based on trust, integrity, and mutual benefit.' },
                 { title: 'Careers', url: '#careers', content: 'We are seeking talented and dedicated individuals to join our team.' },
                 { title: 'Contact', url: '#contact', content: 'Get in touch with us for inquiries or to learn more about our services.' }
             ];
@@ -1775,7 +1123,7 @@
                 event.preventDefault();
                 const url = event.target.closest('a').getAttribute('href');
                 let pageId = url.substring(url.indexOf('#') + 1);
-                
+
                 // Handle the special case for #news
                 if (pageId.includes('news')) {
                     pageId = 'home';
@@ -1818,22 +1166,22 @@
                     var hqIcon = L.divIcon({ className: 'custom-div-icon', html: '<div style="background-color:#3b82f6; width:20px; height:20px; border-radius:50%; border:3px solid white; box-shadow:0 0 8px rgba(0,0,0,0.5);"></div>', iconSize: [20, 20], iconAnchor: [10, 10] });
                     var customIcon = L.divIcon({ className: 'custom-div-icon', html: '<div style="background-color:white; width:15px; height:15px; border-radius:50%; border:2px solid #3b82f6;"></div>', iconSize: [15, 15], iconAnchor: [7.5, 7.5] });
 
-                    var hq = {name: 'Headquarters (Middle East)', coords: [25.27, 55.29]};
+                    var hq = { name: 'Headquarters (Middle East)', coords: [25.27, 55.29] };
                     var locations = [
-                        {name: 'Europe', coords: [51.50, -0.12]},
-                        {name: 'United States', coords: [29.76, -95.36]},
-                        {name: 'Singapore', coords: [1.35, 103.81]},
-                        {name: 'China', coords: [31.23, 121.47]},
-                        {name: 'South America', coords: [-22.90, -43.17]}
+                        { name: 'Europe', coords: [51.50, -0.12] },
+                        { name: 'United States', coords: [29.76, -95.36] },
+                        { name: 'Singapore', coords: [1.35, 103.81] },
+                        { name: 'China', coords: [31.23, 121.47] },
+                        { name: 'South America', coords: [-22.90, -43.17] }
                     ];
 
-                    L.marker(hq.coords, {icon: hqIcon, title: hq.name}).addTo(map).bindPopup('<b>' + hq.name + '</b>');
-                    locations.forEach(function(location) {
-                        L.marker(location.coords, {icon: customIcon, title: location.name}).addTo(map).bindPopup('<b>' + location.name + '</b>');
+                    L.marker(hq.coords, { icon: hqIcon, title: hq.name }).addTo(map).bindPopup('<b>' + hq.name + '</b>');
+                    locations.forEach(function (location) {
+                        L.marker(location.coords, { icon: customIcon, title: location.name }).addTo(map).bindPopup('<b>' + location.name + '</b>');
                         L.polyline([hq.coords, location.coords], { color: '#3b82f6', weight: 1.5, opacity: 0.5, dashArray: '5, 5' }).addTo(map);
                     });
                 }
-                
+
                 if (pageId === 'global-reach') {
                     // Script for the global-reach page
                     var mapGlobal = L.map('map-global', { scrollWheelZoom: false }).setView([25, 40], 2.5);
@@ -1852,17 +1200,17 @@
                         iconSize: [16, 16],
                         iconAnchor: [8, 8]
                     });
-                    var hqGlobal = {name: 'Headquarters (UAE, Middle East)', coords: [25.27, 55.29]};
+                    var hqGlobal = { name: 'Headquarters (UAE, Middle East)', coords: [25.27, 55.29] };
                     var locationsGlobal = [
-                        {name: 'Europe Operations', coords: [50.11, 8.68]},
-                        {name: 'United States Operations', coords: [29.76, -95.36]},
-                        {name: 'Singapore Hub', coords: [1.35, 103.81]},
-                        {name: 'China Operations', coords: [31.23, 121.47]},
-                        {name: 'South America Operations', coords: [-14.23, -51.92]}
+                        { name: 'Europe Operations', coords: [50.11, 8.68] },
+                        { name: 'United States Operations', coords: [29.76, -95.36] },
+                        { name: 'Singapore Hub', coords: [1.35, 103.81] },
+                        { name: 'China Operations', coords: [31.23, 121.47] },
+                        { name: 'South America Operations', coords: [-14.23, -51.92] }
                     ];
-                    L.marker(hqGlobal.coords, {icon: hqIconGlobal}).addTo(mapGlobal).bindPopup(`<b>${hqGlobal.name}</b>`).openPopup();
-                    locationsGlobal.forEach(function(location) {
-                        L.marker(location.coords, {icon: customIconGlobal}).addTo(mapGlobal).bindPopup(`<b>${location.name}</b>`);
+                    L.marker(hqGlobal.coords, { icon: hqIconGlobal }).addTo(mapGlobal).bindPopup(`<b>${hqGlobal.name}</b>`).openPopup();
+                    locationsGlobal.forEach(function (location) {
+                        L.marker(location.coords, { icon: customIconGlobal }).addTo(mapGlobal).bindPopup(`<b>${location.name}</b>`);
                         L.polyline.antPath([hqGlobal.coords, location.coords], {
                             "delay": 800,
                             "dashArray": [10, 20],
@@ -1879,7 +1227,7 @@
 
 
             window.addEventListener('scroll', () => {
-                if (window.scrollY > 50) { header.classList.add('scrolled'); } 
+                if (window.scrollY > 50) { header.classList.add('scrolled'); }
                 else { header.classList.remove('scrolled'); }
             });
 
@@ -1906,8 +1254,8 @@
                 searchResults.innerHTML = '';
 
                 if (query.length > 1) { // Trigger search with at least 2 characters
-                    const filteredPages = pages.filter(page => 
-                        page.title.toLowerCase().includes(query) || 
+                    const filteredPages = pages.filter(page =>
+                        page.title.toLowerCase().includes(query) ||
                         page.content.toLowerCase().includes(query)
                     );
 
@@ -1916,7 +1264,7 @@
                             const resultItem = document.createElement('a');
                             resultItem.href = page.url;
                             resultItem.classList.add('block', 'p-4', 'hover:bg-gray-700', 'rounded-lg', 'transition-colors');
-                            
+
                             // Highlight the matching query in the result content
                             const highlightedContent = page.content.replace(new RegExp(query, 'gi'), (match) => `<span class="bg-yellow-300 text-black px-1 rounded">${match}</span>`);
 
@@ -1939,7 +1287,7 @@
                 });
             }, { threshold: 0.1 });
             revealElements.forEach(el => observer.observe(el));
-            
+
             // Slider functionality for the home page
             const track = document.getElementById('slider-track');
             if (track) {
@@ -1949,9 +1297,9 @@
                 let index = 0;
                 const totalItems = items.length;
                 let itemWidth = items.length > 0 ? (items[0].getBoundingClientRect().width) : 0;
-                
+
                 function updateSlider() { if (itemWidth > 0) track.style.transform = `translateX(-${index * itemWidth}px)`; }
-                
+
                 function getVisibleSlides() {
                     if (window.innerWidth >= 1024) return 3;
                     if (window.innerWidth >= 768) return 2;
@@ -1963,7 +1311,7 @@
                     if (index < maxIndex) { index++; updateSlider(); }
                 });
                 prevBtn.addEventListener('click', () => { if (index > 0) { index--; updateSlider(); } });
-                
+
                 window.addEventListener('resize', () => {
                     itemWidth = items.length > 0 ? items[0].getBoundingClientRect().width : 0;
                     const maxIndex = totalItems - getVisibleSlides();
@@ -1992,4 +1340,5 @@
         });
     </script>
 </body>
+
 </html>

@@ -1,0 +1,260 @@
+document.addEventListener('DOMContentLoaded', function () {
+            const header = document.getElementById('header');
+            const menuToggle = document.getElementById('menu-toggle');
+            const menuClose = document.getElementById('menu-close');
+            const fullscreenMenu = document.getElementById('fullscreen-menu');
+            const searchToggle = document.getElementById('search-toggle');
+            const searchModal = document.getElementById('search-modal');
+            const searchClose = document.getElementById('search-close');
+            const searchInput = document.getElementById('search-input');
+            const searchResults = document.getElementById('search-results');
+            const pageLinks = document.querySelectorAll('a[href^="#"]');
+            const pageContent = document.querySelectorAll('.page-content');
+            const body = document.body;
+
+            // Define all pages and their content for the in-memory search index
+            const pages = [
+                { title: 'Who We Are', url: '#about', content: 'Welcome to Falco Corporation - a dynamic force in the energy trading landscape. Founded in United Arab Emirates in 2021, Falco Corporation has evolved into a leading player in the oil and energy sector. Diversified Operations: Integration of oilfield development, overseas terminals, shipping management, and import/export trade. Comprehensive expertise as a dynamic energy trading company. Versatility in International Business: Engaged in diverse sectors such as crude oil import and export trade, crude oil refining, supply chain trade, and oil fields. Visionary Approach: At Falco Corporation, we embrace innovation, sustainability, and excellence. Our commitement extends beyond borders, creating a global impact in the energy trading arena.' },
+                { title: 'What We Do', url: '#what-we-do', content: 'Our expertise spans the entire value chain. Each business area is a vital component of our integrated approach, working in synergy to deliver excellence in the global energy market. Oilfield Development & Terminals: We build our foundation on developing and acquiring oil fields, complemented by the strategic operation of overseas storage terminals. Shipping & Logistics: Acting as the logistical backbone, we manage complex global transit to ensure the safe and timely movement of energy products. Import & Export Trade: We are deeply engaged in the global trade of diverse energy products, highlighting our breakthroughs and strong market presence. Energy Trading & Supply Chain: As a dynamic trading company, we forge strategic cooperation in the supply chain to optimize performance and maximize profitability.' },
+                { title: 'Products & Solutions', url: '#products', content: 'At Falco Corporation, our commitment to innovation is reflected in our diverse product portfolio. Starting historically with crude oil, we have consistently expanded our offerings to include a range of essential energy products. Crude Oil, Fuel Oil, LPG, Diesel. The foundation of our legacy, we continue to excel in the procurement and trading of crude oil. Our expertise extends to fuel oil, catering to the varied needs of industries with reliable and quality supplies. Falco Corporation is a trusted source for LPG, providing a clean and efficient energy solution. With a focus on quality and efficiency, our diesel offerings meet the highest industry standards. As we evolve, Falco remains dedicated to exploring new frontiers and expanding our product portfolio to meet the dynamic demands of the energy market.' },
+                { title: 'Global Reach', url: '#global-reach', content: 'In the dynamic landscape of international business, Falco Corporation has not only expanded its operations globally since 2021 but has also excelled in managing complexities inherent in diverse market. Key Achievements: Global Reach: Successfully expanded operations worldwide, establishing a strong presence in Europe, the US, Singapore, China, Malaysia, the Middle East, and South America. Specialization in Challenging Environments: Falco\'s expertise lies in procuring from complex and politically unstable environments. Deep understanding of appropriate conduct ensures safe and ethical business practices. Optimized Performance: Falco\'s well-rounded expertise enables the group to navigate challenging environments with safe conduct, ensuring optimized performance in trading various energy products. Strategic Growth Execution: The execution of a successful growth strategy has propelled Falco Corporation into new territories, fostering growth and prosperity. Future Outlook: As we continue to adapt and thrive in diverse markets, Hannon remains committed to setting benchmarks in global energy trading.' },
+                { title: 'Future Goals', url: '#future-goals', content: 'At Falco Corporation, our vision extends beyond the present achievements as we strategically chart our course for the future. In the coming phases, our focus will be on four key aspects: Ports: Comprehensive development of in-port vehicles and ships. Strategic initiatives to maximize the operational efficiency of our ports. Oil Fields: Aggressive development and acquisition in the field of oil exploration and production. Leveraging our expertise to capitalize on the opportunities within the oil field sector. Supply Chain Business: Utilizing the complementary advantages of our self-operated oil export terminals. Forging strategic business cooperation in the oil product supply chain. Diversified Operation of Oil Products: Capitalizing on our comprehensive strengths, including capital, oil product resources, and port location advantages. Deepening involvement in oil product export trade, warehousing, and ship supply businesses.' },
+                { title: 'History', url: '#history', content: 'In May 2020, initiated the export of asphalt mixtures and fuel oil. Completed the first trade of foreign trade asphalt mixtures in August and September, delivering 500,000 barrels-a major breakthrough in business scope. Market Development and Partnerships: Successfully developed markets in Shandong and Northeast China for fuel oil and bitumen mixture. Established deals with key partners such as PanjinYijiu Petrochemical Co., Ltd. and Baolai Bioenergy. Secured the oil from Hebei Lunt Group. Infrastructure and Export Achievement: Achieved a significant milestone with a monthly export of approximately 600,000 tons.' },
+                { title: 'Sustainability', url: '#sustainability', content: 'Committed to responsible practices that safeguard our planet and support the global energy transition. Falco is dedicated to safe, ethical trading and pioneering cleaner energy solutions. We adhere to the highest Environmental, Social, and Governance (ESG) standards and responsible practices to ensure a sustainable future for our industry and the communities we serve. Our strategy focuses on reducing our operational footprint, investing in renewable energy, and promoting a culture of safety and responsibility across our entire value chain.' },
+                { title: 'Leadership & Teams', url: '#teams', content: 'At Falco Corporation, our success is fuelled by a team of seasoned professionals, carefully selected for their expertise, leadership, and rich industry resources. Key Team Features: Unique Trade Partnership Modes: Innovative and effective trade partnership modes drive our success, ensuring dynamic and mutually beneficial collaborations. Leadership Excellence: Led by senior professional managers, our leadership brings a wealth of experience and industry insights to guide our strategic direction. Partnership Alliance: We believe in building lasting relationships based on trust, integrity, and mutual benefit.' },
+                { title: 'Careers', url: '#careers', content: 'We are seeking talented and dedicated individuals to join our team.' },
+                { title: 'Contact', url: '#contact', content: 'Get in touch with us for inquiries or to learn more about our services.' }
+            ];
+
+            // Functions for page and title management
+            function setPage(pageId) {
+                pageContent.forEach(page => page.classList.add('hidden'));
+                const currentPage = document.getElementById(pageId);
+                if (currentPage) {
+                    currentPage.classList.remove('hidden');
+                    const pageTitle = currentPage.getAttribute('data-page-title');
+                    document.title = `Falco Corporation | ${pageTitle}`;
+                    window.scrollTo({ top: 0, behavior: 'instant' });
+                    initializePageScripts(pageId);
+                }
+            }
+
+            function handleNavigation(event) {
+                event.preventDefault();
+                const url = event.target.closest('a').getAttribute('href');
+                let pageId = url.substring(url.indexOf('#') + 1);
+
+                // Handle the special case for #news
+                if (pageId.includes('news')) {
+                    pageId = 'home';
+                }
+
+                setPage(pageId);
+                window.history.pushState(null, '', url);
+            }
+
+            // Bind navigation events
+            pageLinks.forEach(link => {
+                link.addEventListener('click', handleNavigation);
+            });
+
+            // Handle back/forward browser buttons
+            window.addEventListener('popstate', () => {
+                const url = window.location.href;
+                let pageId = url.substring(url.indexOf('#') + 1);
+                if (!pageId) {
+                    pageId = 'home';
+                }
+                setPage(pageId);
+            });
+
+            // Initial page load
+            const initialPageId = window.location.hash ? window.location.hash.substring(1) : 'home';
+            setPage(initialPageId);
+            window.history.replaceState(null, '', '#' + initialPageId);
+
+
+            // Function to initialize scripts for specific pages
+            function initializePageScripts(pageId) {
+                if (pageId === 'about') {
+                    // Script for the about page
+                    var map = L.map('map-about', { scrollWheelZoom: false }).setView([25, 10], 2);
+                    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/dark_all/{z}/{x}/{y}{r}.png', {
+                        attribution: '&copy; <a href="https://carto.com/attributions">CartoDB</a>',
+                    }).addTo(map);
+
+                    var hqIcon = L.divIcon({ className: 'custom-div-icon', html: '<div style="background-color:#3b82f6; width:20px; height:20px; border-radius:50%; border:3px solid white; box-shadow:0 0 8px rgba(0,0,0,0.5);"></div>', iconSize: [20, 20], iconAnchor: [10, 10] });
+                    var customIcon = L.divIcon({ className: 'custom-div-icon', html: '<div style="background-color:white; width:15px; height:15px; border-radius:50%; border:2px solid #3b82f6;"></div>', iconSize: [15, 15], iconAnchor: [7.5, 7.5] });
+
+                    var hq = { name: 'Headquarters (Middle East)', coords: [25.27, 55.29] };
+                    var locations = [
+                        { name: 'Europe', coords: [51.50, -0.12] },
+                        { name: 'United States', coords: [29.76, -95.36] },
+                        { name: 'Singapore', coords: [1.35, 103.81] },
+                        { name: 'China', coords: [31.23, 121.47] },
+                        { name: 'South America', coords: [-22.90, -43.17] }
+                    ];
+
+                    L.marker(hq.coords, { icon: hqIcon, title: hq.name }).addTo(map).bindPopup('<b>' + hq.name + '</b>');
+                    locations.forEach(function (location) {
+                        L.marker(location.coords, { icon: customIcon, title: location.name }).addTo(map).bindPopup('<b>' + location.name + '</b>');
+                        L.polyline([hq.coords, location.coords], { color: '#3b82f6', weight: 1.5, opacity: 0.5, dashArray: '5, 5' }).addTo(map);
+                    });
+                }
+
+                if (pageId === 'global-reach') {
+                    // Script for the global-reach page
+                    var mapGlobal = L.map('map-global', { scrollWheelZoom: false }).setView([25, 40], 2.5);
+                    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/dark_all/{z}/{x}/{y}{r}.png', {
+                        attribution: '&copy; <a href="https://carto.com/attributions">CartoDB</a>',
+                    }).addTo(mapGlobal);
+                    var hqIconGlobal = L.divIcon({
+                        className: 'custom-div-icon',
+                        html: `<div style="background-color:#3b82f6; width:24px; height:24px; border-radius:50%; border:4px solid white; box-shadow:0 0 10px rgba(59, 130, 246, 0.7);"></div>`,
+                        iconSize: [24, 24],
+                        iconAnchor: [12, 12]
+                    });
+                    var customIconGlobal = L.divIcon({
+                        className: 'custom-div-icon',
+                        html: `<div style="background-color:white; width:16px; height:16px; border-radius:50%; border:3px solid #3b82f6;"></div>`,
+                        iconSize: [16, 16],
+                        iconAnchor: [8, 8]
+                    });
+                    var hqGlobal = { name: 'Headquarters (UAE, Middle East)', coords: [25.27, 55.29] };
+                    var locationsGlobal = [
+                        { name: 'Europe Operations', coords: [50.11, 8.68] },
+                        { name: 'United States Operations', coords: [29.76, -95.36] },
+                        { name: 'Singapore Hub', coords: [1.35, 103.81] },
+                        { name: 'China Operations', coords: [31.23, 121.47] },
+                        { name: 'South America Operations', coords: [-14.23, -51.92] }
+                    ];
+                    L.marker(hqGlobal.coords, { icon: hqIconGlobal }).addTo(mapGlobal).bindPopup(`<b>${hqGlobal.name}</b>`).openPopup();
+                    locationsGlobal.forEach(function (location) {
+                        L.marker(location.coords, { icon: customIconGlobal }).addTo(mapGlobal).bindPopup(`<b>${location.name}</b>`);
+                        L.polyline.antPath([hqGlobal.coords, location.coords], {
+                            "delay": 800,
+                            "dashArray": [10, 20],
+                            "weight": 2.5,
+                            "color": "#3b82f6",
+                            "pulseColor": "#FFFFFF",
+                            "paused": false,
+                            "reverse": false,
+                            "hardwareAccelerated": true
+                        }).addTo(mapGlobal);
+                    });
+                }
+            }
+
+
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) { header.classList.add('scrolled'); }
+                else { header.classList.remove('scrolled'); }
+            });
+
+            menuToggle.addEventListener('click', () => fullscreenMenu.classList.add('open'));
+            menuClose.addEventListener('click', () => fullscreenMenu.classList.remove('open'));
+            fullscreenMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => fullscreenMenu.classList.remove('open'));
+            });
+
+            searchToggle.addEventListener('click', () => {
+                searchModal.classList.remove('hidden');
+                searchModal.classList.add('flex');
+                setTimeout(() => searchInput.focus(), 300);
+            });
+            searchClose.addEventListener('click', () => {
+                searchModal.classList.add('hidden');
+                searchModal.classList.remove('flex');
+                searchInput.value = '';
+                searchResults.innerHTML = '';
+            });
+
+            searchInput.addEventListener('input', (e) => {
+                const query = e.target.value.toLowerCase();
+                searchResults.innerHTML = '';
+
+                if (query.length > 1) { // Trigger search with at least 2 characters
+                    const filteredPages = pages.filter(page =>
+                        page.title.toLowerCase().includes(query) ||
+                        page.content.toLowerCase().includes(query)
+                    );
+
+                    if (filteredPages.length > 0) {
+                        filteredPages.forEach(page => {
+                            const resultItem = document.createElement('a');
+                            resultItem.href = page.url;
+                            resultItem.classList.add('block', 'p-4', 'hover:bg-gray-700', 'rounded-lg', 'transition-colors');
+
+                            // Highlight the matching query in the result content
+                            const highlightedContent = page.content.replace(new RegExp(query, 'gi'), (match) => `<span class="bg-yellow-300 text-black px-1 rounded">${match}</span>`);
+
+                            resultItem.innerHTML = `<h3 class="font-bold text-xl">${page.title}</h3><p class="text-sm text-gray-400">${highlightedContent}</p>`;
+                            searchResults.appendChild(resultItem);
+                        });
+                    } else {
+                        searchResults.innerHTML = '<p class="text-gray-400">No results found.</p>';
+                    }
+                }
+            });
+
+            const revealElements = document.querySelectorAll('.reveal');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            revealElements.forEach(el => observer.observe(el));
+
+            // Slider functionality for the home page
+            const track = document.getElementById('slider-track');
+            if (track) {
+                const prevBtn = document.getElementById('prev-btn');
+                const nextBtn = document.getElementById('next-btn');
+                const items = document.querySelectorAll('.slider-item');
+                let index = 0;
+                const totalItems = items.length;
+                let itemWidth = items.length > 0 ? (items[0].getBoundingClientRect().width) : 0;
+
+                function updateSlider() { if (itemWidth > 0) track.style.transform = `translateX(-${index * itemWidth}px)`; }
+
+                function getVisibleSlides() {
+                    if (window.innerWidth >= 1024) return 3;
+                    if (window.innerWidth >= 768) return 2;
+                    return 1;
+                }
+
+                nextBtn.addEventListener('click', () => {
+                    const maxIndex = totalItems - getVisibleSlides();
+                    if (index < maxIndex) { index++; updateSlider(); }
+                });
+                prevBtn.addEventListener('click', () => { if (index > 0) { index--; updateSlider(); } });
+
+                window.addEventListener('resize', () => {
+                    itemWidth = items.length > 0 ? items[0].getBoundingClientRect().width : 0;
+                    const maxIndex = totalItems - getVisibleSlides();
+                    if (index > maxIndex) index = maxIndex;
+                    updateSlider();
+                });
+                itemWidth = items.length > 0 ? items[0].getBoundingClientRect().width : 0;
+            }
+            // A simple Intersection Observer to reveal elements on scroll
+            const observerOptions = {
+                root: null,
+                rootMargin: "0px",
+                threshold: 0.1
+            };
+            const scrollObserver = new IntersectionObserver((entries, scrollObserver) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("is-visible");
+                        scrollObserver.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+            document.querySelectorAll(".scroll-animate").forEach(element => {
+                scrollObserver.observe(element);
+            });
+        });
