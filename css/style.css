@@ -1048,22 +1048,22 @@ img.hero-background {
 }
 @media (max-width: 480px) {
     .cycle-wrapper {
-        min-height: 400px;
+        min-height: 200px;
     }
 
     .cycle-animator {
-        width: 320px;
-        height: 320px;
+        width: 220px;
+        height: 220px;
     }
 
     .cycle-center {
-        width: 110px;
-        height: 110px;
+        width: 100px;
+        height: 100px;
     }
 
     .cycle-item {
-        width: 100px;
-        height: 100px;
+        width: 110px;
+        height: 110px;
         top: -50px;
     }
 
