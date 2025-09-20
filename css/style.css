@@ -620,79 +620,71 @@ img.hero-background {
         border-right: none;
     }
 }
+/* --- REPLACE all old .product-card styles with this block --- */
 
-/* Ensure you have Font Awesome linked in your main header for the icon */
+/* Product Card Flip Styling */
 .product-card {
-    position: relative;
+    background-color: transparent; /* The inner card will have the background */
     height: 380px;
-    border-radius: 0.75rem;
-    overflow: hidden;
-    background: linear-gradient(145deg, #1e3a8a, #2563eb);
-    background-size: 150% 150%;
-    transition: transform 0.4s ease, box-shadow 0.4s ease, background-position 0.8s ease;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    color: white;
+    perspective: 1500px; /* Creates the 3D space for the flip */
+    border: none;
+    box-shadow: none;
+    opacity: 0; /* Initially hidden for scroll animation */
+    transform: translateY(40px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
 }
 
-.product-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 20px 25px -5px rgba(30, 58, 138, 0.2), 0 10px 10px -5px rgba(30, 58, 138, 0.1);
-    background-position: 100% 100%;
-}
-
-.product-overlay {
-    position: absolute;
-    inset: 0;
-    padding: 2rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3));
-}
-
-.product-content {
-    transition: transform 0.4s ease;
-}
-
-.product-card:hover .product-content {
-    transform: translateY(-10px);
-}
-
-.product-icon {
-    font-size: 3rem;
-    margin-bottom: 1.5rem;
-    transition: transform 0.4s ease;
-    opacity: 0.9;
-}
-
-.product-card:hover .product-icon {
-    transform: scale(1.1);
-}
-
-.product-title {
-    font-size: 1.75rem;
-    font-weight: bold;
-}
-
-.product-description {
-    font-size: 0.95rem;
-    margin-top: 0.5rem;
-    line-height: 1.6;
-    max-height: 0;
-    opacity: 0;
-    transform: translateY(10px);
-    transition: max-height 0.4s ease, opacity 0.4s ease, transform 0.4s ease;
-}
-
-.product-card:hover .product-description {
-    max-height: 150px;
-    opacity: 0.9;
+.product-card.visible {
+    opacity: 1;
     transform: translateY(0);
 }
 
-/* Style for the "Future Innovations" card */
+.product-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.8s cubic-bezier(0.7, 0, 0.3, 1);
+    transform-style: preserve-3d;
+}
+
+/* This class is added by JavaScript on scroll */
+.product-card.is-flipped .product-card-inner {
+    transform: rotateY(180deg);
+}
+
+.product-card-front,
+.product-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden; /* For Safari */
+    backface-visibility: hidden; /* Hides the back side of a card during flip */
+    border-radius: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.product-card-front {
+    background: linear-gradient(145deg, #1e3a8a, #2563eb);
+    color: rgb(255, 255, 255);
+}
+
+.product-card-back {
+    background-color: var(--color-light-gray);
+    color: var(--color-text);
+    transform: rotateY(180deg);
+}
+
+.product-description-flip {
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* Style for the "Future Innovations" card front */
 .product-card-future {
     background: linear-gradient(145deg, var(--color-primary-blue), #1e40af);
 }
@@ -701,47 +693,12 @@ img.hero-background {
     font-size: 3rem;
     margin-bottom: 1rem;
     opacity: 0.7;
-    transition: transform 0.4s ease;
 }
 
-.product-card-future:hover .future-icon {
-    transform: scale(1.1) rotate(-15deg);
-}
-
-.product-card-future .product-description {
-    max-height: 150px;
-    opacity: 0.9;
-    transform: translateY(0);
-}
-
-
-@media (max-width: 480px) {
+/* Mobile adjustments */
+@media (max-width: 767px) {
     .product-card {
-        height: auto;
-        /* Allow card height to adjust to its content */
-        min-height: 320px;
-        /* Set a minimum height for a consistent look */
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
-
-    /* Disable hover effects that don't work well on touch */
-    .product-card:hover {
-        transform: none;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-
-    .product-card:hover .product-content {
-        transform: none;
-    }
-
-    /* Make the description visible by default on mobile */
-    .product-description {
-        max-height: 200px;
-        /* A large enough value to show the text */
-        opacity: 0.9;
-        transform: translateY(0);
+        height: 320px; /* Slightly shorter cards on mobile */
     }
 }
 
