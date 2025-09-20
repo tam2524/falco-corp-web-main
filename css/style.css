@@ -714,9 +714,8 @@ img.hero-background {
     transform: translateY(0);
 }
 
-/* --- Add this entire block to the end of your style.css file --- */
 
-@media (max-width: 767px) {
+@media (max-width: 480px) {
     .product-card {
         height: auto;
         /* Allow card height to adjust to its content */
