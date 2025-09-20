@@ -82,7 +82,7 @@ body {
 
 #fullscreen-menu a {
     color: var(--color-text-light);
-    font-size: 2rem;
+    font-size: 1rem;
     font-weight: 700;
     margin: 1rem 0;
     text-transform: uppercase;
@@ -102,10 +102,9 @@ body {
     transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.5s ease;
 }
 
-/* Add a simple media query for smaller screens */
 @media (max-width: 640px) {
     #fullscreen-menu a {
-        font-size: 1.5rem;
+        font-size: 1rem;
         margin: 0.75rem 0;
     }
 }
