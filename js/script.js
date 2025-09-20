@@ -12,6 +12,28 @@ document.addEventListener('DOMContentLoaded', function () {
             const pageContent = document.querySelectorAll('.page-content');
             const body = document.body;
 
+
+const flipCards = document.querySelectorAll('.product-card');
+
+const flipObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        // When the card is 40% visible, flip it
+        if (entry.isIntersecting) {
+            entry.target.classList.add('is-flipped');
+        } 
+        // When it scrolls out of view, flip it back
+        else {
+            entry.target.classList.remove('is-flipped');
+        }
+    });
+}, {
+    threshold: 0.4 
+});
+
+flipCards.forEach(card => {
+    flipObserver.observe(card);
+});
+
             // Define all pages and their content for the in-memory search index
             const pages = [
                 { title: 'Who We Are', url: '#about', content: 'Welcome to Falco Corporation - a dynamic force in the energy trading landscape. Founded in United Arab Emirates in 2021, Falco Corporation has evolved into a leading player in the oil and energy sector. Diversified Operations: Integration of oilfield development, overseas terminals, shipping management, and import/export trade. Comprehensive expertise as a dynamic energy trading company. Versatility in International Business: Engaged in diverse sectors such as crude oil import and export trade, crude oil refining, supply chain trade, and oil fields. Visionary Approach: At Falco Corporation, we embrace innovation, sustainability, and excellence. Our commitement extends beyond borders, creating a global impact in the energy trading arena.' },
