@@ -1046,7 +1046,7 @@ img.hero-background {
     transform: translate(195px, -195px) rotate(90deg);
     animation: spin-reverse 30s linear infinite;
 }
-@media (max-width: 480px) {
+@media (max-width: 460px) {
     .cycle-wrapper {
         min-height: 200px;
     }
