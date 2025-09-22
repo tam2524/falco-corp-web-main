@@ -2,24 +2,24 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Falco Corporation | A Global Energy Trading Leader</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="https://unpkg.com/leaflet-ant-path@1.3.0/dist/leaflet-ant-path.js"></script>
-    <link rel="stylesheet" href="css/style.css">
-    <script src="js/script.js" ></script>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="js/script.js"></script>
 </head>
 
 <body>
-
     <header id="header" class="fixed top-0 left-0 right-0 z-50">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
@@ -33,7 +33,7 @@
                 </div>
                 <div class="flex-1 flex justify-center">
                     <a href="#home">
-                        <img src="images/logo.png" alt="Falco Corporation Logo" class="h-20 w-50 logo-img">
+                        <img src="images/logo.png" alt="Falco Corporation Logo" class="h-20 w-50 logo-img" />
                     </a>
                 </div>
                 <div class="flex-1 flex justify-end">
@@ -49,24 +49,79 @@
         </div>
     </header>
 
-    <div id="fullscreen-menu" class="relative">
-        <div class="abstract-bg"></div>
+    <div id="fullscreen-menu">
+        <div class="menu-background"></div>
+        <a href="#home" class="menu-logo-link nav-link">
+            <img src="images/logo.png" alt="Falco Corporation Logo" class="menu-logo-img" />
+        </a>
         <button id="menu-close" class="absolute top-7 right-7 p-2 text-white z-20">
             <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
             </svg>
         </button>
-        <div class="flex flex-col items-center justify-center space-y-4 relative z-20">
-            <a href="#about" style="transition-delay: 0.1s;">Who we are</a>
-            <a href="#what-we-do" style="transition-delay: 0.2s;">What we do</a>
-            <a href="#products" style="transition-delay: 0.3s;">Products & Solutions</a>
-            <a href="#global-reach" style="transition-delay: 0.4s;">Global Reach</a>
-            <a href="#milestones" style="transition-delay: 0.5s;">Achievements & Milestones</a>
-            <a href="#future-goals" style="transition-delay: 0.6s;">Future Goals</a>
-            <a href="#teams" style="transition-delay: 0.7s;">Leadership & Team</a>
-            <a href="#history" style="transition-delay: 0.8s;">History</a>
-            <a href="#sustainability" style="transition-delay: 0.9s;">Sustainability & Responsibility</a>
-            <a href="#contact" style="transition-delay: 0.95s;">Contact Us</a>
+
+        <div class="menu-content-wrapper">
+            <div id="nav-main" class="nav-panel">
+                <a href="#about" class="nav-main-link nav-link" data-menu-target="about">Who we are</a>
+                <a href="#what-we-do" class="nav-main-link nav-link" data-menu-target="what-we-do">What we do</a>
+                <a href="#products" class="nav-main-link nav-link" data-menu-target="products">Products & Solutions</a>
+                <a href="#sustainability" class="nav-main-link nav-link"
+                    data-menu-target="sustainability">Sustainability</a>
+                <a href="#contact" class="nav-main-link nav-link">Contact Us</a>
+            </div>
+
+            <div id="nav-sub" class="nav-panel">
+                <div id="menu-about" class="nav-sub-menu">
+                    <a href="#teams" class="nav-sub-link nav-link">Leadership & Team</a>
+                    <a href="#history" class="nav-sub-link nav-link">History</a>
+                    <a href="#milestones" class="nav-sub-link nav-link">Achievements & Milestones</a>
+                </div>
+
+                <div id="menu-what-we-do" class="nav-sub-menu">
+                    <a href="#global-reach" class="nav-sub-link nav-link">Global Reach</a>
+                    <a href="#future-goals" class="nav-sub-link nav-link">Future Goals</a>
+                </div>
+
+                <div id="menu-products" class="nav-sub-menu">
+                    <div class="sub-menu-header">Our Core Offerings</div>
+                    <a href="#products" class="nav-sub-link nav-link">Crude Oil</a>
+                    <a href="#products" class="nav-sub-link nav-link">Fuel Oil</a>
+                    <a href="#products" class="nav-sub-link nav-link">LPG & Diesel</a>
+                </div>
+
+                <div id="menu-sustainability" class="nav-sub-menu">
+                    <a href="#sustainability" class="nav-sub-link nav-link">Our Commitment</a>
+                    <a href="#sustainability" class="nav-sub-link nav-link">ESG Approach</a>
+                </div>
+            </div>
+        </div>
+
+        <div id="mobile-menu-wrapper">
+            <a href="#about" class="nav-main-link-mobile nav-link">Who we are</a>
+            <div class="nav-sub-menu-mobile">
+                <a href="#teams" class="nav-sub-link-mobile nav-link">Leadership & Team</a>
+                <a href="#history" class="nav-sub-link-mobile nav-link">History</a>
+                <a href="#milestones" class="nav-sub-link-mobile nav-link">Achievements & Milestones</a>
+            </div>
+
+            <a href="#what-we-do" class="nav-main-link-mobile nav-link">What we do</a>
+            <div class="nav-sub-menu-mobile">
+                <a href="#global-reach" class="nav-sub-link-mobile nav-link">Global Reach</a>
+                <a href="#future-goals" class="nav-sub-link-mobile nav-link">Future Goals</a>
+            </div>
+
+            <a href="#products" class="nav-main-link-mobile nav-link">Products & Solutions</a>
+            <div class="nav-sub-menu-mobile">
+                <a href="#products" class="nav-sub-link-mobile nav-link">Core Offerings</a>
+            </div>
+
+            <a href="#sustainability" class="nav-main-link-mobile nav-link">Sustainability</a>
+            <div class="nav-sub-menu-mobile">
+                <a href="#sustainability" class="nav-sub-link-mobile nav-link">Our Commitment</a>
+                <a href="#sustainability" class="nav-sub-link-mobile nav-link">ESG Approach</a>
+            </div>
+
+            <a href="#contact" class="nav-main-link-mobile nav-link">Contact Us</a>
         </div>
     </div>
 
@@ -80,142 +135,262 @@
         <div class="w-full max-w-2xl mt-24">
             <input type="text" id="search-input"
                 class="w-full text-lg md:text-2xl p-4 bg-transparent border-b-2 border-white text-white focus:outline-none placeholder-gray-400"
-                placeholder="Type to search...">
-            <div id="search-results" class="mt-8 text-white max-h-96 overflow-y-auto">
-            </div>
+                placeholder="Type to search..." />
+            <div id="search-results" class="mt-8 text-white max-h-96 overflow-y-auto"></div>
         </div>
     </div>
 
     <main>
+
         <section id="home" data-page-title="A Global Energy Trading Leader" class="page-content">
             <section class="hero-section">
                 <video autoplay muted loop playsinline class="hero-background">
-                    <source src="images/video.mp4" type="video/mp4">
+                    <source src="images/video.mp4" type="video/mp4" />
                     Your browser does not support the video tag.
                 </video>
-                <div class="relative z-10 px-4">
-                    <h1 class="text-4xl md:text-6xl font-bold leading-tight reveal visible">
-                        Falco Corporation
-                        <span class="block text-2xl md:text-4xl font-light mt-2">A Global Energy Trading Leader</span>
-                    </h1>
-                    <p class="text-lg md:text-xl mt-4 mb-10 max-w-3xl mx-auto reveal visible"
-                        style="transition-delay: 0.2s;">
-                        Innovation, sustainability, and worldwide energy solutions.
-                    </p>
-                    <div class="flex flex-col sm:flex-row justify-center items-center gap-4 reveal visible"
-                        style="transition-delay: 0.3s;">
-                        <a href="#about" class="themed-button nav-link">
-                            About Us
-                        </a>
-                        <a href="#products" class="themed-button nav-link">
-                            Products
-                        </a>
-                        <a href="#contact" class="themed-button nav-link">
-                            Contact
-                        </a>
+                <div class="hero-gradient-overlay"></div>
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center">
+                    <div class="hero-content text-left">
+                        <h1 class="hero-title">
+                            <span>Powering</span>
+                            <span>Global</span>
+                            <span>Progress.</span>
+                        </h1>
+                        <p class="hero-subtitle">
+                            Falco Corporation: Your trusted partner in the global energy
+                            trade, delivering innovative and sustainable solutions
+                            worldwide.
+                        </p>
+                        <div class="flex flex-col sm:flex-row items-start gap-4 mt-10">
+                            <a href="#about" class="themed-button-gradient nav-link">
+                                Explore Our World <i class="fas fa-arrow-right ml-2"></i>
+                            </a>
+                            <a href="#contact" class="themed-button-outline nav-link">
+                                Contact Us
+                            </a>
+                        </div>
                     </div>
                 </div>
+                <div class="scroll-indicator">
+                    <span></span>
+                </div>
             </section>
-
 
             <section class="py-20 lg:py-32 bg-light-gray">
                 <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="grid lg:grid-cols-2 gap-12 items-center">
-                        <div class="reveal">
-                            <img loading="lazy" src="images/2bdd46ce-de04-4773-9c34-17202b3f0c72.JPG"
-                                alt="Global logistics network" class="w-full h-full object-cover"
-                                style="filter: grayscale(100%);">
-                        </div>
-                        <div class="reveal">
-                            <h2 class="section-title text-primary-blue mb-6">What we do</h2>
-                            <p class="text-lg text-gray-700 mb-8">We physically trade and logistically support the
-                                movement of oil and petroleum products, metals and minerals, and gas and power.</p>
-                            <a href="#what-we-do" class="link-arrow text-lg nav-link">Discover what we do
-                                <span>&rarr;</span></a>
+                    <div class="tabs-container-modern reveal">
+                        <h2 class="section-title text-center mb-4 text-gray-800">Explore Our Company</h2>
+                        <p class="text-center text-lg text-gray-600 max-w-2xl mx-auto mb-12">
+                            Discover the core pillars of our organization, from our commitment to a sustainable future
+                            to the experienced leadership that guides us.
+                        </p>
+
+                        <nav class="tab-nav-modern">
+                            <button class="tab-link-modern" data-target="panel-sustainability">
+                                <i class="fas fa-leaf mr-2"></i> Sustainability
+                            </button>
+                            <button class="tab-link-modern" data-target="panel-story">
+                                <i class="fas fa-book-open mr-2"></i> History
+                            </button>
+                            <button class="tab-link-modern" data-target="panel-leadership">
+                                <i class="fas fa-users mr-2"></i> Leadership
+                            </button>
+                            <button class="tab-link-modern" data-target="panel-reach">
+                                <i class="fas fa-globe-americas mr-2"></i> Global Reach
+                            </button>
+                        </nav>
+
+                        <div class="tab-content-container-modern">
+                            <div id="panel-sustainability" class="tab-content-panel-modern">
+                                <div class="panel-image-wrapper-modern">
+                                    <img src="images/f91dd928e4a110edd2c07c88550a1184 2.jpg"
+                                        alt="Solar panels indicating energy transition" class="panel-image" />
+                                </div>
+                                <div class="panel-text-content-modern">
+                                    <p class="eyebrow-text-modern">RESPONSIBLY SUPPLYING RESOURCES</p>
+                                    <h3 class="panel-title-modern">Our Role in the Energy Transition</h3>
+                                    <p>
+                                        We play an active role in the energy transition, responsibly supplying vital
+                                        commodities to meet current and future needs.
+                                    </p>
+                                    <a href="#sustainability"
+                                        class="themed-button-gradient nav-link mt-8 inline-block">Find out more</a>
+                                </div>
+                            </div>
+
+                            <div id="panel-story" class="tab-content-panel-modern">
+                                <div class="panel-image-wrapper-modern">
+                                    <img src="images/7adb8996a706c315f977951431d9a299.jpg"
+                                        alt="Historical company milestone" class="panel-image" />
+                                </div>
+                                <div class="panel-text-content-modern">
+                                    <p class="eyebrow-text-modern">FROM 2021 TO TODAY</p>
+                                    <h3 class="panel-title-modern">A Journey of Growth & Innovation</h3>
+                                    <p>
+                                        From a focused ambition in the UAE to a global presence, our history is one of
+                                        strategic expansion and building lasting partnerships.
+                                    </p>
+                                    <a href="#history" class="themed-button-gradient nav-link mt-8 inline-block">Explore
+                                        our story</a>
+                                </div>
+                            </div>
+
+                            <div id="panel-leadership" class="tab-content-panel-modern">
+                                <div class="panel-image-wrapper-modern">
+                                    <img src="images/01feef42-7a30-44ea-aefa-8243d08b99d5.jpg" alt="Team collaborating"
+                                        class="panel-image" />
+                                </div>
+                                <div class="panel-text-content-modern">
+                                    <p class="eyebrow-text-modern">EXPERIENCE & EXPERTISE</p>
+                                    <h3 class="panel-title-modern">Led by Industry Veterans</h3>
+                                    <p>
+                                        Our success is fueled by a team of seasoned professionals, combining over 60
+                                        years of experience to navigate the complexities of the energy market.
+                                    </p>
+                                    <a href="#teams" class="themed-button-gradient nav-link mt-8 inline-block">Meet the
+                                        team</a>
+                                </div>
+                            </div>
+
+                            <div id="panel-reach" class="tab-content-panel-modern">
+                                <div class="panel-image-wrapper-modern">
+                                    <img src="images/fbbd727f-fc9e-4751-84a0-523f3a385d43.jpeg"
+                                        alt="Global map showing connections" class="panel-image" />
+                                </div>
+                                <div class="panel-text-content-modern">
+                                    <p class="eyebrow-text-modern">CONNECTING MARKETS</p>
+                                    <h3 class="panel-title-modern">Worldwide Operations</h3>
+                                    <p>
+                                        With a strategic presence across 5 continents, we connect supply with demand
+                                        efficiently and reliably on a global scale.
+                                    </p>
+                                    <a href="#global-reach"
+                                        class="themed-button-gradient nav-link mt-8 inline-block">See our reach</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+
+                <section class="py-20 lg:py-32 bg-strengths-gradient overflow-hidden">
+                    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                        <h2 class="section-title text-center mb-16 text-gray-800 reveal">
+                            Our Core Strengths
+                        </h2>
+
+                        <div class="dynamic-split-grid mb-24">
+                            <div class="grid-card-content p-8 lg:p-12 reveal">
+                                <span class="eyebrow-text text-primary-blue mb-2 block">WHAT WE DO</span>
+                                <h3 class="text-3xl lg:text-4xl font-bold text-gray-800 mb-6">
+                                    Physical Trading & Logistics
+                                </h3>
+                                <p class="text-lg text-gray-700 mb-8">
+                                    We physically trade and logistically support the worldwide movement of oil,
+                                    petroleum products, and other vital commodities, ensuring reliability from source to
+                                    destination. Our robust network and expertise guarantee efficient and timely
+                                    delivery across continents.
+                                </p>
+                                <a href="#what-we-do" class="link-arrow text-lg nav-link flex items-center group">
+                                    Discover our operations
+                                    <span
+                                        class="ml-2 transition-transform duration-300 group-hover:translate-x-2">&rarr;</span>
+                                </a>
+                            </div>
+                            <div class="grid-card-image reveal">
+                                <img loading="lazy" src="images/2bdd46ce-de04-4773-9c34-17202b3f0c72.jpg"
+                                    alt="Global logistics network with cargo ships and containers"
+                                    class="w-full h-full object-cover rounded-lg shadow-xl" />
+                            </div>
+                        </div>
+
+                        <div class="dynamic-split-grid reverse">
+                            <div class="grid-card-content p-8 lg:p-12 reveal">
+                                <span class="eyebrow-text text-primary-blue mb-2 block">OUR COMMITMENT</span>
+                                <h3 class="text-3xl lg:text-4xl font-bold text-gray-800 mb-6">
+                                    Pioneering the Energy Transition
+                                </h3>
+                                <p class="text-lg text-gray-700 mb-8">
+                                    We are actively investing in the projects, infrastructure, and technologies that
+                                    will help accelerate the global transition to a lower-carbon future for a
+                                    sustainable tomorrow. Our initiatives focus on innovation and environmental
+                                    stewardship.
+                                </p>
+                                <a href="#sustainability" class="link-arrow text-lg nav-link flex items-center group">
+                                    Learn about our commitment
+                                    <span
+                                        class="ml-2 transition-transform duration-300 group-hover:translate-x-2">&rarr;</span>
+                                </a>
+                            </div>
+                            <div class="grid-card-image reveal">
+                                <img loading="lazy" src="images/01feef42-7a30-44ea-aefa-8243d08b99d5.jpg"
+                                    alt="Renewable energy infrastructure like wind turbines and solar panels"
+                                    class="w-full h-full object-cover rounded-lg shadow-xl" />
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </section>
 
-            <section class="py-20 lg:py-32 bg-white">
-                <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="grid lg:grid-cols-2 gap-12 items-center">
-                        <div class="reveal lg:order-last">
-                            <img loading="lazy" src="images/f91dd928e4a110edd2c07c88550a1184 2.JPG"
-                                alt="Renewable energy infrastructure" class="w-full h-full object-cover"
-                                style="filter: grayscale(100%);">
-                        </div>
-                        <div class="reveal">
-                            <h2 class="section-title text-primary-blue mb-6">Our role in the energy transition</h2>
-                            <p class="text-lg text-gray-700 mb-8">We are investing in projects and technologies that
-                                will help accelerate the transition to a lower-carbon future.</p>
-                            <a href="#sustainability" class="link-arrow text-lg nav-link">Learn about our commitment
-                                <span>&rarr;</span></a>
-                        </div>
-                    </div>
-                </div>
-            </section>
         </section>
 
         <section id="about" data-page-title="About Falco" class="page-content hidden">
             <section class="page-header relative">
-                <img src="images/IMG_8277.JPG" alt="Falco Corporation Team" class="hero-background"
-                    loading="eager">
-                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-60"></div>
+                <img src="images/IMG_8277.jpg" alt="Falco Corporation Team" class="hero-background" loading="eager" />
+                <div class="animated-gradient-overlay"></div>
                 <div class="relative z-10 px-4">
-                    <h1 class="text-4xl md:text-6xl font-bold reveal visible">About Falco</h1>
-                    <p class="text-xl mt-4 max-w-3xl mx-auto reveal visible" style="transition-delay: 0.2s;">
-                        A dynamic energy trading company connecting the world with vital resources.
+                    <h1 class="text-4xl md:text-6xl font-bold reveal">Who We Are</h1>
+                    <p class="text-xl mt-4 max-w-3xl mx-auto reveal" style="transition-delay: 0.2s">
+                        A dynamic energy trading company connecting the world with vital
+                        resources.
                     </p>
                 </div>
             </section>
 
             <section class="py-20 lg:py-32 bg-white">
                 <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="grid lg:grid-cols-2 gap-16 items-center">
+                    <div class="space-y-20">
                         <div class="reveal">
-                            <h2 class="text-4xl font-bold text-gray-800 mb-8">Our Story</h2>
-                            <p class="text-lg text-gray-600 mb-8 leading-relaxed">Founded in the UAE in 2021, Falco
-                                Corporation's journey has been defined by rapid global growth and a swift evolution into
-                                a leading player in the energy sector.</p>
-
-                            <h3 class="text-2xl font-semibold text-primary-blue mb-3">Diversified Operations</h3>
-                            <p class="text-lg text-gray-600 mb-6 leading-relaxed">Our success is built on the
-                                integration of oilfield development, overseas terminals, shipping management, and
-                                import/export trade, providing comprehensive expertise as a dynamic energy trading
-                                company.</p>
-
-                            <h3 class="text-2xl font-semibold text-primary-blue mb-3">Versatility in International
-                                Business</h3>
-                            <p class="text-lg text-gray-600 mb-6 leading-relaxed">We are engaged in diverse sectors such
-                                as crude oil import and export trade, crude oil refining, supply chain trade, and oil
-                                fields.</p>
-
-                            <h3 class="text-2xl font-semibold text-primary-blue mb-3">Visionary Approach</h3>
-                            <p class="text-lg text-gray-600 leading-relaxed">At Falco Corporation, we embrace
-                                innovation, sustainability, and excellence. Our commitment extends beyond borders,
-                                creating a global impact in the energy trading arena. Join us as we navigate the
-                                complexities of the international energy market, setting new standards and forging
-                                lasting partnerships.</p>
-                        </div>
-                        <div class="reveal grid grid-cols-2 gap-8 text-center">
-                            <div class="bg-light-gray p-8 rounded-lg">
-                                <span class="block text-4xl font-bold text-primary-blue">2021</span>
-                                <span class="text-gray-600">Year Founded</span>
+                            <div class="grid grid-cols-2 gap-8 text-center max-w-md mx-auto">
+                                <div class="stat-box" data-modal-trigger="founded">
+                                    <span class="stat-number" data-target="2021">0</span>
+                                    <span class="stat-label">Year Founded</span>
+                                </div>
+                                <div class="stat-box" data-modal-trigger="continents">
+                                    <span class="stat-number" data-target="5">0</span>
+                                    <span class="stat-label">Continents Served</span>
+                                </div>
                             </div>
-                            <div class="bg-light-gray p-8 rounded-lg">
-                                <span class="block text-4xl font-bold text-primary-blue">5+</span>
-                                <span class="text-gray-600">Continents Served</span>
+                        </div>
+
+                        <div class="reveal">
+                            <div class="story-banner-container">
+                                <video autoplay muted loop playsinline class="story-banner-video">
+                                    <source src="images/video.mp4" type="video/mp4" />
+                                    Your browser does not support the video tag.
+                                </video>
+                                <div class="story-banner-overlay"></div>
+                                <div class="story-banner-content">
+                                    <span class="eyebrow-text">ABOUT FALCO</span>
+                                    <h2 class="story-banner-title">Our Story</h2>
+                                    <p class="story-banner-text">
+                                        From our founding in 2021 to one of the world's emerging
+                                        suppliers of energy, our story is one of growth and
+                                        innovation.
+                                    </p>
+                                    <button id="story-trigger-button" class="gradient-button">
+                                        Explore our story
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <div class="bg-light-gray" style="height: 150px; overflow: hidden;">
-                <svg viewBox="0 0 500 150" preserveAspectRatio="none" style="height: 100%; width: 100%;">
+            <div class="bg-light-gray" style="height: 150px; overflow: hidden">
+                <svg viewBox="0 0 500 150" preserveAspectRatio="none" style="height: 100%; width: 100%">
                     <path d="M0.00,49.98 C149.99,150.00 349.20,-49.98 500.00,49.98 L500.00,150.00 L0.00,150.00 Z"
-                        style="stroke: none; fill: #ffffff;"></path>
+                        style="stroke: none; fill: #ffffff"></path>
                 </svg>
             </div>
 
@@ -224,26 +399,38 @@
                     <div class="text-center max-w-3xl mx-auto reveal">
                         <h2 class="text-4xl font-bold mb-6">Our Mission & Values</h2>
                         <p class="text-lg text-gray-700 mb-16">
-                            We are guided by four core principles that define our work and our commitment to our
-                            partners.
+                            We are guided by four core principles that define our work and
+                            our commitment to our partners.
                         </p>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
-                        <div class="value-card-modern reveal" style="transition-delay: 100ms;">
-                            <i class="fas fa-lightbulb icon"></i>
-                            <h3 class="title">Innovation</h3>
+                        <div class="value-card-modern reveal" style="transition-delay: 100ms"
+                            data-modal-trigger="innovation">
+                            <div class="card-content-wrapper">
+                                <i class="fas fa-lightbulb icon"></i>
+                                <h3 class="title">Innovation</h3>
+                            </div>
                         </div>
-                        <div class="value-card-modern reveal" style="transition-delay: 200ms;">
-                            <i class="fas fa-handshake icon"></i>
-                            <h3 class="title">Trust</h3>
+                        <div class="value-card-modern reveal" style="transition-delay: 200ms"
+                            data-modal-trigger="trust">
+                            <div class="card-content-wrapper">
+                                <i class="fas fa-handshake icon"></i>
+                                <h3 class="title">Trust</h3>
+                            </div>
                         </div>
-                        <div class="value-card-modern reveal" style="transition-delay: 300ms;">
-                            <i class="fas fa-leaf icon"></i>
-                            <h3 class="title">Sustainability</h3>
+                        <div class="value-card-modern reveal" style="transition-delay: 300ms"
+                            data-modal-trigger="sustainability">
+                            <div class="card-content-wrapper">
+                                <i class="fas fa-leaf icon"></i>
+                                <h3 class="title">Sustainability</h3>
+                            </div>
                         </div>
-                        <div class="value-card-modern reveal" style="transition-delay: 400ms;">
-                            <i class="fas fa-users icon"></i>
-                            <h3 class="title">Partnerships</h3>
+                        <div class="value-card-modern reveal" style="transition-delay: 400ms"
+                            data-modal-trigger="partnerships">
+                            <div class="card-content-wrapper">
+                                <i class="fas fa-users icon"></i>
+                                <h3 class="title">Partnerships</h3>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -253,30 +440,85 @@
                 <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="text-center max-w-3xl mx-auto reveal mb-16">
                         <h2 class="text-4xl font-bold mb-6">Our Global Presence</h2>
-                        <p class="text-lg text-gray-700">From our headquarters in the Middle East, we connect supply
-                            with demand efficiently and reliably on a global scale.</p>
+                        <p class="text-lg text-gray-700">
+                            From our headquarters in the Middle East, we connect supply with
+                            demand efficiently and reliably on a global scale.
+                        </p>
                     </div>
-                    <div class="reveal relative overflow-hidden rounded-lg shadow-2xl" style="height: 500px;">
-                        <div id="map-about" style="width: 100%; height: 100%;"></div>
+                    <div class="reveal relative overflow-hidden rounded-lg shadow-2xl" style="height: 500px">
+                        <div id="map-about" style="width: 100%; height: 100%"></div>
                     </div>
                 </div>
             </section>
 
-            <div class="bg-light-gray" style="height: 150px; overflow: hidden;">
-                <svg viewBox="0 0 500 150" preserveAspectRatio="none" style="height: 100%; width: 100%;">
-                    <path d="M0.00,49.98 C149.99,150.00 271.49,-49.98 500.00,49.98 L500.00,0.00 L0.00,0.00 Z"
-                        style="stroke: none; fill: #ffffff;"></path>
-                </svg>
+            <div id="story-overlay"
+                class="fixed inset-0 bg-white/70 backdrop-blur-sm z-[100] opacity-0 pointer-events-none transition-opacity duration-500">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8 h-full">
+                    <div id="story-inner-content"
+                        class="h-full flex flex-col opacity-0 scale-95 transform transition-all duration-500">
+                        <div
+                            class="flex justify-between items-center py-6 border-b border-gray-200 flex-shrink-0 story-element el-1">
+                            <h3 class="text-lg font-semibold text-gray-500">Our story</h3>
+                            <button id="story-close-btn"
+                                class="text-gray-600 hover:text-primary-blue transition-colors duration-300 p-2">
+                                <span class="text-3xl font-light">&times;</span>
+                            </button>
+                        </div>
+                        <div class="grid lg:grid-cols-3 gap-16 flex-grow overflow-y-auto py-8">
+                            <div class="story-nav-container flex-col justify-center hidden lg:flex story-element el-2">
+                                <nav id="story-nav"></nav>
+                            </div>
+                            <div class="lg:col-span-2 flex items-center h-full">
+                                <div id="story-content-area" class="grid md:grid-cols-2 gap-12 items-center w-full">
+                                    <div class="story-image-container story-element el-3">
+                                        <div class="story-image-frame">
+                                            <img id="story-image" src="" alt="Our Story Image"
+                                                class="rounded-full object-cover w-full h-full relative z-10" />
+                                        </div>
+                                    </div>
+                                    <div class="story-text-content story-element el-4">
+                                        <h2 id="story-title" class="text-4xl font-bold text-gray-800 mb-6"></h2>
+                                        <p id="story-text" class="text-gray-600 leading-relaxed"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="story-nav-arrows"
+                            class="flex-shrink-0 flex justify-end items-center py-6 story-element el-5">
+                            <button id="story-prev-btn" class="story-arrow-btn">
+                                <i class="fas fa-arrow-up"></i>
+                            </button>
+                            <button id="story-next-btn" class="story-arrow-btn ml-3">
+                                <i class="fas fa-arrow-down"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="info-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4">
+                <div id="modal-container"
+                    class="bg-white rounded-lg shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto p-8 relative">
+                    <button id="modal-close-btn" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                    <h2 id="modal-title" class="text-3xl font-bold text-primary-blue mb-4"></h2>
+                    <div id="modal-content" class="text-lg text-gray-700 leading-relaxed space-y-4"></div>
+                </div>
             </div>
         </section>
 
         <section id="contact" data-page-title="Contact us" class="page-content hidden">
             <section class="page-header">
-                <img src="images/IMG_8272.JPG" alt="Global office network" class="hero-background"
-                    loading="eager">
+                <img src="images/IMG_8272.jpg" alt="Global office network" class="hero-background" loading="eager" />
                 <div class="relative z-10 px-4">
-                    <h1 class="text-4xl md:text-6xl font-bold reveal visible">Contact us</h1>
-                    <p class="text-xl mt-4 max-w-3xl mx-auto reveal visible" style="transition-delay: 0.2s;">
+                    <h1 class="text-4xl md:text-6xl font-bold reveal visible">
+                        Contact us
+                    </h1>
+                    <p class="text-xl mt-4 max-w-3xl mx-auto reveal visible" style="transition-delay: 0.2s">
                         Get in touch with our teams around the world.
                     </p>
                 </div>
@@ -334,13 +576,15 @@
 
         <section id="future-goals" data-page-title="Future Goals" class="page-content hidden">
             <section class="page-header">
-                <img src="images/8af66ebb-d81c-40a6-a3ef-82a0b09181c0.JPG"
-                    alt="Global logistics and operations" class="hero-background" loading="eager">
+                <img src="images/8af66ebb-d81c-40a6-a3ef-82a0b09181c0.jpg" alt="Global logistics and operations"
+                    class="hero-background" loading="eager" />
                 <div class="relative z-10 px-4">
-                    <h1 class="text-4xl md:text-6xl font-bold reveal visible">Future Goals</h1>
-                    <p class="text-xl mt-4 max-w-3xl mx-auto reveal visible" style="transition-delay: 0.2s;">
-                        Our vision extends beyond present achievements as we strategically chart our course for the
-                        future.
+                    <h1 class="text-4xl md:text-6xl font-bold reveal visible">
+                        Future Goals
+                    </h1>
+                    <p class="text-xl mt-4 max-w-3xl mx-auto reveal visible" style="transition-delay: 0.2s">
+                        Our vision extends beyond present achievements as we strategically
+                        chart our course for the future.
                     </p>
                 </div>
             </section>
@@ -348,52 +592,64 @@
             <section class="py-20 lg:py-32 bg-gray-50">
                 <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="title-card mb-16 scroll-animate">
-                        <h2 class="text-4xl font-bold mb-4">Our Focus Will Be On Four Key Aspects</h2>
+                        <h2 class="text-4xl font-bold mb-4">
+                            Our Focus Will Be On Four Key Aspects
+                        </h2>
                     </div>
 
                     <div class="modern-grid">
-                        <div class="modern-card scroll-animate" style="transition-delay: 0s;">
-                            <img src="images/f91dd928e4a110edd2c07c88550a1184 2.JPG"
-                                alt="Ports and Shipping Infrastructure" class="card-image">
+                        <div class="modern-card scroll-animate" style="transition-delay: 0s">
+                            <img src="images/f91dd928e4a110edd2c07c88550a1184 2.jpg"
+                                alt="Ports and Shipping Infrastructure" class="card-image" />
                             <div class="modern-card-content">
-                                <h3 class="text-xl font-bold text-primary-blue mb-3">Ports & Shipping</h3>
+                                <h3 class="text-xl font-bold text-primary-blue mb-3">
+                                    Ports & Shipping
+                                </h3>
                                 <p class="text-gray-600 text-sm leading-relaxed">
-                                    Develop comprehensive in-port vehicle and ship operations to maximize efficiency.
+                                    Develop comprehensive in-port vehicle and ship operations to
+                                    maximize efficiency.
                                 </p>
                             </div>
                         </div>
 
-                        <div class="modern-card scroll-animate" style="transition-delay: 0.1s;">
+                        <div class="modern-card scroll-animate" style="transition-delay: 0.1s">
                             <img src="images/01feef42-7a30-44ea-aefa-8243d08b99d5.jpg"
-                                alt="Oilfield Exploration and Production" class="card-image">
+                                alt="Oilfield Exploration and Production" class="card-image" />
                             <div class="modern-card-content">
-                                <h3 class="text-xl font-bold text-primary-blue mb-3">Oil Fields</h3>
+                                <h3 class="text-xl font-bold text-primary-blue mb-3">
+                                    Oil Fields
+                                </h3>
                                 <p class="text-gray-600 text-sm leading-relaxed">
-                                    Aggressively develop and acquire assets in oil exploration and production.
+                                    Aggressively develop and acquire assets in oil exploration
+                                    and production.
                                 </p>
                             </div>
                         </div>
 
-                        <div class="modern-card scroll-animate" style="transition-delay: 0.2s;">
+                        <div class="modern-card scroll-animate" style="transition-delay: 0.2s">
                             <img src="images/4218ff09-9fe4-4b8e-8a6b-f9a1dd438b17.jpg"
-                                alt="Supply Chain and Oil Terminals" class="card-image">
+                                alt="Supply Chain and Oil Terminals" class="card-image" />
                             <div class="modern-card-content">
-                                <h3 class="text-xl font-bold text-primary-blue mb-3">Supply Chain Growth</h3>
+                                <h3 class="text-xl font-bold text-primary-blue mb-3">
+                                    Supply Chain Growth
+                                </h3>
                                 <p class="text-gray-600 text-sm leading-relaxed">
-                                    Utilize our self-operated terminals for strategic cooperation and improved oil
-                                    product distribution.
+                                    Utilize our self-operated terminals for strategic
+                                    cooperation and improved oil product distribution.
                                 </p>
                             </div>
                         </div>
 
-                        <div class="modern-card scroll-animate" style="transition-delay: 0.3s;">
-                            <img src="images/4350d9e1425c011d6c612524d339e2ef.JPG"
-                                alt="Diversified Oil Product Operations" class="card-image">
+                        <div class="modern-card scroll-animate" style="transition-delay: 0.3s">
+                            <img src="images/4350d9e1425c011d6c612524d339e2ef.jpg"
+                                alt="Diversified Oil Product Operations" class="card-image" />
                             <div class="modern-card-content">
-                                <h3 class="text-xl font-bold text-primary-blue mb-3">Diversified Operations</h3>
+                                <h3 class="text-xl font-bold text-primary-blue mb-3">
+                                    Diversified Operations
+                                </h3>
                                 <p class="text-gray-600 text-sm leading-relaxed">
-                                    Deepen our involvement in oil product export, warehousing, and ship supply
-                                    businesses.
+                                    Deepen our involvement in oil product export, warehousing,
+                                    and ship supply businesses.
                                 </p>
                             </div>
                         </div>
@@ -402,14 +658,17 @@
             </section>
         </section>
 
-
         <section id="milestones" data-page-title="Future Goals" class="page-content hidden">
-            <section class="page-header"
-                style="background-image: url('images/7adb8996a706c315f977951431d9a299.JPG');">
+            <section class="page-header" style="
+            background-image: url('images/7adb8996a706c315f977951431d9a299.jpg');
+          ">
                 <div class="relative z-10 px-4">
-                    <h1 class="text-4xl md:text-6xl font-bold reveal">Achievements & Milestones</h1>
-                    <p class="text-xl mt-4 max-w-3xl mx-auto reveal" style="transition-delay: 0.2s;">
-                        Highlighting major breakthroughs, like the first foreign trade asphalt mixtures.
+                    <h1 class="text-4xl md:text-6xl font-bold reveal">
+                        Achievements & Milestones
+                    </h1>
+                    <p class="text-xl mt-4 max-w-3xl mx-auto reveal" style="transition-delay: 0.2s">
+                        Highlighting major breakthroughs, like the first foreign trade
+                        asphalt mixtures.
                     </p>
                 </div>
             </section>
@@ -417,11 +676,14 @@
             <section class="py-20 lg:py-32 bg-gray-50">
                 <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="text-center max-w-4xl mx-auto reveal mb-16">
-                        <h2 class="text-3xl lg:text-4xl font-bold mb-6">Navigating Success: Milestones and Breakthroughs
+                        <h2 class="text-3xl lg:text-4xl font-bold mb-6">
+                            Navigating Success: Milestones and Breakthroughs
                         </h2>
-                        <p class="text-lg text-gray-700">At Falco Corporation, our journey has been marked by strategic
-                            vision, adaptability to economic shifts, and a relentless pursuit of excellence. Here are
-                            some key achievements.</p>
+                        <p class="text-lg text-gray-700">
+                            At Falco Corporation, our journey has been marked by strategic
+                            vision, adaptability to economic shifts, and a relentless
+                            pursuit of excellence. Here are some key achievements.
+                        </p>
                     </div>
 
                     <div class="relative max-w-4xl mx-auto">
@@ -431,10 +693,15 @@
                             <div class="timeline-dot"></div>
                             <div class="timeline-content highlight">
                                 <i class="fas fa-star highlight-icon"></i>
-                                <h3 class="timeline-title">Scope Expansion and Breakthroughs</h3>
-                                <p class="timeline-text">In May 2020, initiated the export of asphalt mixtures and fuel
-                                    oil. Completed the first trade of foreign trade asphalt mixtures in August and
-                                    September, delivering 500,000 barrels—a major breakthrough in business scope.</p>
+                                <h3 class="timeline-title">
+                                    Scope Expansion and Breakthroughs
+                                </h3>
+                                <p class="timeline-text">
+                                    In May 2020, initiated the export of asphalt mixtures and
+                                    fuel oil. Completed the first trade of foreign trade asphalt
+                                    mixtures in August and September, delivering 500,000
+                                    barrels—a major breakthrough in business scope.
+                                </p>
                             </div>
                         </div>
 
@@ -443,9 +710,11 @@
                             <div class="timeline-content">
                                 <i class="fas fa-chart-line timeline-icon"></i>
                                 <h3 class="timeline-title">Market Insight and Direction</h3>
-                                <p class="timeline-text">Vigilant attention to domestic and international economic
-                                    situations and macro policies. Continuous study of market trends to clarity the
-                                    company's direction and goals.</p>
+                                <p class="timeline-text">
+                                    Vigilant attention to domestic and international economic
+                                    situations and macro policies. Continuous study of market
+                                    trends to clarity the company's direction and goals.
+                                </p>
                             </div>
                         </div>
 
@@ -453,9 +722,13 @@
                             <div class="timeline-dot"></div>
                             <div class="timeline-content">
                                 <i class="fas fa-cogs timeline-icon"></i>
-                                <h3 class="timeline-title">Business Expansion and Optimization</h3>
-                                <p class="timeline-text">Continuous development of new business varieties. Ongoing
-                                    efforts to optimize the business structure and cultivate a mature operation team.
+                                <h3 class="timeline-title">
+                                    Business Expansion and Optimization
+                                </h3>
+                                <p class="timeline-text">
+                                    Continuous development of new business varieties. Ongoing
+                                    efforts to optimize the business structure and cultivate a
+                                    mature operation team.
                                 </p>
                             </div>
                         </div>
@@ -464,11 +737,16 @@
                             <div class="timeline-dot"></div>
                             <div class="timeline-content">
                                 <i class="fas fa-handshake timeline-icon"></i>
-                                <h3 class="timeline-title">Market Development and Partnerships</h3>
-                                <p class="timeline-text">Successfully developed markets in Shandong and Northeast China
-                                    for fuel oil and bitumen mixture. Established deals with key partners such as
-                                    PanjinYijiu Petrochemical Co., Ltd. and Baolai Bioenergy. Secured the oil from Hebei
-                                    Lunt Group.</p>
+                                <h3 class="timeline-title">
+                                    Market Development and Partnerships
+                                </h3>
+                                <p class="timeline-text">
+                                    Successfully developed markets in Shandong and Northeast
+                                    China for fuel oil and bitumen mixture. Established deals
+                                    with key partners such as PanjinYijiu Petrochemical Co.,
+                                    Ltd. and Baolai Bioenergy. Secured the oil from Hebei Lunt
+                                    Group.
+                                </p>
                             </div>
                         </div>
 
@@ -476,9 +754,13 @@
                             <div class="timeline-dot"></div>
                             <div class="timeline-content">
                                 <i class="fas fa-shipping-fast timeline-icon"></i>
-                                <h3 class="timeline-title">Infrastructure and Export Achievement</h3>
-                                <p class="timeline-text">Achieved a significant milestone with a monthly export of
-                                    approximately 600,000 tons.</p>
+                                <h3 class="timeline-title">
+                                    Infrastructure and Export Achievement
+                                </h3>
+                                <p class="timeline-text">
+                                    Achieved a significant milestone with a monthly export of
+                                    approximately 600,000 tons.
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -487,10 +769,12 @@
         </section>
 
         <section id="global-reach" data-page-title="Global Reach" class="page-content hidden">
-            <section class="page-header" style="background-image: url('images/fbbd727f-fc9e-4751-84a0-523f3a385d43.jpeg');">
+            <section class="page-header" style="
+            background-image: url('images/fbbd727f-fc9e-4751-84a0-523f3a385d43.jpeg');
+          ">
                 <div class="relative z-10 px-4 text-center">
                     <h1 class="text-4xl md:text-6xl font-bold reveal">Global Reach</h1>
-                    <p class="text-xl mt-4 max-w-3xl mx-auto reveal" style="transition-delay: 0.2s;">
+                    <p class="text-xl mt-4 max-w-3xl mx-auto reveal" style="transition-delay: 0.2s">
                         Connecting Global Markets with Expertise and Reliability
                     </p>
                 </div>
@@ -500,13 +784,16 @@
                 <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="text-center max-w-3xl mx-auto reveal mb-16">
                         <h2 class="text-4xl font-bold mb-6">Our Global Presence</h2>
-                        <p class="text-lg text-gray-700">From our strategic headquarters in the Middle East, we have
-                            successfully expanded our operations worldwide. We specialize in navigating complex and
-                            politically unstable environments, ensuring safe, ethical, and optimized performance in
-                            every market we serve.</p>
+                        <p class="text-lg text-gray-700">
+                            From our strategic headquarters in the Middle East, we have
+                            successfully expanded our operations worldwide. We specialize in
+                            navigating complex and politically unstable environments,
+                            ensuring safe, ethical, and optimized performance in every
+                            market we serve.
+                        </p>
                     </div>
-                    <div class="reveal relative overflow-hidden rounded-lg shadow-2xl" style="height: 550px;">
-                        <div id="map-global" style="width: 100%; height: 100%;"></div>
+                    <div class="reveal relative overflow-hidden rounded-lg shadow-2xl" style="height: 550px">
+                        <div id="map-global" style="width: 100%; height: 100%"></div>
                     </div>
                 </div>
             </section>
@@ -514,10 +801,14 @@
             <section class="py-20 lg:py-32 bg-gray-50">
                 <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="text-center max-w-3xl mx-auto reveal mb-16">
-                        <h2 class="text-4xl font-bold mb-6">Partnerships & Successful Projects</h2>
-                        <p class="text-lg text-gray-700">Our journey is marked by significant milestones and
-                            strategic alliances that highlight our capability and commitment to excellence in the
-                            global energy trade.</p>
+                        <h2 class="text-4xl font-bold mb-6">
+                            Partnerships & Successful Projects
+                        </h2>
+                        <p class="text-lg text-gray-700">
+                            Our journey is marked by significant milestones and strategic
+                            alliances that highlight our capability and commitment to
+                            excellence in the global energy trade.
+                        </p>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -526,28 +817,34 @@
                                 <i class="fas fa-box-open project-icon"></i>
                             </div>
                             <h3 class="project-title">Major Business Breakthrough</h3>
-                            <p class="project-description">In a major expansion of our business scope, we
-                                successfully delivered 500,000 barrels in our first foreign trade of asphalt
-                                mixtures, marking a significant achievement.</p>
+                            <p class="project-description">
+                                In a major expansion of our business scope, we successfully
+                                delivered 500,000 barrels in our first foreign trade of
+                                asphalt mixtures, marking a significant achievement.
+                            </p>
                         </div>
-                        <div class="project-card reveal" style="transition-delay: 0.1s;">
+                        <div class="project-card reveal" style="transition-delay: 0.1s">
                             <div class="project-icon-wrapper">
                                 <i class="fas fa-map-marked-alt project-icon"></i>
                             </div>
                             <h3 class="project-title">New Market Development</h3>
-                            <p class="project-description">Successfully developed and established a strong presence
-                                in the fuel oil and bitumen mixture markets in Shandong and Northeast China.</p>
+                            <p class="project-description">
+                                Successfully developed and established a strong presence in
+                                the fuel oil and bitumen mixture markets in Shandong and
+                                Northeast China.
+                            </p>
                         </div>
-                        <div class="project-card reveal" style="transition-delay: 0.2s;">
+                        <div class="project-card reveal" style="transition-delay: 0.2s">
                             <div class="project-icon-wrapper">
                                 <i class="fas fa-handshake project-icon"></i>
                             </div>
                             <h3 class="project-title">Key Strategic Partnerships</h3>
-                            <p class="project-description">Forged key partnerships with industry leaders such as
-                                PanjinYijiu Petrochemical Co., Ltd., Baolai Bioenergy, and secured oil from the
-                                Hebei Lunt Group.</p>
+                            <p class="project-description">
+                                Forged key partnerships with industry leaders such as
+                                PanjinYijiu Petrochemical Co., Ltd., Baolai Bioenergy, and
+                                secured oil from the Hebei Lunt Group.
+                            </p>
                         </div>
-
                     </div>
                 </div>
             </section>
@@ -555,11 +852,13 @@
 
         <section id="history" data-page-title="History" class="page-content hidden">
             <section class="page-header">
-                <img src="images/7adb8996a706c315f977951431d9a299.JPG"
-                    alt="A representation of Falco's history and growth" class="hero-background" loading="eager">
+                <img src="images/7adb8996a706c315f977951431d9a299.jpg"
+                    alt="A representation of Falco's history and growth" class="hero-background" loading="eager" />
                 <div class="relative z-10 px-4">
-                    <h1 class="text-4xl md:text-6xl font-bold reveal visible">Our History</h1>
-                    <p class="text-xl mt-4 max-w-3xl mx-auto reveal visible" style="transition-delay: 0.2s;">
+                    <h1 class="text-4xl md:text-6xl font-bold reveal visible">
+                        Our History
+                    </h1>
+                    <p class="text-xl mt-4 max-w-3xl mx-auto reveal visible" style="transition-delay: 0.2s">
                         Tracing our journey from a focused ambition to a global presence.
                     </p>
                 </div>
@@ -570,29 +869,32 @@
                     <div class="max-w-3xl mx-auto">
                         <div class="reveal">
                             <p class="text-lg text-gray-700 mb-6 leading-relaxed">
-                                Falco Corporation was founded in the United Arab Emirates in 2021 with a clear
-                                ambition — to establish a strong presence in the global oil and gas trading
-                                industry.
+                                Falco Corporation was founded in the United Arab Emirates in
+                                2021 with a clear ambition — to establish a strong presence in
+                                the global oil and gas trading industry.
                             </p>
                             <p class="text-lg text-gray-700 mb-6 leading-relaxed">
-                                From the start, our focus has been on building a business that combines reliable
-                                trading with efficient logistics, storage, and shipping solutions. Within a short
-                                span, we expanded our reach beyond the UAE, establishing operations across Asia, the
-                                Middle East, North and South America, and Africa. This growth reflects our ability
-                                to navigate complex markets and build strong partnerships that stand the test of
-                                time.
+                                From the start, our focus has been on building a business that
+                                combines reliable trading with efficient logistics, storage,
+                                and shipping solutions. Within a short span, we expanded our
+                                reach beyond the UAE, establishing operations across Asia, the
+                                Middle East, North and South America, and Africa. This growth
+                                reflects our ability to navigate complex markets and build
+                                strong partnerships that stand the test of time.
                             </p>
                             <p class="text-lg text-gray-700 mb-6 leading-relaxed">
-                                Though Falco is a young company, our strength lies in the experience of our people.
-                                Our leadership and team together bring over 60 years of combined expertise in global
-                                energy trading, logistics, and supply chain management. This legacy of knowledge and
-                                industry know-how ensures that every decision we make is guided by deep
-                                understanding and proven capability.
+                                Though Falco is a young company, our strength lies in the
+                                experience of our people. Our leadership and team together
+                                bring over 60 years of combined expertise in global energy
+                                trading, logistics, and supply chain management. This legacy
+                                of knowledge and industry know-how ensures that every decision
+                                we make is guided by deep understanding and proven capability.
                             </p>
                             <p class="text-lg text-gray-700 leading-relaxed">
-                                Today, Falco continues to grow with the same entrepreneurial spirit that defined our
-                                beginnings — committed to meeting the evolving needs of the energy market and
-                                creating long-term value for our partners worldwide.
+                                Today, Falco continues to grow with the same entrepreneurial
+                                spirit that defined our beginnings — committed to meeting the
+                                evolving needs of the energy market and creating long-term
+                                value for our partners worldwide.
                             </p>
                         </div>
                     </div>
@@ -600,119 +902,160 @@
             </section>
         </section>
 
-       <section id="products" data-page-title="Products & Solutions" class="page-content hidden">
-    <section class="page-header" style="background-image: url('images/product/IMG_8686.JPG');">
-        <div class="relative z-10 px-4 text-center">
-            <h1 class="text-4xl md:text-6xl font-bold reveal">Products & Solutions</h1>
-            <p class="text-xl mt-4 max-w-3xl mx-auto reveal" style="transition-delay: 0.2s;">
-                Powering Industries with a Diverse and High-Quality Energy Portfolio
-            </p>
-        </div>
-    </section>
+        <section id="products" data-page-title="Products & Solutions" class="page-content hidden">
+            <section class="page-header" style="background-image: url('images/product/IMG_8686.jpg')">
+                <div class="relative z-10 px-4 text-center">
+                    <h1 class="text-4xl md:text-6xl font-bold reveal">
+                        Products & Solutions
+                    </h1>
+                    <p class="text-xl mt-4 max-w-3xl mx-auto reveal" style="transition-delay: 0.2s">
+                        Powering Industries with a Diverse and High-Quality Energy
+                        Portfolio
+                    </p>
+                </div>
+            </section>
 
-    <section class="py-20 lg:py-32 bg-white">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-16">
-                <h2 class="text-4xl font-bold mb-4 reveal">Our Core Offerings</h2>
-                <p class="text-lg text-gray-700 reveal">
-                    From the foundational crude oil that marks our legacy to advanced, cleaner energy solutions, our product portfolio is designed to meet the dynamic needs of a global market. We are committed to quality, reliability, and innovation in every barrel we deliver.
-                </p>
-            </div>
+            <section class="py-20 lg:py-32 bg-white">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center max-w-3xl mx-auto mb-16">
+                        <h2 class="text-4xl font-bold mb-4 reveal">Our Core Offerings</h2>
+                        <p class="text-lg text-gray-700 reveal">
+                            From the foundational crude oil that marks our legacy to
+                            advanced, cleaner energy solutions, our product portfolio is
+                            designed to meet the dynamic needs of a global market. We are
+                            committed to quality, reliability, and innovation in every
+                            barrel we deliver.
+                        </p>
+                    </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-
-                <div class="product-card reveal">
-                    <div class="product-card-inner">
-                        <div class="product-card-front">
-                            <i class="fas fa-tint product-icon"></i>
-                            <h3 class="product-title">Crude Oil</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div class="product-card reveal">
+                            <div class="product-card-inner">
+                                <div class="product-card-front">
+                                    <i class="fas fa-tint product-icon"></i>
+                                    <h3 class="product-title">Crude Oil</h3>
+                                </div>
+                                <div class="product-card-back">
+                                    <h3 class="text-xl font-bold mb-3 text-primary-blue">
+                                        Crude Oil
+                                    </h3>
+                                    <p class="product-description-flip">
+                                        At Falco Corporation, we recognize crude oil as the
+                                        foundation of our legacy, we continue to excel in the
+                                        procurement and trading of crude oil.
+                                    </p>
+                                </div>
+                            </div>
                         </div>
-                        <div class="product-card-back">
-                            <h3 class="text-xl font-bold mb-3 text-primary-blue">Crude Oil</h3>
-                            <p class="product-description-flip">At Falco Corporation, we recognize crude oil as the foundation of our legacy, we continue to excel in the procurement and trading of crude oil.</p>
+
+                        <div class="product-card reveal">
+                            <div class="product-card-inner">
+                                <div class="product-card-front">
+                                    <i class="fas fa-ship product-icon"></i>
+                                    <h3 class="product-title">Fuel Oil</h3>
+                                </div>
+                                <div class="product-card-back">
+                                    <h3 class="text-xl font-bold mb-3 text-primary-blue">
+                                        Fuel Oil
+                                    </h3>
+                                    <p class="product-description-flip">
+                                        At Falco Corporation, our expertise extends to fuel oil,
+                                        catering to the varied needs of industries with reliable
+                                        and quality supplies.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product-card reveal">
+                            <div class="product-card-inner">
+                                <div class="product-card-front">
+                                    <i class="fas fa-fire-alt product-icon"></i>
+                                    <h3 class="product-title">LPG</h3>
+                                </div>
+                                <div class="product-card-back">
+                                    <h3 class="text-xl font-bold mb-3 text-primary-blue">
+                                        LPG
+                                    </h3>
+                                    <p class="product-description-flip">
+                                        Falco Corporation is a trusted source for LPG, providing a
+                                        clean and efficient energy solution.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product-card reveal">
+                            <div class="product-card-inner">
+                                <div class="product-card-front">
+                                    <i class="fas fa-gas-pump product-icon"></i>
+                                    <h3 class="product-title">Diesel</h3>
+                                </div>
+                                <div class="product-card-back">
+                                    <h3 class="text-xl font-bold mb-3 text-primary-blue">
+                                        Diesel
+                                    </h3>
+                                    <p class="product-description-flip">
+                                        At Falco Corporation, with a focus on quality and
+                                        efficiency, our diesel offerings meet the highest industry
+                                        standards.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product-card reveal">
+                            <div class="product-card-inner">
+                                <div class="product-card-front">
+                                    <i class="fas fa-flask product-icon"></i>
+                                    <h3 class="product-title">Naphtha</h3>
+                                </div>
+                                <div class="product-card-back">
+                                    <h3 class="text-xl font-bold mb-3 text-primary-blue">
+                                        Naphtha
+                                    </h3>
+                                    <p class="product-description-flip">
+                                        We source and supply high-quality naphtha to meet the
+                                        needs of both the petrochemical and energy sectors,
+                                        ensuring consistent and timely deliveries.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product-card reveal">
+                            <div class="product-card-inner">
+                                <div class="product-card-front product-card-future">
+                                    <i class="fas fa-arrow-right future-icon"></i>
+                                    <h3 class="product-title">Future Innovations</h3>
+                                </div>
+                                <div class="product-card-back">
+                                    <h3 class="text-xl font-bold mb-3 text-primary-blue">
+                                        Future Innovations
+                                    </h3>
+                                    <p class="product-description-flip">
+                                        We are committed to pioneering the future of energy by
+                                        exploring new frontiers and expanding our portfolio with a
+                                        focus on sustainable solutions.
+                                    </p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-                <div class="product-card reveal">
-                    <div class="product-card-inner">
-                        <div class="product-card-front">
-                            <i class="fas fa-ship product-icon"></i>
-                            <h3 class="product-title">Fuel Oil</h3>
-                        </div>
-                        <div class="product-card-back">
-                            <h3 class="text-xl font-bold mb-3 text-primary-blue">Fuel Oil</h3>
-                            <p class="product-description-flip">At Falco Corporation, our expertise extends to fuel oil, catering to the varied needs of industries with reliable and quality supplies.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="product-card reveal">
-                    <div class="product-card-inner">
-                        <div class="product-card-front">
-                            <i class="fas fa-fire-alt product-icon"></i>
-                            <h3 class="product-title">LPG</h3>
-                        </div>
-                        <div class="product-card-back">
-                            <h3 class="text-xl font-bold mb-3 text-primary-blue">LPG</h3>
-                            <p class="product-description-flip">Falco Corporation is a trusted source for LPG, providing a clean and efficient energy solution.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="product-card reveal">
-                    <div class="product-card-inner">
-                        <div class="product-card-front">
-                            <i class="fas fa-gas-pump product-icon"></i>
-                            <h3 class="product-title">Diesel</h3>
-                        </div>
-                        <div class="product-card-back">
-                            <h3 class="text-xl font-bold mb-3 text-primary-blue">Diesel</h3>
-                            <p class="product-description-flip">At Falco Corporation, with a focus on quality and efficiency, our diesel offerings meet the highest industry standards.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="product-card reveal">
-                    <div class="product-card-inner">
-                        <div class="product-card-front">
-                            <i class="fas fa-flask product-icon"></i>
-                            <h3 class="product-title">Naphtha</h3>
-                        </div>
-                        <div class="product-card-back">
-                            <h3 class="text-xl font-bold mb-3 text-primary-blue">Naphtha</h3>
-                            <p class="product-description-flip">We source and supply high-quality naphtha to meet the needs of both the petrochemical and energy sectors, ensuring consistent and timely deliveries.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="product-card reveal">
-                    <div class="product-card-inner">
-                        <div class="product-card-front product-card-future">
-                            <i class="fas fa-arrow-right future-icon"></i>
-                            <h3 class="product-title">Future Innovations</h3>
-                        </div>
-                        <div class="product-card-back">
-                             <h3 class="text-xl font-bold mb-3 text-primary-blue">Future Innovations</h3>
-                            <p class="product-description-flip">We are committed to pioneering the future of energy by exploring new frontiers and expanding our portfolio with a focus on sustainable solutions.</p>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-</section>
+            </section>
+        </section>
 
         <section id="sustainability" data-page-title="Sustainability & Responsibility" class="page-content hidden">
             <section class="page-header">
-                <img src="images/fbbd727f-fc9e-4751-84a0-523f3a385d43.jpeg"    class="hero-background"
-                    loading="eager">
+                <img src="images/fbbd727f-fc9e-4751-84a0-523f3a385d43.jpeg" class="hero-background" loading="eager" />
                 <div class="relative z-10 px-4">
-                    <h1 class="text-4xl md:text-6xl font-bold reveal visible">Sustainability & Responsibility</h1>
-                    <p class="text-xl mt-4 max-w-3xl mx-auto reveal visible" style="transition-delay: 0.2s;">
-                        Committed to responsible practices that safeguard our planet and support the global energy
-                        transition.
+                    <h1 class="text-4xl md:text-6xl font-bold reveal visible">
+                        Sustainability & Responsibility
+                    </h1>
+                    <p class="text-xl mt-4 max-w-3xl mx-auto reveal visible" style="transition-delay: 0.2s">
+                        Committed to responsible practices that safeguard our planet and
+                        support the global energy transition.
                     </p>
                 </div>
             </section>
@@ -720,23 +1063,25 @@
             <section class="py-20 lg:py-32 bg-white sustainability-section commitment-section">
                 <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="grid lg:grid-cols-2 gap-12 items-center">
-                        <div class="scroll-animate" style="transition-delay: 0s;">
-                            <img loading="lazy" src="images/0fc71065f03b21fa2489b267c4ca24fe.JPG"
-                                alt="Close-up of solar panels" class="w-full h-full object-cover rounded-lg">
+                        <div class="scroll-animate" style="transition-delay: 0s">
+                            <img loading="lazy" src="images/0fc71065f03b21fa2489b267c4ca24fe.jpg"
+                                alt="Close-up of solar panels" class="w-full h-full object-cover rounded-lg" />
                         </div>
-                        <div class="scroll-animate" style="transition-delay: 0.2s;">
-                            <h2 class="text-3xl lg:text-4xl font-bold mb-6">Our Commitment to a Sustainable Future
+                        <div class="scroll-animate" style="transition-delay: 0.2s">
+                            <h2 class="text-3xl lg:text-4xl font-bold mb-6">
+                                Our Commitment to a Sustainable Future
                             </h2>
                             <p class="text-lg text-gray-700 mb-6 leading-relaxed">
-                                Falco is dedicated to safe, ethical trading and pioneering cleaner energy solutions.
-                                We adhere to the highest Environmental, Social, and Governance (ESG) standards and
-                                responsible practices to ensure a sustainable future for our industry and the
-                                communities we serve.
+                                Falco is dedicated to safe, ethical trading and pioneering
+                                cleaner energy solutions. We adhere to the highest
+                                Environmental, Social, and Governance (ESG) standards and
+                                responsible practices to ensure a sustainable future for our
+                                industry and the communities we serve.
                             </p>
                             <p class="text-lg text-gray-700 leading-relaxed">
-                                Our strategy focuses on reducing our operational footprint, investing in renewable
-                                energy, and promoting a culture of safety and responsibility across our entire value
-                                chain.
+                                Our strategy focuses on reducing our operational footprint,
+                                investing in renewable energy, and promoting a culture of
+                                safety and responsibility across our entire value chain.
                             </p>
                         </div>
                     </div>
@@ -746,39 +1091,45 @@
             <section class="py-20 lg:py-32 bg-light-gray sustainability-section">
                 <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="text-center max-w-3xl mx-auto mb-16 scroll-animate">
-                        <h2 class="text-3xl lg:text-4xl font-bold mb-4">Our ESG Approach</h2>
+                        <h2 class="text-3xl lg:text-4xl font-bold mb-4">
+                            Our ESG Approach
+                        </h2>
                         <p class="text-lg text-gray-700">
-                            We integrate ESG principles into every aspect of our business, from investment decisions
-                            to daily operations, to create long-term value for all our stakeholders.
+                            We integrate ESG principles into every aspect of our business,
+                            from investment decisions to daily operations, to create
+                            long-term value for all our stakeholders.
                         </p>
                     </div>
 
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-8">
-                        <div class="icon-card scroll-animate" style="transition-delay: 0s;">
+                        <div class="icon-card scroll-animate" style="transition-delay: 0s">
                             <div class="icon-circle">
                                 <i class="fas fa-leaf icon"></i>
                             </div>
                             <h3 class="text-2xl font-bold mb-2">Environmental</h3>
                             <p class="text-gray-600">
-                                Minimizing our carbon footprint and investing in eco-friendly technologies.
+                                Minimizing our carbon footprint and investing in eco-friendly
+                                technologies.
                             </p>
                         </div>
-                        <div class="icon-card scroll-animate" style="transition-delay: 0.1s;">
+                        <div class="icon-card scroll-animate" style="transition-delay: 0.1s">
                             <div class="icon-circle">
                                 <i class="fas fa-users icon"></i>
                             </div>
                             <h3 class="text-2xl font-bold mb-2">Social</h3>
                             <p class="text-gray-600">
-                                Prioritizing human rights, community well-being, and safe working conditions.
+                                Prioritizing human rights, community well-being, and safe
+                                working conditions.
                             </p>
                         </div>
-                        <div class="icon-card scroll-animate" style="transition-delay: 0.2s;">
+                        <div class="icon-card scroll-animate" style="transition-delay: 0.2s">
                             <div class="icon-circle">
                                 <i class="fas fa-balance-scale icon"></i>
                             </div>
                             <h3 class="text-2xl font-bold mb-2">Governance</h3>
                             <p class="text-gray-600">
-                                Maintaining transparent and ethical business practices at all levels.
+                                Maintaining transparent and ethical business practices at all
+                                levels.
                             </p>
                         </div>
                     </div>
@@ -786,264 +1137,305 @@
             </section>
         </section>
 
-      <section id="teams" data-page-title="Our Team" class="page-content hidden">
-    <section class="page-header">
-        <img src="images/01feef42-7a30-44ea-aefa-8243d08b99d5.jpg" class="hero-background" loading="eager">
-        <div class="relative z-10 px-4">
-            <h1 class="text-4xl md:text-6xl font-bold reveal visible">Leadership & Team</h1>
+        <section id="teams" data-page-title="Our Team" class="page-content hidden">
+            <section class="page-header">
+                <img src="images/01feef42-7a30-44ea-aefa-8243d08b99d5.jpg" class="hero-background" loading="eager" />
+                <div class="relative z-10 px-4">
+                    <h1 class="text-4xl md:text-6xl font-bold reveal visible">
+                        Leadership & Team
+                    </h1>
+                </div>
+            </section>
+
+           <section class="py-20 lg:py-32 bg-light-gray">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+            <h2 class="section-title text-gray-800 reveal">Empowering Success Through Expert Leadership</h2>
+            <p class="text-lg text-gray-600 mt-4 reveal">Our success is fueled by a team of seasoned professionals, carefully selected for their expertise, leadership, and rich industry resources.</p>
         </div>
-    </section>
-
-    <section class="py-20 lg:py-32 bg-gray-50 team-section">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-4xl mx-auto mb-16 scroll-animate">
-                <h2 class="text-4xl font-bold mb-4">Empowering Success Through Expert Leadership</h2>
-                <p class="text-lg text-gray-700">
-                    At Falco Corporation, our success is fuelled by a team of seasoned professionals, carefully selected for their expertise, leadership, and rich industry resources.
-                </p>
-            </div>
-
-            <div class="max-w-3xl mx-auto space-y-4">
-                <h3 class="text-3xl font-bold mb-6 text-center">Key Team Features</h3>
-
-                <details class="bg-white p-6 rounded-lg shadow-md cursor-pointer transition-all duration-300 open:bg-blue-50 open:text-blue-900">
-                    <summary class="flex justify-between items-center text-xl font-semibold leading-7">
-                        <span class="flex items-center space-x-3">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                            </svg>
-                            <span>Unique Trade Partnership Modes</span>
-                        </span>
-                        <span class="transform transition-transform duration-300">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                            </svg>
-                        </span>
-                    </summary>
-                    <div class="mt-4 text-gray-600 leading-relaxed">
-                        <p>Innovative and effective trade partnership nodes drive our success, ensuring dynamic and mutually beneficial collaborations.</p>
+        <div class="max-w-4xl mx-auto">
+            <div class="accordion">
+                <div class="accordion-item reveal">
+                    <button class="accordion-header">
+                        <span>Leadership Excellence</span>
+                        <i class="fas fa-chevron-down accordion-icon"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <p>Led by senior professional managers, our leadership brings a wealth of experience and industry insights to guide our strategic direction, ensuring we navigate market complexities with confidence.</p>
                     </div>
-                </details>
-
-                <details class="bg-white p-6 rounded-lg shadow-md cursor-pointer transition-all duration-300 open:bg-blue-50 open:text-blue-900">
-                    <summary class="flex justify-between items-center text-xl font-semibold leading-7">
-                        <span class="flex items-center space-x-3">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
-                            </svg>
-                            <span>Resource Integration</span>
-                        </span>
-                        <span class="transform transition-transform duration-300">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                            </svg>
-                        </span>
-                    </summary>
-                    <div class="mt-4 text-gray-600 leading-relaxed">
-                        <p>Our team possesses a strong ability to integrate resources, creating synergies that enhance our operational efficiency.</p>
+                </div>
+                <div class="accordion-item reveal">
+                    <button class="accordion-header">
+                        <span>Resource Integration</span>
+                        <i class="fas fa-chevron-down accordion-icon"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <p>Our team possesses a strong ability to integrate resources, creating synergies that enhance our operational efficiency and deliver superior value to our partners and clients across the globe.</p>
                     </div>
-                </details>
-
-                <details class="bg-white p-6 rounded-lg shadow-md cursor-pointer transition-all duration-300 open:bg-blue-50 open:text-blue-900">
-                    <summary class="flex justify-between items-center text-xl font-semibold leading-7">
-                        <span class="flex items-center space-x-3">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.023 12.023 0 002 12c0 4.237 2.213 7.907 5.762 10.046A12.023 12.023 0 0012 22c4.237 0 7.907-2.213 10.046-5.762A12.023 12.023 0 0022 12c0-3.34-1.226-6.413-3.382-8.816z" />
-                            </svg>
-                            <span>Leadership Excellence</span>
-                        </span>
-                        <span class="transform transition-transform duration-300">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                            </svg>
-                        </span>
-                    </summary>
-                    <div class="mt-4 text-gray-600 leading-relaxed">
-                        <p>Led by senior professional managers, our leadership brings a wealth of experience and industry insights to guide our strategic direction.</p>
+                </div>
+                <div class="accordion-item reveal">
+                    <button class="accordion-header">
+                        <span>Innovative Partnerships</span>
+                        <i class="fas fa-chevron-down accordion-icon"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <p>We utilize innovative and effective trade partnership modes that drive our success. We believe in building lasting relationships based on trust, integrity, and mutual benefit.</p>
                     </div>
-                </details>
-
-                <details class="bg-white p-6 rounded-lg shadow-md cursor-pointer transition-all duration-300 open:bg-blue-50 open:text-blue-900">
-                    <summary class="flex justify-between items-center text-xl font-semibold leading-7">
-                        <span class="flex items-center space-x-3">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.921-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.382-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
-                            </svg>
-                            <span>Partnership Alliance</span>
-                        </span>
-                        <span class="transform transition-transform duration-300">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                            </svg>
-                        </span>
-                    </summary>
-                    <div class="mt-4 text-gray-600 leading-relaxed">
-                        <p>We believe in building lasting relationships based on trust, integrity, and mutual benefit. Collaborate with us, and experience the advantage of working with a team committed to excellence.</p>
-                    </div>
-                </details>
-
-                <details class="bg-white p-6 rounded-lg shadow-md cursor-pointer transition-all duration-300 open:bg-blue-50 open:text-blue-900">
-                    <summary class="flex justify-between items-center text-xl font-semibold leading-7">
-                        <span class="flex items-center space-x-3">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path d="M12 14l9-5-9-5-9 5 9 5z" />
-                                <path d="M12 14l6.16-3.422a12.083 12.083 0 01.944 4.093c-.09.84-.45 1.638-1.049 2.215L12 21l-5.051-4.714c-.599-.577-.959-1.375-1.049-2.215a12.083 12.083 0 01.944-4.093L12 14z" />
-                            </svg>
-                            <span>Commitment to Excellence</span>
-                        </span>
-                        <span class="transform transition-transform duration-300">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                            </svg>
-                        </span>
-                    </summary>
-                    <div class="mt-4 text-gray-600 leading-relaxed">
-                        <p>With a commitment to good faith and mutual benefit, Falco Corporation is dedicated to providing you with our best services.</p>
-                    </div>
-                </details>
+                </div>
             </div>
         </div>
-    </section>
+    </div>
 </section>
+        </section>
 
         <section id="what-we-do" data-page-title="What We Do" class="page-content hidden">
             <section class="page-header">
-                <img src="images/8af66ebb-d81c-40a6-a3ef-82a0b09181c0.JPG"
-                    alt="Global logistics and operations" class="hero-background" loading="eager">
+                <img src="images/8af66ebb-d81c-40a6-a3ef-82a0b09181c0.jpg" alt="Global logistics and operations"
+                    class="hero-background" loading="eager" />
                 <div class="relative z-10 px-4">
-                    <h1 class="text-4xl md:text-6xl font-bold reveal visible">What We Do</h1>
-                    <p class="text-xl mt-4 max-w-3xl mx-auto reveal visible" style="transition-delay: 0.2s;">
+                    <h1 class="text-4xl md:text-6xl font-bold reveal visible">
+                        What We Do
+                    </h1>
+                    <p class="text-xl mt-4 max-w-3xl mx-auto reveal visible" style="transition-delay: 0.2s">
                         Our Business & Operations
                     </p>
                 </div>
             </section>
-
-            <section class="py-20 lg:py-32 bg-gray-50 overflow-hidden">
+            <!-- =================================================================== -->
+            <!-- ================== START: INTEGRATED VALUE CHAIN ================== -->
+            <!-- =================================================================== -->
+            <section class="py-20 lg:py-32 bg-light-gray">
                 <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="cycle-wrapper">
-                        <div class="cycle-center">
-                            <i class="fas fa-sync-alt text-4xl text-white"></i>
+                    <div class="grid lg:grid-cols-2 gap-16 items-center">
+                        <div class="text-left">
+                            <h2 class="section-title text-gray-800 reveal">Our Integrated Value Chain</h2>
+                            <p class="text-lg text-gray-600 mt-4 reveal">
+                                Our expertise spans the entire energy value chain. We create synergy across our
+                                operations to deliver excellence in the global market through oilfield development,
+                                logistics, trade, and supply chain management.
+                            </p>
                         </div>
-                        <div class="cycle-animator">
-                            <div class="cycle-path"></div>
-                            <div class="cycle-node">
-                                <div class="cycle-item">
-                                    <i class="fas fa-gas-pump cycle-icon"></i>
-                                    <h4 class="font-bold">Oilfield Development & Terminals</h4>
+                        <div class="colorful-slider-container">
+                            <div class="colorful-slider-track">
+                                <div class="colorful-slider-slide style-1"><i class="fas fa-gas-pump slide-icon"></i>
+                                    <h3 class="slide-title">Oilfield Development & Terminals</h3>
+                                </div>
+                                <div class="colorful-slider-slide style-2"><i class="fas fa-ship slide-icon"></i>
+                                    <h3 class="slide-title">Shipping & Logistics</h3>
+                                </div>
+                                <div class="colorful-slider-slide style-3"><i
+                                        class="fas fa-globe-americas slide-icon"></i>
+                                    <h3 class="slide-title">Import & Export Trade</h3>
+                                </div>
+                                <div class="colorful-slider-slide style-4"><i class="fas fa-chart-line slide-icon"></i>
+                                    <h3 class="slide-title">Energy Trading & Supply Chain</h3>
                                 </div>
                             </div>
-                            <div class="cycle-node">
-                                <div class="cycle-item">
-                                    <i class="fas fa-ship cycle-icon"></i>
-                                    <h4 class="font-bold">Shipping & Logistics</h4>
+                            <button id="colorful-slider-prev" class="slider-arrow prev"><i
+                                    class="fas fa-chevron-left"></i></button>
+                            <button id="colorful-slider-next" class="slider-arrow next"><i
+                                    class="fas fa-chevron-right"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- =================================================================== -->
+            <!-- ================== END: INTEGRATED VALUE CHAIN ================== -->
+            <!-- =================================================================== -->
+
+
+            <!-- =================================================================== -->
+            <!-- ================== START: GLOBAL REACH & STATS ================== -->
+            <!-- =================================================================== -->
+            <section class="py-20 lg:py-32 bg-white">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid lg:grid-cols-2 gap-12 items-center">
+            <div>
+                <span class="eyebrow-text text-primary-blue reveal">GLOBAL EXPANSION</span>
+                <h2 class="section-title text-gray-800 mt-2 reveal">Connecting Markets Worldwide</h2>
+                <p class="text-lg text-gray-600 mt-4 reveal">Since 2021, Falco Corporation has successfully expanded operations across the globe, establishing a strong presence in key markets and excelling in managing the complexities of diverse environments.</p>
+                <div class="grid grid-cols-2 gap-8 mt-12 text-center">
+                    <div class="reveal">
+                        <p class="text-5xl font-bold text-primary-blue">5+</p>
+                        <p class="mt-2 text-gray-700 font-semibold">Continents Served</p>
+                    </div>
+                    <div class="reveal" style="transition-delay: 0.1s;">
+                        <p class="text-5xl font-bold text-primary-blue">~600k</p>
+                        <p class="mt-2 text-gray-700 font-semibold">Tons Monthly Export</p>
+                    </div>
+                </div>
+                <div class="mt-12 reveal">
+                    <a href="#global-reach" class="themed-button-gradient nav-link">
+                        Explore Our Global Reach <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="reveal">
+                <div id="what-we-do-map" class="w-full h-[500px] rounded-2xl shadow-xl bg-gray-200"></div>
+            </div>
+        </div>
+    </div>
+</section>
+            <!-- =================================================================== -->
+            <!-- ================== END: GLOBAL REACH & STATS ================== -->
+            <!-- =================================================================== -->
+
+
+            <!-- =================================================================== -->
+            <!-- ================== START: OUR EXPERTISE DROPDOWNS ================== -->
+            <!-- =================================================================== -->
+            <section class="py-20 lg:py-32 bg-light-gray">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center max-w-3xl mx-auto mb-16">
+                        <h2 class="section-title text-gray-800 reveal">Empowering Success Through Expert Leadership</h2>
+                        <p class="text-lg text-gray-600 mt-4 reveal">Our success is fueled by a team of seasoned
+                            professionals, carefully selected for their expertise, leadership, and rich industry
+                            resources.</p>
+                    </div>
+                    <div class="max-w-4xl mx-auto">
+                        <div class="accordion">
+                            <!-- Accordion Item 1 -->
+                            <div class="accordion-item reveal">
+                                <button class="accordion-header">
+                                    <span>Leadership Excellence</span>
+                                    <i class="fas fa-plus accordion-icon"></i>
+                                </button>
+                                <div class="accordion-content">
+                                    <p>Led by senior professional managers, our leadership brings a wealth of experience
+                                        and industry insights to guide our strategic direction, ensuring we navigate
+                                        market complexities with confidence.</p>
                                 </div>
                             </div>
-                            <div class="cycle-node">
-                                <div class="cycle-item">
-                                    <i class="fas fa-globe-americas cycle-icon"></i>
-                                    <h4 class="font-bold">Import & Export Trade</h4>
+                            <!-- Accordion Item 2 -->
+                            <div class="accordion-item reveal">
+                                <button class="accordion-header">
+                                    <span>Resource Integration</span>
+                                    <i class="fas fa-chevron-down accordion-icon"></i>
+                                </button>
+                                <div class="accordion-content">
+                                    <p>Our team possesses a strong ability to integrate resources, creating synergies
+                                        that enhance our operational efficiency and deliver superior value to our
+                                        partners and clients across the globe.</p>
                                 </div>
                             </div>
-                            <div class="cycle-node">
-                                <div class="cycle-item">
-                                    <i class="fas fa-chart-line cycle-icon"></i>
-                                    <h4 class="font-bold">Energy Trading & Supply Chain</h4>
+                            <!-- Accordion Item 3 -->
+                            <div class="accordion-item reveal">
+                                <button class="accordion-header">
+                                    <span>Innovative Partnerships</span>
+                                    <i class="fas fa-chevron-down accordion-icon"></i>
+                                </button>
+                                <div class="accordion-content">
+                                    <p>We utilize innovative and effective trade partnership modes that drive our
+                                        success. We believe in building lasting relationships based on trust, integrity,
+                                        and mutual benefit.</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
+            <!-- =================================================================== -->
+            <!-- ================== END: OUR EXPERTISE DROPDOWNS ================== -->
+            <!-- =================================================================== -->
+
+
+            <!-- =================================================================== -->
+            <!-- ================== START: FUTURE FOCUS ================== -->
+            <!-- =================================================================== -->
             <section class="py-20 lg:py-32 bg-white">
                 <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="text-center max-w-3xl mx-auto mb-16">
-                        <h2 class="text-4xl font-bold mb-4 reveal">Our Integrated Operations</h2>
-                        <p class="text-lg text-gray-700 reveal">
-                            Our expertise spans the entire value chain. Each business area is a vital component of
-                            our integrated approach, working in synergy to deliver excellence in the global energy
-                            market.
-                        </p>
+                        <h2 class="section-title text-gray-800 reveal">Navigating the Future of Energy</h2>
+                        <p class="text-lg text-gray-600 mt-4 reveal">Our vision extends beyond present achievements as
+                            we strategically chart our course. Our future focus is on four key aspects of growth and
+                            innovation.</p>
                     </div>
-
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                        <div
-                            class="reveal bg-white rounded-lg shadow-lg overflow-hidden transform transition-all duration-300 hover:shadow-2xl hover:-translate-y-2">
-                            <img src="images/2bdd46ce-de04-4773-9c34-17202b3f0c72.JPG"
-                                alt="Oilfield Development Infrastructure" class="w-full h-48 object-cover">
-                            <div class="p-6">
-                                <h3 class="text-xl font-bold text-primary-blue mb-3">Oilfield Development &
-                                    Terminals</h3>
-                                <p class="text-gray-600 text-sm leading-relaxed">
-                                    We build our foundation on developing and acquiring oil fields, complemented by
-                                    the strategic operation of overseas storage terminals.
-                                </p>
-                            </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        <!-- Focus Card 1 -->
+                        <div class="focus-card reveal">
+                            <div class="focus-icon"><i class="fas fa-anchor"></i></div>
+                            <h3 class="focus-title">Ports</h3>
+                            <p class="focus-text">Comprehensive development of in-port vehicles and ships, with
+                                strategic initiatives to maximize the operational efficiency of our ports.</p>
                         </div>
-                        <div class="reveal bg-white rounded-lg shadow-lg overflow-hidden transform transition-all duration-300 hover:shadow-2xl hover:-translate-y-2"
-                            style="transition-delay: 0.1s;">
-                            <img src="images/fcd01457-900f-421e-9dd4-460227f5f2a4.JPG"
-                                alt="Shipping and Maritime Logistics" class="w-full h-48 object-cover">
-                            <div class="p-6">
-                                <h3 class="text-xl font-bold text-primary-blue mb-3">Shipping & Logistics</h3>
-                                <p class="text-gray-600 text-sm leading-relaxed">
-                                    Acting as the logistical backbone, we manage complex global transit to ensure
-                                    the safe and timely movement of energy products.
-                                </p>
-                            </div>
+                        <!-- Focus Card 2 -->
+                        <div class="focus-card reveal" style="transition-delay: 0.1s;">
+                            <div class="focus-icon"><i class="fas fa-industry"></i></div>
+                            <h3 class="focus-title">Oil Fields</h3>
+                            <p class="focus-text">Aggressive development and acquisition in oil exploration and
+                                production, leveraging our expertise to capitalize on new opportunities.</p>
                         </div>
-                        <div class="reveal bg-white rounded-lg shadow-lg overflow-hidden transform transition-all duration-300 hover:shadow-2xl hover:-translate-y-2"
-                            style="transition-delay: 0.2s;">
-                            <img src="images/8af66ebb-d81c-40a6-a3ef-82a0b09181c0.JPG"
-                                alt="Global Trade and Export Terminal" class="w-full h-48 object-cover">
-                            <div class="p-6">
-                                <h3 class="text-xl font-bold text-primary-blue mb-3">Import & Export Trade</h3>
-                                <p class="text-gray-600 text-sm leading-relaxed">
-                                    We are deeply engaged in the global trade of diverse energy products,
-                                    highlighting our breakthroughs and strong market presence.
-                                </p>
-                            </div>
+                        <!-- Focus Card 3 -->
+                        <div class="focus-card reveal" style="transition-delay: 0.2s;">
+                            <div class="focus-icon"><i class="fas fa-link"></i></div>
+                            <h3 class="focus-title">Supply Chain</h3>
+                            <p class="focus-text">Utilizing our self-operated oil export terminals to forge strategic
+                                business cooperation and enhance the entire oil product supply chain.</p>
                         </div>
-
-                        <div class="reveal bg-white rounded-lg shadow-lg overflow-hidden transform transition-all duration-300 hover:shadow-2xl hover:-translate-y-2"
-                            style="transition-delay: 0.3s;">
-                            <img src="images/2bdd46ce-de04-4773-9c34-17202b3f0c72.JPG"
-                                alt="Energy Trading Operations" class="w-full h-48 object-cover">
-                            <div class="p-6">
-                                <h3 class="text-xl font-bold text-primary-blue mb-3">Energy Trading & Supply Chain
-                                </h3>
-                                <p class="text-gray-600 text-sm leading-relaxed">
-                                    As a dynamic trading company, we forge strategic cooperation in the supply chain
-                                    to optimize performance and maximize profitability.
-                                </p>
-                            </div>
+                        <!-- Focus Card 4 -->
+                        <div class="focus-card reveal" style="transition-delay: 0.3s;">
+                            <div class="focus-icon"><i class="fas fa-atom"></i></div>
+                            <h3 class="focus-title">Diversified Operations</h3>
+                            <p class="focus-text">Deepening our involvement in export trade, warehousing, and ship
+                                supply businesses by capitalizing on our comprehensive strengths.</p>
                         </div>
                     </div>
                 </div>
             </section>
+            <!-- =================================================================== -->
+            <!-- ================== END: FUTURE FOCUS ================== -->
+            <!-- =================================================================== -->
+
+
+            <!-- ================================================================= -->
+            <!-- ================== HIDDEN GLOBAL REACH MODAL ================== -->
+            <!-- ================================================================= -->
+            <div id="global-reach-modal" class="custom-modal">
+                <div class="modal-backdrop"></div>
+                <div class="modal-container">
+                    <button class="modal-close-btn">&times;</button>
+                    <div class="modal-content">
+                        <i class="fas fa-globe-americas text-4xl text-primary-blue mb-4"></i>
+                        <h2 class="modal-title">Specialization in Challenging Environments</h2>
+                        <p class="modal-text">Falco's expertise lies in procuring from complex and politically unstable
+                            environments. Our deep understanding of appropriate conduct ensures safe and ethical
+                            business practices. This well-rounded expertise enables our group to navigate challenging
+                            environments with confidence, ensuring optimized performance in trading various energy
+                            products across Europe, the US, Singapore, China, Malaysia, the Middle East, and South
+                            America.</p>
+                    </div>
+                </div>
+            </div>
         </section>
     </main>
 
-  <footer class="bg-white border-t border-gray-200">
+    <footer class="bg-white border-t border-gray-200">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 <div>
-                    <a href="#home"><img src="images/logo.png" alt="Falco Corporation Logo" class="h-20 w-auto mb-4"></a>
-                    <p class="text-sm text-gray-500">A Global Energy Trading Powerhouse</p>
-                   
+                    <a href="#home"><img src="images/logo.png" alt="Falco Corporation Logo"
+                            class="h-20 w-auto mb-4" /></a>
+                    <p class="text-sm text-gray-500">
+                        A Global Energy Trading Powerhouse
+                    </p>
                 </div>
                 <div>
                     <h5 class="font-bold mb-4 uppercase">Company</h5>
                     <ul>
-                        <li class="mb-2"><a href="#about"
-                                class="hover:text-primary-blue transition-colors duration-200 nav-link">Who we are</a>
+                        <li class="mb-2">
+                            <a href="#about" class="hover:text-primary-blue transition-colors duration-200 nav-link">Who
+                                we are</a>
                         </li>
-                        <li class="mb-2"><a href="#what-we-do"
+                        <li class="mb-2">
+                            <a href="#what-we-do"
                                 class="hover:text-primary-blue transition-colors duration-200 nav-link">What we do</a>
                         </li>
-                         <li class="mb-2"><a href="#history"
+                        <li class="mb-2">
+                            <a href="#history"
                                 class="hover:text-primary-blue transition-colors duration-200 nav-link">History</a>
                         </li>
-                        <li class="mb-2"><a href="#sustainability"
+                        <li class="mb-2">
+                            <a href="#sustainability"
                                 class="hover:text-primary-blue transition-colors duration-200 nav-link">Sustainability</a>
                         </li>
                     </ul>
@@ -1051,292 +1443,37 @@
                 <div>
                     <h5 class="font-bold mb-4 uppercase">Explore</h5>
                     <ul>
-                        <li class="mb-2"><a href="#products"
+                        <li class="mb-2">
+                            <a href="#products"
                                 class="hover:text-primary-blue transition-colors duration-200 nav-link">Products &
-                                Solutions</a></li>
-                                 <li class="mb-2"><a href="#global-reach"
-                                class="hover:text-primary-blue transition-colors duration-200 nav-link">Global Reach</a></li>
-                                <li class="mb-2"><a href="#milestones"
-                                class="hover:text-primary-blue transition-colors duration-200 nav-link">Achievements & Milestones</a></li>
-                        <li class="mb-2"><a href="#future-goals"
+                                Solutions</a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#global-reach"
+                                class="hover:text-primary-blue transition-colors duration-200 nav-link">Global Reach</a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#milestones"
+                                class="hover:text-primary-blue transition-colors duration-200 nav-link">Achievements &
+                                Milestones</a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#future-goals"
                                 class="hover:text-primary-blue transition-colors duration-200 nav-link">Future Goals</a>
                         </li>
-                        <li class="mb-2"><a href="#teams"
+                        <li class="mb-2">
+                            <a href="#teams"
                                 class="hover:text-primary-blue transition-colors duration-200 nav-link">Leadership &
-                                Team</a></li>
-                        
+                                Team</a>
+                        </li>
                     </ul>
                 </div>
-
             </div>
             <div class="mt-12 border-t border-gray-200 pt-8 text-sm text-gray-500 text-center">
                 <p>&copy; 2025 Falco Corporation. All Rights Reserved.</p>
             </div>
         </div>
     </footer>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const header = document.getElementById('header');
-            const menuToggle = document.getElementById('menu-toggle');
-            const menuClose = document.getElementById('menu-close');
-            const fullscreenMenu = document.getElementById('fullscreen-menu');
-            const searchToggle = document.getElementById('search-toggle');
-            const searchModal = document.getElementById('search-modal');
-            const searchClose = document.getElementById('search-close');
-            const searchInput = document.getElementById('search-input');
-            const searchResults = document.getElementById('search-results');
-            const pageLinks = document.querySelectorAll('a[href^="#"]');
-            const pageContent = document.querySelectorAll('.page-content');
-            const body = document.body;
-
-            // Define all pages and their content for the in-memory search index
-            const pages = [
-                { title: 'Who We Are', url: '#about', content: 'Welcome to Falco Corporation - a dynamic force in the energy trading landscape. Founded in United Arab Emirates in 2021, Falco Corporation has evolved into a leading player in the oil and energy sector. Diversified Operations: Integration of oilfield development, overseas terminals, shipping management, and import/export trade. Comprehensive expertise as a dynamic energy trading company. Versatility in International Business: Engaged in diverse sectors such as crude oil import and export trade, crude oil refining, supply chain trade, and oil fields. Visionary Approach: At Falco Corporation, we embrace innovation, sustainability, and excellence. Our commitement extends beyond borders, creating a global impact in the energy trading arena.' },
-                { title: 'What We Do', url: '#what-we-do', content: 'Our expertise spans the entire value chain. Each business area is a vital component of our integrated approach, working in synergy to deliver excellence in the global energy market. Oilfield Development & Terminals: We build our foundation on developing and acquiring oil fields, complemented by the strategic operation of overseas storage terminals. Shipping & Logistics: Acting as the logistical backbone, we manage complex global transit to ensure the safe and timely movement of energy products. Import & Export Trade: We are deeply engaged in the global trade of diverse energy products, highlighting our breakthroughs and strong market presence. Energy Trading & Supply Chain: As a dynamic trading company, we forge strategic cooperation in the supply chain to optimize performance and maximize profitability.' },
-                { title: 'Products & Solutions', url: '#products', content: 'At Falco Corporation, our commitment to innovation is reflected in our diverse product portfolio. Starting historically with crude oil, we have consistently expanded our offerings to include a range of essential energy products. Crude Oil, Fuel Oil, LPG, Diesel. The foundation of our legacy, we continue to excel in the procurement and trading of crude oil. Our expertise extends to fuel oil, catering to the varied needs of industries with reliable and quality supplies. Falco Corporation is a trusted source for LPG, providing a clean and efficient energy solution. With a focus on quality and efficiency, our diesel offerings meet the highest industry standards. As we evolve, Falco remains dedicated to exploring new frontiers and expanding our product portfolio to meet the dynamic demands of the energy market.' },
-                { title: 'Global Reach', url: '#global-reach', content: 'In the dynamic landscape of international business, Falco Corporation has not only expanded its operations globally since 2021 but has also excelled in managing complexities inherent in diverse market. Key Achievements: Global Reach: Successfully expanded operations worldwide, establishing a strong presence in Europe, the US, Singapore, China, Malaysia, the Middle East, and South America. Specialization in Challenging Environments: Falco\'s expertise lies in procuring from complex and politically unstable environments. Deep understanding of appropriate conduct ensures safe and ethical business practices. Optimized Performance: Falco\'s well-rounded expertise enables the group to navigate challenging environments with safe conduct, ensuring optimized performance in trading various energy products. Strategic Growth Execution: The execution of a successful growth strategy has propelled Falco Corporation into new territories, fostering growth and prosperity. Future Outlook: As we continue to adapt and thrive in diverse markets, Hannon remains committed to setting benchmarks in global energy trading.' },
-                { title: 'Future Goals', url: '#future-goals', content: 'At Falco Corporation, our vision extends beyond the present achievements as we strategically chart our course for the future. In the coming phases, our focus will be on four key aspects: Ports: Comprehensive development of in-port vehicles and ships. Strategic initiatives to maximize the operational efficiency of our ports. Oil Fields: Aggressive development and acquisition in the field of oil exploration and production. Leveraging our expertise to capitalize on the opportunities within the oil field sector. Supply Chain Business: Utilizing the complementary advantages of our self-operated oil export terminals. Forging strategic business cooperation in the oil product supply chain. Diversified Operation of Oil Products: Capitalizing on our comprehensive strengths, including capital, oil product resources, and port location advantages. Deepening involvement in oil product export trade, warehousing, and ship supply businesses.' },
-                { title: 'History', url: '#history', content: 'In May 2020, initiated the export of asphalt mixtures and fuel oil. Completed the first trade of foreign trade asphalt mixtures in August and September, delivering 500,000 barrels-a major breakthrough in business scope. Market Development and Partnerships: Successfully developed markets in Shandong and Northeast China for fuel oil and bitumen mixture. Established deals with key partners such as PanjinYijiu Petrochemical Co., Ltd. and Baolai Bioenergy. Secured the oil from Hebei Lunt Group. Infrastructure and Export Achievement: Achieved a significant milestone with a monthly export of approximately 600,000 tons.' },
-                { title: 'Sustainability', url: '#sustainability', content: 'Committed to responsible practices that safeguard our planet and support the global energy transition. Falco is dedicated to safe, ethical trading and pioneering cleaner energy solutions. We adhere to the highest Environmental, Social, and Governance (ESG) standards and responsible practices to ensure a sustainable future for our industry and the communities we serve. Our strategy focuses on reducing our operational footprint, investing in renewable energy, and promoting a culture of safety and responsibility across our entire value chain.' },
-                { title: 'Leadership & Team', url: '#teams', content: 'At Falco Corporation, our success is fuelled by a team of seasoned professionals, carefully selected for their expertise, leadership, and rich industry resources. Key Team Features: Unique Trade Partnership Modes: Innovative and effective trade partnership modes drive our success, ensuring dynamic and mutually beneficial collaborations. Leadership Excellence: Led by senior professional managers, our leadership brings a wealth of experience and industry insights to guide our strategic direction. Partnership Alliance: We believe in building lasting relationships based on trust, integrity, and mutual benefit.' },
-                { title: 'Careers', url: '#careers', content: 'We are seeking talented and dedicated individuals to join our team.' },
-                { title: 'Contact', url: '#contact', content: 'Get in touch with us for inquiries or to learn more about our services.' }
-            ];
-
-            // Functions for page and title management
-            function setPage(pageId) {
-                pageContent.forEach(page => page.classList.add('hidden'));
-                const currentPage = document.getElementById(pageId);
-                if (currentPage) {
-                    currentPage.classList.remove('hidden');
-                    const pageTitle = currentPage.getAttribute('data-page-title');
-                    document.title = `Falco Corporation | ${pageTitle}`;
-                    window.scrollTo({ top: 0, behavior: 'instant' });
-                    initializePageScripts(pageId);
-                }
-            }
-
-            function handleNavigation(event) {
-                event.preventDefault();
-                const url = event.target.closest('a').getAttribute('href');
-                let pageId = url.substring(url.indexOf('#') + 1);
-
-                // Handle the special case for #news
-                if (pageId.includes('news')) {
-                    pageId = 'home';
-                }
-
-                setPage(pageId);
-                window.history.pushState(null, '', url);
-            }
-
-            // Bind navigation events
-            pageLinks.forEach(link => {
-                link.addEventListener('click', handleNavigation);
-            });
-
-            // Handle back/forward browser buttons
-            window.addEventListener('popstate', () => {
-                const url = window.location.href;
-                let pageId = url.substring(url.indexOf('#') + 1);
-                if (!pageId) {
-                    pageId = 'home';
-                }
-                setPage(pageId);
-            });
-
-            // Initial page load
-            const initialPageId = window.location.hash ? window.location.hash.substring(1) : 'home';
-            setPage(initialPageId);
-            window.history.replaceState(null, '', '#' + initialPageId);
-
-
-            // Function to initialize scripts for specific pages
-            function initializePageScripts(pageId) {
-                if (pageId === 'about') {
-                    // Script for the about page
-                    var map = L.map('map-about', { scrollWheelZoom: false }).setView([25, 10], 2);
-                    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/dark_all/{z}/{x}/{y}{r}.png', {
-                        attribution: '&copy; <a href="https://carto.com/attributions">CartoDB</a>',
-                    }).addTo(map);
-
-                    var hqIcon = L.divIcon({ className: 'custom-div-icon', html: '<div style="background-color:#3b82f6; width:20px; height:20px; border-radius:50%; border:3px solid white; box-shadow:0 0 8px rgba(0,0,0,0.5);"></div>', iconSize: [20, 20], iconAnchor: [10, 10] });
-                    var customIcon = L.divIcon({ className: 'custom-div-icon', html: '<div style="background-color:white; width:15px; height:15px; border-radius:50%; border:2px solid #3b82f6;"></div>', iconSize: [15, 15], iconAnchor: [7.5, 7.5] });
-
-                    var hq = { name: 'Headquarters (Middle East)', coords: [25.27, 55.29] };
-                    var locations = [
-                        { name: 'Europe', coords: [51.50, -0.12] },
-                        { name: 'United States', coords: [29.76, -95.36] },
-                        { name: 'Singapore', coords: [1.35, 103.81] },
-                        { name: 'China', coords: [31.23, 121.47] },
-                        { name: 'South America', coords: [-22.90, -43.17] }
-                    ];
-
-                    L.marker(hq.coords, { icon: hqIcon, title: hq.name }).addTo(map).bindPopup('<b>' + hq.name + '</b>');
-                    locations.forEach(function (location) {
-                        L.marker(location.coords, { icon: customIcon, title: location.name }).addTo(map).bindPopup('<b>' + location.name + '</b>');
-                        L.polyline([hq.coords, location.coords], { color: '#3b82f6', weight: 1.5, opacity: 0.5, dashArray: '5, 5' }).addTo(map);
-                    });
-                }
-
-                if (pageId === 'global-reach') {
-                    // Script for the global-reach page
-                    var mapGlobal = L.map('map-global', { scrollWheelZoom: false }).setView([25, 40], 2.5);
-                    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/dark_all/{z}/{x}/{y}{r}.png', {
-                        attribution: '&copy; <a href="https://carto.com/attributions">CartoDB</a>',
-                    }).addTo(mapGlobal);
-                    var hqIconGlobal = L.divIcon({
-                        className: 'custom-div-icon',
-                        html: `<div style="background-color:#3b82f6; width:24px; height:24px; border-radius:50%; border:4px solid white; box-shadow:0 0 10px rgba(59, 130, 246, 0.7);"></div>`,
-                        iconSize: [24, 24],
-                        iconAnchor: [12, 12]
-                    });
-                    var customIconGlobal = L.divIcon({
-                        className: 'custom-div-icon',
-                        html: `<div style="background-color:white; width:16px; height:16px; border-radius:50%; border:3px solid #3b82f6;"></div>`,
-                        iconSize: [16, 16],
-                        iconAnchor: [8, 8]
-                    });
-                    var hqGlobal = { name: 'Headquarters (UAE, Middle East)', coords: [25.27, 55.29] };
-                    var locationsGlobal = [
-                        { name: 'Europe Operations', coords: [50.11, 8.68] },
-                        { name: 'United States Operations', coords: [29.76, -95.36] },
-                        { name: 'Singapore Hub', coords: [1.35, 103.81] },
-                        { name: 'China Operations', coords: [31.23, 121.47] },
-                        { name: 'South America Operations', coords: [-14.23, -51.92] }
-                    ];
-                    L.marker(hqGlobal.coords, { icon: hqIconGlobal }).addTo(mapGlobal).bindPopup(`<b>${hqGlobal.name}</b>`).openPopup();
-                    locationsGlobal.forEach(function (location) {
-                        L.marker(location.coords, { icon: customIconGlobal }).addTo(mapGlobal).bindPopup(`<b>${location.name}</b>`);
-                        L.polyline.antPath([hqGlobal.coords, location.coords], {
-                            "delay": 800,
-                            "dashArray": [10, 20],
-                            "weight": 2.5,
-                            "color": "#3b82f6",
-                            "pulseColor": "#FFFFFF",
-                            "paused": false,
-                            "reverse": false,
-                            "hardwareAccelerated": true
-                        }).addTo(mapGlobal);
-                    });
-                }
-            }
-
-
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 50) { header.classList.add('scrolled'); }
-                else { header.classList.remove('scrolled'); }
-            });
-
-            menuToggle.addEventListener('click', () => fullscreenMenu.classList.add('open'));
-            menuClose.addEventListener('click', () => fullscreenMenu.classList.remove('open'));
-            fullscreenMenu.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', () => fullscreenMenu.classList.remove('open'));
-            });
-
-            searchToggle.addEventListener('click', () => {
-                searchModal.classList.remove('hidden');
-                searchModal.classList.add('flex');
-                setTimeout(() => searchInput.focus(), 300);
-            });
-            searchClose.addEventListener('click', () => {
-                searchModal.classList.add('hidden');
-                searchModal.classList.remove('flex');
-                searchInput.value = '';
-                searchResults.innerHTML = '';
-            });
-
-            searchInput.addEventListener('input', (e) => {
-                const query = e.target.value.toLowerCase();
-                searchResults.innerHTML = '';
-
-                if (query.length > 1) { // Trigger search with at least 2 characters
-                    const filteredPages = pages.filter(page =>
-                        page.title.toLowerCase().includes(query) ||
-                        page.content.toLowerCase().includes(query)
-                    );
-
-                    if (filteredPages.length > 0) {
-                        filteredPages.forEach(page => {
-                            const resultItem = document.createElement('a');
-                            resultItem.href = page.url;
-                            resultItem.classList.add('block', 'p-4', 'hover:bg-gray-700', 'rounded-lg', 'transition-colors');
-
-                            // Highlight the matching query in the result content
-                            const highlightedContent = page.content.replace(new RegExp(query, 'gi'), (match) => `<span class="bg-yellow-300 text-black px-1 rounded">${match}</span>`);
-
-                            resultItem.innerHTML = `<h3 class="font-bold text-xl">${page.title}</h3><p class="text-sm text-gray-400">${highlightedContent}</p>`;
-                            searchResults.appendChild(resultItem);
-                        });
-                    } else {
-                        searchResults.innerHTML = '<p class="text-gray-400">No results found.</p>';
-                    }
-                }
-            });
-
-            const revealElements = document.querySelectorAll('.reveal');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.1 });
-            revealElements.forEach(el => observer.observe(el));
-
-            // Slider functionality for the home page
-            const track = document.getElementById('slider-track');
-            if (track) {
-                const prevBtn = document.getElementById('prev-btn');
-                const nextBtn = document.getElementById('next-btn');
-                const items = document.querySelectorAll('.slider-item');
-                let index = 0;
-                const totalItems = items.length;
-                let itemWidth = items.length > 0 ? (items[0].getBoundingClientRect().width) : 0;
-
-                function updateSlider() { if (itemWidth > 0) track.style.transform = `translateX(-${index * itemWidth}px)`; }
-
-                function getVisibleSlides() {
-                    if (window.innerWidth >= 1024) return 3;
-                    if (window.innerWidth >= 768) return 2;
-                    return 1;
-                }
-
-                nextBtn.addEventListener('click', () => {
-                    const maxIndex = totalItems - getVisibleSlides();
-                    if (index < maxIndex) { index++; updateSlider(); }
-                });
-                prevBtn.addEventListener('click', () => { if (index > 0) { index--; updateSlider(); } });
-
-                window.addEventListener('resize', () => {
-                    itemWidth = items.length > 0 ? items[0].getBoundingClientRect().width : 0;
-                    const maxIndex = totalItems - getVisibleSlides();
-                    if (index > maxIndex) index = maxIndex;
-                    updateSlider();
-                });
-                itemWidth = items.length > 0 ? items[0].getBoundingClientRect().width : 0;
-            }
-            // A simple Intersection Observer to reveal elements on scroll
-            const observerOptions = {
-                root: null,
-                rootMargin: "0px",
-                threshold: 0.1
-            };
-            const scrollObserver = new IntersectionObserver((entries, scrollObserver) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add("is-visible");
-                        scrollObserver.unobserve(entry.target);
-                    }
-                });
-            }, observerOptions);
-            document.querySelectorAll(".scroll-animate").forEach(element => {
-                scrollObserver.observe(element);
-            });
-        });
-    </script>
 </body>
 
 </html>
