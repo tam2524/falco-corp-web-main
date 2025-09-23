@@ -431,141 +431,154 @@ storyCloseBtn.addEventListener('click', () => {
             L.polyline([hq.coords, location.coords], { color: '#3b82f6', weight: 1.5, opacity: 0.5, dashArray: '5, 5' }).addTo(map);
         });
     }
-
-     if (pageId === 'history') {
-        const slider = document.getElementById('history-slider');
-        if (!slider) return;
-
-        const track = slider.querySelector('.history-slider-track');
-        const slides = Array.from(track.children);
-        const nextButton = document.getElementById('history-slider-next');
-        const prevButton = document.getElementById('history-slider-prev');
-        const dotsNav = document.getElementById('history-slider-dots');
-        let currentSlide = 0;
-        let autoSlideInterval;
-
-        // Create dots
-        slides.forEach((slide, index) => {
-            const dot = document.createElement('button');
-            dot.classList.add('slider-dot');
-            dot.addEventListener('click', () => {
-                moveToSlide(index);
-                resetAutoSlide();
-            });
-            dotsNav.appendChild(dot);
-        });
-        const dots = Array.from(dotsNav.children);
+    if (pageId === 'products') {
+    const sliderTrack = document.querySelector('.colorful-slider-track');
+    if (sliderTrack) {
+        const slides = Array.from(sliderTrack.children);
+        const nextButton = document.getElementById('colorful-slider-next');
+        const prevButton = document.getElementById('colorful-slider-prev');
+        let currentSlideIndex = 0;
+        const totalSlides = slides.length;
 
         const updateSlider = () => {
-            const slideWidth = slides[0].getBoundingClientRect().width;
-            track.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
-
-            slides.forEach(slide => slide.classList.remove('is-active'));
-            slides[currentSlide].classList.add('is-active');
-
-            dots.forEach(dot => dot.classList.remove('is-active'));
-            dots[currentSlide].classList.add('is-active');
-
-            prevButton.disabled = currentSlide === 0;
-            nextButton.disabled = currentSlide === slides.length - 1;
+            const slideWidth = slides[0]?.getBoundingClientRect().width;
+            if (slideWidth > 0) {
+                sliderTrack.style.transform = `translateX(-${currentSlideIndex * slideWidth}px)`;
+            }
+            prevButton.disabled = currentSlideIndex === 0;
+            nextButton.disabled = currentSlideIndex === totalSlides - 1;
         };
 
-        const moveToSlide = (index) => {
-            if (index < 0 || index >= slides.length) return;
-            currentSlide = index;
-            updateSlider();
-        };
-
-        const startAutoSlide = () => {
-            clearInterval(autoSlideInterval);
-            autoSlideInterval = setInterval(() => {
-                const nextSlide = (currentSlide + 1) % slides.length;
-                moveToSlide(nextSlide);
-            }, 5000); // Change slide every 5 seconds
-        };
-
-        const resetAutoSlide = () => {
-            clearInterval(autoSlideInterval);
-            startAutoSlide();
-        };
-        
         nextButton.addEventListener('click', () => {
-            moveToSlide(currentSlide + 1);
-            resetAutoSlide();
-        });
-        
-        prevButton.addEventListener('click', () => {
-            moveToSlide(currentSlide - 1);
-            resetAutoSlide();
+            if (currentSlideIndex < totalSlides - 1) {
+                currentSlideIndex++;
+                updateSlider();
+            }
         });
 
-        // Initialize
-        updateSlider();
-        startAutoSlide();
+        prevButton.addEventListener('click', () => {
+            if (currentSlideIndex > 0) {
+                currentSlideIndex--;
+                updateSlider();
+            }
+        });
+
+        // Ensure slider is correctly positioned on load and resize
+        setTimeout(updateSlider, 100);
         window.addEventListener('resize', updateSlider);
     }
+}
 
+if (pageId === 'history') {
+        const historyCards = document.querySelectorAll('.history-card');
+        const modal = document.getElementById('history-modal');
+        const modalContainer = document.getElementById('history-modal-container');
+        const modalCloseBtn = document.getElementById('history-modal-close-btn');
+        const modalBackdrop = modal.querySelector('.modal-backdrop');
 
+        if (historyCards.length > 0 && modal) {
+            historyCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    // 1. Get content from the clicked card
+                    const iconHTML = card.querySelector('.card-icon').innerHTML;
+                    const titleText = card.querySelector('.card-title').textContent;
+                    const mainText = card.querySelector('.card-text').textContent;
+                    const styleClass = card.className.match(/style-\d/)[0];
 
-    if (pageId === "global-reach") {
-      // Script for the global-reach page
-      var mapGlobal = L.map("map-global", { scrollWheelZoom: false }).setView(
-        [25, 40],
-        2.5
-      );
-      L.tileLayer(
-        "https://{s}.basemaps.cartocdn.com/rastertiles/dark_all/{z}/{x}/{y}{r}.png",
-        {
-          attribution:
-            '&copy; <a href="https://carto.com/attributions">CartoDB</a>',
+                    // 2. Populate the modal
+                    document.getElementById('modal-icon-placeholder').innerHTML = iconHTML;
+                    document.getElementById('modal-title-placeholder').textContent = titleText;
+                    document.getElementById('modal-text-placeholder').textContent = mainText;
+                    
+                    // 3. Apply the correct color style
+                    modalContainer.className = 'relative w-full max-w-2xl text-white rounded-2xl overflow-hidden shadow-2xl transition-all duration-400 transform scale-95 opacity-0'; // Reset classes
+                    modalContainer.classList.add(styleClass);
+
+                    // 4. Show the modal
+                    modal.classList.remove('hidden');
+                    modal.classList.add('flex');
+                    setTimeout(() => {
+                        modal.classList.add('visible');
+                    }, 10); // Short delay to allow display property to apply before transition
+                });
+            });
+
+            const closeModal = () => {
+                modal.classList.remove('visible');
+                 setTimeout(() => {
+                    modal.classList.add('hidden');
+                    modal.classList.remove('flex');
+                }, 400); // Match the duration of the transform transition
+            };
+
+            modalCloseBtn.addEventListener('click', closeModal);
+            modalBackdrop.addEventListener('click', closeModal);
         }
-      ).addTo(mapGlobal);
-      var hqIconGlobal = L.divIcon({
-        className: "custom-div-icon",
-        html: `<div style="background-color:#3b82f6; width:24px; height:24px; border-radius:50%; border:4px solid white; box-shadow:0 0 10px rgba(59, 130, 246, 0.7);"></div>`,
-        iconSize: [24, 24],
-        iconAnchor: [12, 12],
-      });
-      var customIconGlobal = L.divIcon({
-        className: "custom-div-icon",
-        html: `<div style="background-color:white; width:16px; height:16px; border-radius:50%; border:3px solid #3b82f6;"></div>`,
-        iconSize: [16, 16],
-        iconAnchor: [8, 8],
-      });
-      var hqGlobal = {
-        name: "Headquarters (UAE, Middle East)",
-        coords: [25.27, 55.29],
-      };
-      var locationsGlobal = [
-        { name: "Europe Operations", coords: [50.11, 8.68] },
-        { name: "United States Operations", coords: [29.76, -95.36] },
-        { name: "Singapore Hub", coords: [1.35, 103.81] },
-        { name: "China Operations", coords: [31.23, 121.47] },
-        { name: "South America Operations", coords: [-14.23, -51.92] },
-      ];
-      L.marker(hqGlobal.coords, { icon: hqIconGlobal })
-        .addTo(mapGlobal)
-        .bindPopup(`<b>${hqGlobal.name}</b>`)
-        .openPopup();
-      locationsGlobal.forEach(function (location) {
-        L.marker(location.coords, { icon: customIconGlobal })
-          .addTo(mapGlobal)
-          .bindPopup(`<b>${location.name}</b>`);
-        L.polyline
-          .antPath([hqGlobal.coords, location.coords], {
-            delay: 800,
-            dashArray: [10, 20],
-            weight: 2.5,
-            color: "#3b82f6",
-            pulseColor: "#FFFFFF",
-            paused: false,
-            reverse: false,
-            hardwareAccelerated: true,
-          })
-          .addTo(mapGlobal);
-      });
+    }
+if (pageId === 'global-reach') {
+    // --- 1. Initialize Leaflet Map (if it's still needed, or can be removed) ---
+    const mapContainer = document.getElementById('map-global');
+    if (mapContainer && typeof L !== 'undefined') {
+        const mapGlobal = L.map("map-global", {
+            scrollWheelZoom: false,
+            zoomControl: false,
+            dragging: false,
+            attributionControl: false
+        }).setView([25, 40], 2);
+        L.tileLayer("https://{s}.basemaps.cartocdn.com/rastertiles/dark_all/{z}/{x}/{y}{r}.png", {
+            attribution: '&copy; <a href="https://carto.com/attributions">CartoDB</a>',
+        }).addTo(mapGlobal);
+        // You can add markers here if you wish
     }
 
+    // --- 2. Logic for the Modal with Accordion ---
+    const modalTrigger = document.getElementById('global-reach-modal-trigger');
+    const modal = document.getElementById('global-reach-modal');
+    if (modalTrigger && modal) {
+        const modalCloseBtn = modal.querySelector('.modal-close-btn');
+        const modalBackdrop = modal.querySelector('.modal-backdrop');
+        const accordionItems = modal.querySelectorAll('.accordion-item');
+
+        const openModal = () => {
+            modal.classList.add('is-open');
+        };
+
+        const closeModal = () => {
+            modal.classList.remove('is-open');
+             // Close any open accordion items when modal closes
+            accordionItems.forEach(item => {
+                item.classList.remove('open');
+                item.querySelector('.accordion-content').style.maxHeight = null;
+            });
+        };
+
+        modalTrigger.addEventListener('click', openModal);
+        modalCloseBtn.addEventListener('click', closeModal);
+        modalBackdrop.addEventListener('click', closeModal);
+
+        // Accordion logic inside the modal
+        accordionItems.forEach(item => {
+            const header = item.querySelector('.accordion-header');
+            const content = item.querySelector('.accordion-content');
+
+            header.addEventListener('click', () => {
+                const isOpen = item.classList.contains('open');
+
+                // Close all other items
+                accordionItems.forEach(otherItem => {
+                    otherItem.classList.remove('open');
+                    otherItem.querySelector('.accordion-content').style.maxHeight = null;
+                });
+
+                // Open the clicked item if it wasn't already open
+                if (!isOpen) {
+                    item.classList.add('open');
+                    content.style.maxHeight = content.scrollHeight + "px";
+                }
+            });
+        });
+    }
+}
      if (pageId === 'home') {
         initializeStatCounters('#home');
         initialize3DTilt('#home'); 
@@ -691,6 +704,39 @@ if (accordionItems.length > 0) {
         });
     });
 }
+}
+
+if (pageId === 'future-goals') {
+    const roadmapSteps = document.querySelectorAll('.roadmap-step');
+    const roadmapPanels = document.querySelectorAll('.roadmap-panel');
+    const contentWrapper = document.querySelector('.roadmap-content-wrapper');
+
+    if (roadmapSteps.length > 0 && contentWrapper) {
+        // Function to set the active step
+        const setActiveStep = (targetId) => {
+            // Set active class on the step button
+            roadmapSteps.forEach(step => {
+                step.classList.toggle('active', step.dataset.target === targetId);
+            });
+            // Set active class on the content panel
+            roadmapPanels.forEach(panel => {
+                panel.classList.toggle('active', panel.id === targetId);
+            });
+            // Update the background effect on the wrapper
+            contentWrapper.dataset.activeBg = targetId;
+        };
+
+        // Add click event listeners to each step button
+        roadmapSteps.forEach(step => {
+            step.addEventListener('click', () => {
+                const targetId = step.dataset.target;
+                setActiveStep(targetId);
+            });
+        });
+
+        // Initialize the first step as active
+        setActiveStep('goal-1');
+    }
 }
   }
 
