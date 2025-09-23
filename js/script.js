@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const searchResults = document.getElementById("search-results");
  const pageLinks = document.querySelectorAll('a.nav-link');
   const pageContent = document.querySelectorAll(".page-content");
-  
+  const cards = document.querySelectorAll('.highlight-card');
   const body = document.body;
 
   // Define all pages and their content for the in-memory search index
@@ -432,6 +432,81 @@ storyCloseBtn.addEventListener('click', () => {
         });
     }
 
+     if (pageId === 'history') {
+        const slider = document.getElementById('history-slider');
+        if (!slider) return;
+
+        const track = slider.querySelector('.history-slider-track');
+        const slides = Array.from(track.children);
+        const nextButton = document.getElementById('history-slider-next');
+        const prevButton = document.getElementById('history-slider-prev');
+        const dotsNav = document.getElementById('history-slider-dots');
+        let currentSlide = 0;
+        let autoSlideInterval;
+
+        // Create dots
+        slides.forEach((slide, index) => {
+            const dot = document.createElement('button');
+            dot.classList.add('slider-dot');
+            dot.addEventListener('click', () => {
+                moveToSlide(index);
+                resetAutoSlide();
+            });
+            dotsNav.appendChild(dot);
+        });
+        const dots = Array.from(dotsNav.children);
+
+        const updateSlider = () => {
+            const slideWidth = slides[0].getBoundingClientRect().width;
+            track.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
+
+            slides.forEach(slide => slide.classList.remove('is-active'));
+            slides[currentSlide].classList.add('is-active');
+
+            dots.forEach(dot => dot.classList.remove('is-active'));
+            dots[currentSlide].classList.add('is-active');
+
+            prevButton.disabled = currentSlide === 0;
+            nextButton.disabled = currentSlide === slides.length - 1;
+        };
+
+        const moveToSlide = (index) => {
+            if (index < 0 || index >= slides.length) return;
+            currentSlide = index;
+            updateSlider();
+        };
+
+        const startAutoSlide = () => {
+            clearInterval(autoSlideInterval);
+            autoSlideInterval = setInterval(() => {
+                const nextSlide = (currentSlide + 1) % slides.length;
+                moveToSlide(nextSlide);
+            }, 5000); // Change slide every 5 seconds
+        };
+
+        const resetAutoSlide = () => {
+            clearInterval(autoSlideInterval);
+            startAutoSlide();
+        };
+        
+        nextButton.addEventListener('click', () => {
+            moveToSlide(currentSlide + 1);
+            resetAutoSlide();
+        });
+        
+        prevButton.addEventListener('click', () => {
+            moveToSlide(currentSlide - 1);
+            resetAutoSlide();
+        });
+
+        // Initialize
+        updateSlider();
+        startAutoSlide();
+        window.addEventListener('resize', updateSlider);
+    }
+
+
+
     if (pageId === "global-reach") {
       // Script for the global-reach page
       var mapGlobal = L.map("map-global", { scrollWheelZoom: false }).setView(
@@ -790,4 +865,36 @@ fullscreenMenu.querySelectorAll("a.nav-link").forEach((link) => {
   document.querySelectorAll(".scroll-animate").forEach((element) => {
     scrollObserver.observe(element);
   });
-});
+
+  // --- Wavy Timeline Click Logic ---
+        const wavyNodes = document.querySelectorAll('.wavy-timeline .wavy-node');
+
+        if (wavyNodes.length > 0) {
+            wavyNodes.forEach(node => {
+                const circle = node.querySelector('.wavy-circle');
+                circle.addEventListener('click', (event) => {
+                    event.stopPropagation(); // Prevents click from bubbling up
+
+                    // Check if the clicked node is already active
+                    const isAlreadyActive = node.classList.contains('active');
+
+                    // First, remove 'active' class from all other nodes
+                    wavyNodes.forEach(n => {
+                        if (n !== node) {
+                            n.classList.remove('active');
+                        }
+                    });
+
+                    // Then, toggle the 'active' class on the clicked node
+                    node.classList.toggle('active');
+                });
+            });
+
+            // Optional: Click outside to close any active node
+            document.addEventListener('click', () => {
+                wavyNodes.forEach(n => n.classList.remove('active'));
+            });
+        }
+    });
+
+
