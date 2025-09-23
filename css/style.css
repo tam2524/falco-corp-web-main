@@ -504,7 +504,173 @@ body {
 }
 
 /* === NEW DYNAMIC HOME PAGE SECTIONS === */
+/* ======================================================= */
+/* === WAVY TIMELINE STYLES (REVISED & MOBILE-FIRST) === */
+/* ======================================================= */
 
+/* --- Base styles are now MOBILE styles (vertical timeline) --- */
+.wavy-timeline {
+    display: block;
+    position: relative;
+    padding-left: 3rem;
+    border-left: 3px solid var(--color-medium-gray);
+    margin-top: 3rem; /* Adds space from the title */
+}
+
+.wavy-timeline-path {
+    display: none; /* SVG path is hidden on mobile by default */
+}
+
+.wavy-node {
+    position: relative; /* This is the critical part for mobile layout */
+    margin-bottom: 3rem;
+    display: flex;
+    align-items: flex-start;
+}
+.wavy-node:last-child {
+    margin-bottom: 0;
+}
+
+.wavy-circle {
+    width: 80px;
+    height: 80px;
+    font-size: 0.8rem;
+    padding: 0.5rem;
+    flex-shrink: 0;
+    position: absolute;
+    left: -41.5px; /* Centers the 80px circle on the 3px line */
+    top: 0;
+    border-width: 4px;
+    background-color: var(--color-light-gray);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-style: solid;
+    border-image-slice: 1;
+    border-image-source: linear-gradient(to right, var(--color-accent-yellow), var(--color-accent-blue), var(--color-primary-blue));
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.wavy-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-text);
+}
+
+.wavy-description {
+    width: auto;
+    text-align: left;
+    margin-left: 3rem;
+    background-color: white;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    color: var(--color-text);
+    /* Click-to-display styles for mobile */
+    max-height: 0;
+    overflow: hidden;
+    padding: 0 1.5rem;
+    transition: max-height 0.5s ease-out, padding 0.5s ease-out;
+}
+.wavy-node.active .wavy-description {
+    max-height: 500px; /* Expands to show content */
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+}
+
+.wavy-icon {
+    display: none; /* Icons are hidden on mobile to save space */
+}
+
+
+/* --- DESKTOP styles override mobile styles (`min-width` is for desktop and up) --- */
+@media (min-width: 1024px) {
+    /* Reset container for wavy layout */
+    .wavy-timeline {
+        padding-left: 0;
+        border-left: none;
+        height: 450px;
+        margin-top: 0;
+    }
+
+    .wavy-timeline-path {
+        display: block; /* Show SVG path */
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 100%;
+        height: 200px;
+        transform: translateY(-50%);
+        overflow: visible;
+    }
+
+    .wavy-node {
+        position: absolute;
+        transform: translateX(-50%);
+        margin-bottom: 0;
+        display: block;
+    }
+    
+    /* Set desktop positions */
+    .node-1 { top: 46%; left: 15%; }
+    .node-2 { top: 12%; left: 38%; }
+    .node-3 { top: 46%; left: 62%; }
+    .node-4 { top: 12%; left: 85%; }
+
+    .wavy-circle {
+        position: static; /* Reset from absolute */
+        width: 160px;
+        height: 160px;
+        padding: 1rem;
+        border-width: 3px;
+    }
+
+    .wavy-title {
+        font-size: 1.5rem;
+    }
+
+    /* Reset description for desktop layout */
+    .wavy-description {
+        position: absolute;
+        width: 250px;
+        left: 50%;
+        text-align: center;
+        margin-left: 0;
+        background-color: transparent;
+        border-radius: 0;
+        box-shadow: none;
+        max-height: none;
+        overflow: visible;
+        padding: 0;
+        /* Click-to-display styles for desktop */
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+    .wavy-description.desc-below {
+        top: 105%;
+        transform: translate(-50%, -20px);
+    }
+    .wavy-description.desc-above {
+        bottom: 105%;
+        transform: translate(-50%, 20px);
+    }
+    .wavy-node.active .wavy-description {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transform: translateX(-50%);
+    }
+
+    .wavy-icon {
+        display: block;
+        font-size: 2rem;
+        margin-bottom: 0.75rem;
+    }
+}
 /* --- 1. Interactive Highlights Section --- */
 .highlight-card {
     background-color: white;
@@ -513,12 +679,10 @@ body {
     border-top: 4px solid transparent;
     border-image: linear-gradient(to right, var(--color-primary-blue), var(--color-accent-blue)) 1;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    /* Properties for 3D tilt */
-    transform-style: preserve-3d;
-    transform: perspective(1000px);
 }
 .highlight-card:hover {
-    transform: translateY(-10px);
+    /* We combine the lift with a zoom effect */
+    transform: translateY(-10px) scale(1.05); 
     box-shadow: 0 20px 35px -10px rgba(59, 130, 246, 0.2);
 }
 .highlight-card-inner {
@@ -616,6 +780,444 @@ body {
     color: var(--color-accent-blue);
 }
 
+/* === TEAM PAGE: ANIMATED CYCLE === */
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes spin-reverse {
+    from { transform: translateX(-50%) rotate(0deg); }
+    to { transform: translateX(-50%) rotate(-360deg); }
+}
+
+.cycle-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 500px; /* Default height */
+}
+
+.cycle-center {
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    background: linear-gradient(145deg, var(--color-primary-blue), var(--color-accent-blue));
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    box-shadow: 0 0 30px rgba(59, 130, 246, 0.4);
+    z-index: 20;
+}
+
+.cycle-animator {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    animation: spin 40s linear infinite;
+}
+
+.cycle-path {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 3px dashed var(--color-medium-gray);
+    border-radius: 50%;
+}
+
+.cycle-node {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+.cycle-node:nth-child(1) { transform: rotate(0deg); }
+.cycle-node:nth-child(2) { transform: rotate(90deg); }
+.cycle-node:nth-child(3) { transform: rotate(180deg); }
+.cycle-node:nth-child(4) { transform: rotate(270deg); }
+
+.cycle-item {
+    position: absolute;
+    top: -70px; /* Positions item on the circle's edge */
+    left: 50%;
+    transform: translateX(-50%); /* Centers the item */
+    animation: spin-reverse 40s linear infinite;
+    width: 140px;
+    height: 140px;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cycle-wrapper:hover .cycle-animator,
+.cycle-wrapper:hover .cycle-item {
+    animation-play-state: paused;
+}
+
+.cycle-item:hover {
+    transform: translateX(-50%) scale(1.1);
+    box-shadow: 0 12px 24px rgba(30, 58, 138, 0.15);
+    cursor: pointer;
+    z-index: 10;
+}
+
+.cycle-icon {
+    font-size: 2rem;
+    color: var(--color-primary-blue);
+    margin-bottom: 0.5rem;
+}
+
+.cycle-item h4 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #334155;
+    line-height: 1.2;
+}
+
+/* Responsive adjustments for the cycle */
+@media (max-width: 767px) {
+    .cycle-wrapper {
+        min-height: auto;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+    .cycle-animator {
+        display: none; /* Hide the spinning animation on mobile */
+    }
+    .cycle-center {
+        position: static; /* Make center a normal element */
+        width: 140px;
+        height: 140px;
+        margin-bottom: 2rem;
+    }
+    .cycle-center .fa-users { font-size: 2.5rem; }
+    .cycle-center h3 { font-size: 1.1rem; }
+
+    /* Display items in a grid on mobile */
+    .cycle-wrapper {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+    }
+    .cycle-item {
+        position: static;
+        transform: none;
+        animation: none;
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        height: auto;
+        border-radius: 1rem; /* Square cards look better in a grid */
+    }
+    .cycle-item:hover {
+        transform: translateY(-5px) scale(1.03);
+    }
+}
+
+/* === NEW: Soft Gradient Background === */
+.bg-soft-gradient {
+    background: linear-gradient(180deg, #FFFFFF 0%, #f0f4ff 100%);
+}
+
+
+/* === UPDATED: Team Page Animated Cycle (Now fully responsive) === */
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes spin-reverse {
+    from { transform: translateX(-50%) rotate(0deg); }
+    to { transform: translateX(-50%) rotate(-360deg); }
+}
+
+.cycle-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 550px;
+}
+
+.cycle-center {
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    background: linear-gradient(145deg, var(--color-primary-blue), var(--color-accent-blue));
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    box-shadow: 0 0 30px rgba(59, 130, 246, 0.4);
+    z-index: 20;
+}
+
+.cycle-animator {
+    display: block;
+    position: absolute;
+    width: 550px;
+    height: 550px;
+    animation: spin 40s linear infinite;
+}
+
+.cycle-path {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 3px dashed var(--color-medium-gray);
+    border-radius: 50%;
+}
+
+.cycle-node {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+.cycle-node:nth-child(1) { transform: rotate(0deg); }
+.cycle-node:nth-child(2) { transform: rotate(90deg); }
+.cycle-node:nth-child(3) { transform: rotate(180deg); }
+.cycle-node:nth-child(4) { transform: rotate(270deg); }
+
+.cycle-item {
+    position: absolute;
+    top: -80px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: spin-reverse 40s linear infinite;
+    width: 160px;
+    height: 160px;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cycle-node::after {
+    content: '\f061';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    font-size: 1.75rem;
+    color: var(--color-primary-blue);
+    transform-origin: center center;
+    transform: translate(200px, -200px) rotate(90deg);
+    animation: spin-reverse 40s linear infinite;
+}
+
+.cycle-wrapper:hover .cycle-animator,
+.cycle-wrapper:hover .cycle-item,
+.cycle-wrapper:hover .cycle-node::after {
+    animation-play-state: paused;
+}
+
+.cycle-item:hover {
+    transform: translateX(-50%) scale(1.1);
+    box-shadow: 0 12px 24px rgba(30, 58, 138, 0.15);
+    cursor: pointer;
+    z-index: 10;
+}
+
+.cycle-icon {
+    font-size: 2.5rem;
+    color: var(--color-primary-blue);
+    margin-bottom: 0.75rem;
+}
+
+.cycle-item h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #334155;
+    line-height: 1.2;
+}
+
+.cycle-line-mobile { display: none; }
+
+/* === CORRECTED Mobile Responsive Styles for Cycle === */
+@media (max-width: 767px) {
+    .cycle-wrapper {
+        min-height: auto;
+        padding-left: 2rem;
+        justify-content: flex-start;
+    }
+
+    .cycle-line-mobile {
+        display: block;
+        position: absolute;
+        left: 20px;
+        top: 10px;
+        bottom: 10px;
+        width: 3px;
+        background-color: var(--color-medium-gray);
+        border-radius: 2px;
+    }
+
+    .cycle-center,
+    .cycle-path,
+    .cycle-node::after {
+        display: none;
+    }
+
+    .cycle-animator {
+        position: static;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        width: 100%;
+        height: auto;
+        animation: none;
+    }
+
+    .cycle-node {
+        position: static;
+        transform: none;
+        width: 100%;
+        height: auto;
+    }
+
+    .cycle-item {
+        position: relative;
+        transform: none !important; /* Use important to override inline transform */
+        animation: none;
+        width: 100%;
+        height: auto;
+        border-radius: 1rem;
+        flex-direction: row;
+        text-align: left;
+        padding: 1.5rem;
+        justify-content: flex-start;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+    }
+
+     .cycle-item::before {
+        content: '';
+        position: absolute;
+        left: calc(-2.25rem - 1.5px); /* Position centered on the line */
+        top: 50%;
+        transform: translateY(-50%);
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background-color: white;
+        border: 4px solid var(--color-primary-blue);
+        z-index: 5;
+    }
+
+    .cycle-icon {
+        font-size: 2rem;
+        margin-right: 1rem;
+        margin-bottom: 0;
+    }
+}
+/* === NEW: Graphic Flourish for Split Grid === */
+.grid-card-content {
+    position: relative;
+    overflow: hidden; /* Important for containing the pseudo-element */
+}
+.grid-card-content::after {
+    content: '';
+    position: absolute;
+    bottom: -150px;
+    right: -150px;
+    width: 400px;
+    height: 400px;
+    background-image: linear-gradient(45deg, var(--color-primary-blue), var(--color-accent-blue));
+    border-radius: 50%;
+    opacity: 0.1;
+    filter: blur(50px);
+    z-index: -1;
+    transition: transform 0.5s ease;
+}
+.grid-card-content:hover::after {
+    transform: scale(1.2);
+}
+
+
+/* === NEW: Enhanced Value Cards === */
+.value-card-modern-enhanced {
+    background-color: white;
+    border-radius: 1rem; /* 16px */
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.07);
+    padding: 2.5rem 0.5rem;
+    /* For 3D Tilt */
+    transform-style: preserve-3d;
+    transform: perspective(1000px);
+}
+.value-card-modern-enhanced:hover {
+    transform: translateY(-10px) scale(1.03);
+    box-shadow: 0 25px 40px -12px rgba(0, 0, 0, 0.15);
+}
+
+/* Animated gradient top border */
+.value-card-modern-enhanced::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 5px;
+    background-image: linear-gradient(to right, var(--color-accent-yellow), var(--color-accent-blue), var(--color-primary-blue));
+    background-size: 200% auto;
+    transition: background-position 0.5s ease;
+}
+.value-card-modern-enhanced:hover::before {
+    background-position: right center;
+}
+
+.icon-enhanced {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    width: 80px;
+    height: 80px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    background-image: linear-gradient(135deg, var(--color-primary-blue), var(--color-accent-blue));
+    transition: transform 0.4s ease;
+    /* For 3D Tilt */
+    transform: translateZ(50px);
+}
+.value-card-modern-enhanced:hover .icon-enhanced {
+    transform: scale(1.1) rotate(-15deg) translateZ(50px);
+}
+
+.title-enhanced {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-text);
+    /* For 3D Tilt */
+    transform: translateZ(30px);
+}
 /* --- Core Strengths Custom Background --- */
 .bg-strengths-gradient {
     background: linear-gradient(180deg, #f0f4ff 0%, #ffffff 70%);
@@ -2385,4 +2987,311 @@ img.hero-background {
 }
 .leaflet-popup-close-button {
     color: white !important;
+}
+
+/* === NEW DYNAMIC "WHAT WE DO" SECTIONS === */
+
+/* --- 1. Interactive Highlight Cards (Our Services) --- */
+.highlight-card {
+    background-color: white;
+    border-radius: 0.75rem;
+    box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
+    border-top: 4px solid transparent;
+    border-image: linear-gradient(to right, var(--color-primary-blue), var(--color-accent-blue)) 1;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    /* Properties for 3D tilt */
+    transform-style: preserve-3d;
+    transform: perspective(1000px);
+}
+.highlight-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 35px -10px rgba(59, 130, 246, 0.2);
+}
+.highlight-card-inner {
+    transition: transform 0.1s ease-out; /* For the 3D tilt JS */
+}
+.highlight-text {
+    color: #4b5563; /* text-gray-600 */
+    font-size: 0.95rem;
+}
+
+/* --- 2. Dynamic Split Grid Section (Core Strengths) --- */
+.dynamic-split-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    align-items: center;
+}
+
+@media (min-width: 1024px) {
+    .dynamic-split-grid {
+        grid-template-columns: 5fr 6fr; /* Asymmetrical split */
+        gap: 0; 
+    }
+    .dynamic-split-grid.reverse {
+        grid-template-columns: 6fr 5fr; /* Reverse split */
+    }
+}
+
+.grid-card-content {
+    background-color: white;
+    border-radius: 1rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    z-index: 2;
+    overflow: hidden;
+}
+/* Colorful top border */
+.grid-card-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background-image: linear-gradient(to right, var(--color-primary-blue), var(--color-accent-blue), var(--color-accent-yellow));
+}
+.grid-card-content:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
+}
+
+.grid-card-image {
+    position: relative;
+    z-index: 1;
+    overflow: hidden; /* Crucial for the animation */
+    border-radius: 1rem;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+
+/* Desktop Overlap and Positioning */
+@media (min-width: 1024px) {
+    .dynamic-split-grid .grid-card-content {
+        margin-right: -15%;
+    }
+    .dynamic-split-grid.reverse .grid-card-content {
+        order: 2;
+        margin-left: -15%;
+        margin-right: 0;
+    }
+    .dynamic-split-grid.reverse .grid-card-image {
+        order: 1;
+    }
+}
+
+.link-arrow {
+    font-weight: 600;
+    color: var(--color-primary-blue);
+    transition: color 0.3s;
+}
+.link-arrow:hover {
+    color: var(--color-accent-blue);
+}
+
+/* --- 3. Lively Image Animation --- */
+@keyframes slide-left {
+    from { transform: scale(1.1) translateX(5%); }
+    to { transform: scale(1.1) translateX(-5%); }
+}
+
+@keyframes slide-right {
+    from { transform: scale(1.1) translateX(-5%); }
+    to { transform: scale(1.1) translateX(5%); }
+}
+
+/* Image on the RIGHT slides LEFT */
+.dynamic-split-grid:not(.reverse) .grid-card-image img {
+    animation: slide-left 25s ease-in-out infinite alternate;
+}
+
+/* Image on the LEFT slides RIGHT */
+.dynamic-split-grid.reverse .grid-card-image img {
+    animation: slide-right 25s ease-in-out infinite alternate;
+}
+
+/* === HISTORY PAGE: STORY SLIDER === */
+
+.history-slider-container {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    aspect-ratio: 16 / 9;
+    border-radius: 1.5rem; /* 24px */
+    overflow: hidden;
+    box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+}
+
+.history-slider-track {
+    display: flex;
+    height: 100%;
+    /* Explicitly define width for 4 slides */
+    width: 400%; 
+    transition: transform 0.8s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.history-slide {
+    position: relative;
+    /* Each slide is a quarter of the track's total width */
+    width: 25%; 
+    height: 100%;
+    display: flex;
+    align-items: center;
+    /* Align content block to the left, not center */
+    justify-content: flex-start; 
+    color: white;
+    overflow: hidden; /* Ensures pseudo-elements are clipped */
+}
+
+/* Background Icon Styles */
+.history-slide::before {
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    position: absolute;
+    top: 50%;
+    right: 0; /* Position icon on the right side */
+    transform: translateY(-50%) rotate(15deg);
+    font-size: 25rem;
+    color: rgba(255, 255, 255, 0.07);
+    z-index: 1;
+    transition: transform 1.2s ease;
+}
+
+.history-slide.is-active::before {
+    transform: translateY(-50%) rotate(0deg) scale(1.1);
+}
+
+/* Defines which icon to show for each slide */
+.history-slide.style-1::before { content: '\f0eb'; } /* fa-lightbulb */
+.history-slide.style-2::before { content: '\f135'; } /* fa-rocket */
+.history-slide.style-3::before { content: '\f57d'; } /* fa-globe-asia */
+.history-slide.style-4::before { content: '\f085'; } /* fa-cogs */
+
+/* Overlay and Content Styles */
+.history-slide-overlay {
+    position: absolute;
+    inset: 0;
+    background-size: 400% 400%;
+    animation: gradient-pan 15s ease infinite;
+    z-index: 2; /* Ensure overlay is above the new icon */
+}
+
+.history-slide-content {
+    position: relative;
+    z-index: 3; /* Ensure content is above the overlay */
+    text-align: left;
+    max-width: 55%;
+    padding: 3rem 4rem;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s 0.4s ease, transform 0.6s 0.4s ease;
+}
+
+.history-slide.is-active .history-slide-content {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.history-slide-content .slide-icon {
+    font-size: 3rem;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: linear-gradient(135deg, var(--color-primary-blue), var(--color-accent-blue));
+    border-radius: 50%;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    border: 3px solid rgba(255,255,255,0.5);
+}
+
+.history-slide-content .slide-title {
+    font-size: 2.75rem;
+    font-weight: 700;
+    line-height: 1.1;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+}
+
+.history-slide-content .slide-text {
+    font-size: 1.125rem;
+    margin-top: 1rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* Unique Animated Gradients for Each Slide */
+.history-slide.style-1 .history-slide-overlay {
+    background-image: linear-gradient(-65deg, #3b82f6, #60a5fa, #2563eb, #1d4ed8);
+}
+.history-slide.style-2 .history-slide-overlay {
+    background-image: linear-gradient(-65deg, #6d28d9, #8b5cf6, #a78bfa, #7c3aed);
+}
+.history-slide.style-3 .history-slide-overlay {
+    background-image: linear-gradient(-65deg, #db2777, #ec4899, #f472b6, #e11d48);
+}
+.history-slide.style-4 .history-slide-overlay {
+    background-image: linear-gradient(-65deg, #16a34a, #22c55e, #4ade80, #15803d);
+}
+
+/* Slider Navigation Arrows */
+.slider-arrow { 
+    position: absolute; top: 50%; transform: translateY(-50%); z-index: 10; width: 45px; height: 45px; border-radius: 50%; background-color: rgba(255,255,255,0.8); color: #4b5563; box-shadow: 0 4px 10px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center;
+}
+.slider-arrow.prev { left: 1.5rem; }
+.slider-arrow.next { right: 1.5rem; }
+.slider-arrow:hover { transform: translateY(-50%) scale(1.1); background-color: white; }
+.slider-arrow:disabled { opacity: 0.3; cursor: not-allowed; }
+
+/* Slider Navigation Dots */
+.slider-dots {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 0.75rem;
+    z-index: 10;
+}
+
+.slider-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: rgba(255,255,255,0.4);
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.slider-dot.is-active {
+    background-color: white;
+    transform: scale(1.2);
+}
+
+/* Mobile Responsiveness for Slider */
+@media (max-width: 767px) {
+    .history-slider-container {
+        aspect-ratio: 4 / 5;
+    }
+    .history-slide::before {
+        font-size: 15rem; /* Smaller icon on mobile */
+    }
+    .history-slide-content {
+        max-width: 100%;
+        padding: 2rem;
+    }
+    .history-slide-content .slide-title {
+        font-size: 2rem;
+    }
+    .history-slide-content .slide-text {
+        font-size: 1rem;
+    }
+    .slider-arrow {
+        bottom: 1.5rem;
+        top: auto;
+        transform: none;
+    }
+    .slider-arrow.prev { left: 1rem; }
+    .slider-arrow.next { right: 1rem; }
+    .slider-dots { display: none; }
 }
