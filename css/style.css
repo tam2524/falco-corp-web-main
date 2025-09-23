@@ -2931,9 +2931,16 @@ img.hero-background {
 /* === NEW "WHAT WE DO" PAGE STYLES === */
 
 /* --- 1. Colorful Slider (Kept from before) --- */
+.colorful-slider-slide .slide-text {
+    font-size: 1.125rem;
+    line-height: 1.6;
+    margin-top: 1rem;
+    max-width: 500px;
+    color: rgba(255, 255, 255, 0.9);
+}
 .colorful-slider-container { position: relative; max-width: 1100px; margin: 0 auto; aspect-ratio: 16 / 9; border-radius: 1.5rem; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.2); }
-.colorful-slider-track { display: flex; height: 100%; width: 400%; transition: transform 0.8s cubic-bezier(0.76, 0, 0.24, 1); }
-.colorful-slider-slide { width: 25%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2rem; color: white; text-align: center; }
+.colorful-slider-track { display: flex; height: 100%; width: 600%; transition: transform 0.8s cubic-bezier(0.76, 0, 0.24, 1); }
+.colorful-slider-slide { width: 16.6667%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2rem; color: white; text-align: center; }
 .colorful-slider-slide .slide-icon { font-size: 3.5rem; margin-bottom: 1.5rem; }
 .colorful-slider-slide .slide-title { font-size: 2.25rem; font-weight: 700; text-shadow: 0 2px 6px rgba(0,0,0,0.3); }
 .colorful-slider-slide.style-1 { background: linear-gradient(135deg, #3b82f6, #60a5fa); }
@@ -3109,189 +3116,329 @@ img.hero-background {
 .dynamic-split-grid.reverse .grid-card-image img {
     animation: slide-right 25s ease-in-out infinite alternate;
 }
+/* === HISTORY PAGE: INTERACTIVE CARDS & MODAL === */
 
-/* === HISTORY PAGE: STORY SLIDER === */
-
-.history-slider-container {
+.history-card {
     position: relative;
-    max-width: 1200px;
-    margin: 0 auto;
-    aspect-ratio: 16 / 9;
-    border-radius: 1.5rem; /* 24px */
+    border-radius: 1rem; /* 16px */
     overflow: hidden;
-    box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
-}
-
-.history-slider-track {
-    display: flex;
-    height: 100%;
-    /* Explicitly define width for 4 slides */
-    width: 400%; 
-    transition: transform 0.8s cubic-bezier(0.76, 0, 0.24, 1);
-}
-
-.history-slide {
-    position: relative;
-    /* Each slide is a quarter of the track's total width */
-    width: 25%; 
-    height: 100%;
-    display: flex;
-    align-items: center;
-    /* Align content block to the left, not center */
-    justify-content: flex-start; 
+    padding: 2rem;
     color: white;
-    overflow: hidden; /* Ensures pseudo-elements are clipped */
+    min-height: 280px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
 }
 
-/* Background Icon Styles */
-.history-slide::before {
-    font-family: 'Font Awesome 5 Free';
-    font-weight: 900;
-    position: absolute;
-    top: 50%;
-    right: 0; /* Position icon on the right side */
-    transform: translateY(-50%) rotate(15deg);
-    font-size: 25rem;
-    color: rgba(255, 255, 255, 0.07);
-    z-index: 1;
-    transition: transform 1.2s ease;
+.history-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 35px rgba(0,0,0,0.2);
 }
 
-.history-slide.is-active::before {
-    transform: translateY(-50%) rotate(0deg) scale(1.1);
-}
-
-/* Defines which icon to show for each slide */
-.history-slide.style-1::before { content: '\f0eb'; } /* fa-lightbulb */
-.history-slide.style-2::before { content: '\f135'; } /* fa-rocket */
-.history-slide.style-3::before { content: '\f57d'; } /* fa-globe-asia */
-.history-slide.style-4::before { content: '\f085'; } /* fa-cogs */
-
-/* Overlay and Content Styles */
-.history-slide-overlay {
+.history-card-overlay {
     position: absolute;
     inset: 0;
+    z-index: 1;
     background-size: 400% 400%;
     animation: gradient-pan 15s ease infinite;
-    z-index: 2; /* Ensure overlay is above the new icon */
 }
 
-.history-slide-content {
+.history-card-content {
     position: relative;
-    z-index: 3; /* Ensure content is above the overlay */
-    text-align: left;
-    max-width: 55%;
-    padding: 3rem 4rem;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s 0.4s ease, transform 0.6s 0.4s ease;
+    z-index: 2;
 }
 
-.history-slide.is-active .history-slide-content {
+.history-card .card-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    opacity: 0.8;
+}
+
+.history-card .card-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+/* Unique Animated Gradients for Each Card */
+.history-card.style-1 .history-card-overlay, #history-modal-container.style-1 #history-modal-background {
+    background-image: linear-gradient(-65deg, #3b82f6, #60a5fa, #2563eb, #1d4ed8);
+}
+.history-card.style-2 .history-card-overlay, #history-modal-container.style-2 #history-modal-background {
+    background-image: linear-gradient(-65deg, #6d28d9, #8b5cf6, #a78bfa, #7c3aed);
+}
+.history-card.style-3 .history-card-overlay, #history-modal-container.style-3 #history-modal-background {
+    background-image: linear-gradient(-65deg, #db2777, #ec4899, #f472b6, #e11d48);
+}
+.history-card.style-4 .history-card-overlay, #history-modal-container.style-4 #history-modal-background {
+    background-image: linear-gradient(-65deg, #16a34a, #22c55e, #4ade80, #15803d);
+}
+
+/* Modal Styles */
+#history-modal.visible {
     opacity: 1;
-    transform: translateY(0);
+    pointer-events: auto;
+}
+#history-modal.visible #history-modal-container {
+    transform: scale(1);
+    opacity: 1;
 }
 
-.history-slide-content .slide-icon {
-    font-size: 3rem;
+#history-modal-background {
+    background-size: 400% 400%;
+    animation: gradient-pan 15s ease infinite;
+}
+
+/* === GLOBAL REACH PAGE: NEW CONCEPT === */
+
+/* Interactive Map Button */
+.map-button {
+    background-image: linear-gradient(to right, var(--color-primary-blue), var(--color-accent-blue));
+    color: white;
+    font-size: 1.25rem;
+    font-weight: 600;
+    padding: 1.25rem 2.5rem;
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.map-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 15px 40px rgba(59, 130, 246, 0.5);
+}
+
+.map-button i {
+    transition: transform 0.3s ease;
+}
+
+.map-button:hover i {
+    transform: scale(1.2) rotate(360deg);
+}
+
+/* Pillar Cards Section */
+.pillar-card {
+    background-color: var(--color-light-gray);
+    border: 1px solid var(--color-medium-gray);
+    border-radius: 1rem;
+    padding: 2.5rem;
+    text-align: center;
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.pillar-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--color-primary-blue);
+    box-shadow: 0 20px 40px -15px rgba(0,0,0,0.1);
+}
+
+.pillar-icon {
+    font-size: 2.5rem;
     width: 80px;
     height: 80px;
+    margin: 0 auto 1.5rem;
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     background-image: linear-gradient(135deg, var(--color-primary-blue), var(--color-accent-blue));
-    border-radius: 50%;
-    margin-bottom: 1.5rem;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    border: 3px solid rgba(255,255,255,0.5);
+    color: white;
+    transition: transform 0.4s ease;
 }
 
-.history-slide-content .slide-title {
-    font-size: 2.75rem;
+.pillar-card:hover .pillar-icon {
+    transform: scale(1.1) rotate(-15deg);
+}
+
+.pillar-title {
+    font-size: 1.5rem;
     font-weight: 700;
-    line-height: 1.1;
-    text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    margin-bottom: 0.75rem;
+    color: var(--color-text);
 }
 
-.history-slide-content .slide-text {
-    font-size: 1.125rem;
-    margin-top: 1rem;
+.pillar-text {
+    color: #4b5563; /* text-gray-600 */
     line-height: 1.6;
-    color: rgba(255, 255, 255, 0.9);
 }
 
-/* Unique Animated Gradients for Each Slide */
-.history-slide.style-1 .history-slide-overlay {
+/* === FUTURE GOALS: INTERACTIVE ROADMAP (COLORFUL) === */
+
+.roadmap-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    background: linear-gradient(135deg, #1f2937, #374151); /* Dark background */
+    border-radius: 1.5rem;
+    padding: 1rem;
+    box-shadow: 0 25px 50px -12px rgba(0,0,0,0.4);
+}
+
+@media (min-width: 1024px) {
+    .roadmap-container {
+        grid-template-columns: 1fr 2fr;
+        padding: 2rem;
+    }
+}
+
+.roadmap-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.roadmap-step {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    text-align: left;
+    padding: 1rem 1.5rem;
+    border-radius: 0.75rem;
+    border: 1px solid #4b5563; /* Darker border */
+    background-color: #374151; /* Dark gray */
+    color: #d1d5db; /* Light gray text */
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.roadmap-step::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background-color: var(--color-primary-blue);
+    transform: scaleY(0);
+    transition: transform 0.4s ease;
+    transform-origin: bottom;
+}
+
+.roadmap-step:hover {
+    background-color: #4b5563;
+    color: white;
+}
+
+.roadmap-step.active {
+    background-color: #4b5563;
+    color: white;
+    border-color: var(--color-primary-blue);
+}
+
+.roadmap-step.active::before {
+    transform: scaleY(1);
+    transform-origin: top;
+}
+
+.roadmap-step-number {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #9ca3af;
+    margin-right: 1.5rem;
+    transition: color 0.3s ease;
+}
+
+.roadmap-step.active .roadmap-step-number {
+    color: var(--color-accent-yellow);
+}
+
+.roadmap-step-text h4 {
+    transition: color 0.3s ease;
+}
+
+.roadmap-step.active .roadmap-step-text h4 {
+    color: white;
+}
+
+.step-arrow {
+    margin-left: auto;
+    color: #6b7280;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.roadmap-step.active .step-arrow {
+    color: var(--color-accent-yellow);
+    transform: translateX(5px);
+}
+
+.roadmap-content-wrapper {
+    position: relative;
+    border-radius: 1rem;
+    overflow: hidden;
+    min-height: 450px;
+    background-color: #111827; /* Fallback background */
+}
+
+/* Animated gradient background for the content panel */
+.content-bg-fx {
+    position: absolute;
+    inset: 0;
+    background-size: 400% 400%;
+    animation: gradient-pan 15s ease infinite;
+    transition: background-image 0.8s ease-in-out;
+    z-index: 0;
+}
+
+.roadmap-content-wrapper[data-active-bg="goal-1"] .content-bg-fx {
     background-image: linear-gradient(-65deg, #3b82f6, #60a5fa, #2563eb, #1d4ed8);
 }
-.history-slide.style-2 .history-slide-overlay {
+.roadmap-content-wrapper[data-active-bg="goal-2"] .content-bg-fx {
     background-image: linear-gradient(-65deg, #6d28d9, #8b5cf6, #a78bfa, #7c3aed);
 }
-.history-slide.style-3 .history-slide-overlay {
+.roadmap-content-wrapper[data-active-bg="goal-3"] .content-bg-fx {
     background-image: linear-gradient(-65deg, #db2777, #ec4899, #f472b6, #e11d48);
 }
-.history-slide.style-4 .history-slide-overlay {
+.roadmap-content-wrapper[data-active-bg="goal-4"] .content-bg-fx {
     background-image: linear-gradient(-65deg, #16a34a, #22c55e, #4ade80, #15803d);
 }
 
-/* Slider Navigation Arrows */
-.slider-arrow { 
-    position: absolute; top: 50%; transform: translateY(-50%); z-index: 10; width: 45px; height: 45px; border-radius: 50%; background-color: rgba(255,255,255,0.8); color: #4b5563; box-shadow: 0 4px 10px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center;
-}
-.slider-arrow.prev { left: 1.5rem; }
-.slider-arrow.next { right: 1.5rem; }
-.slider-arrow:hover { transform: translateY(-50%) scale(1.1); background-color: white; }
-.slider-arrow:disabled { opacity: 0.3; cursor: not-allowed; }
 
-/* Slider Navigation Dots */
-.slider-dots {
+.roadmap-panel {
     position: absolute;
-    bottom: 1.5rem;
-    left: 50%;
-    transform: translateX(-50%);
+    inset: 0;
+    width: 100%;
+    height: 100%;
     display: flex;
-    gap: 0.75rem;
-    z-index: 10;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.6s ease, transform 0.6s ease;
+    transform: translateY(20px);
+    padding: 2rem;
+    z-index: 2;
 }
 
-.slider-dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background-color: rgba(255,255,255,0.4);
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease;
+.roadmap-panel.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
 }
 
-.slider-dot.is-active {
-    background-color: white;
-    transform: scale(1.2);
+.roadmap-panel .panel-icon {
+    font-size: 4rem;
+    margin-bottom: 1.5rem;
+    text-shadow: 0 4px 20px rgba(0,0,0,0.3);
 }
 
-/* Mobile Responsiveness for Slider */
-@media (max-width: 767px) {
-    .history-slider-container {
-        aspect-ratio: 4 / 5;
-    }
-    .history-slide::before {
-        font-size: 15rem; /* Smaller icon on mobile */
-    }
-    .history-slide-content {
-        max-width: 100%;
-        padding: 2rem;
-    }
-    .history-slide-content .slide-title {
-        font-size: 2rem;
-    }
-    .history-slide-content .slide-text {
-        font-size: 1rem;
-    }
-    .slider-arrow {
-        bottom: 1.5rem;
-        top: auto;
-        transform: none;
-    }
-    .slider-arrow.prev { left: 1rem; }
-    .slider-arrow.next { right: 1rem; }
-    .slider-dots { display: none; }
+.roadmap-panel .panel-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+
+.roadmap-panel .panel-text {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    max-width: 600px;
 }
