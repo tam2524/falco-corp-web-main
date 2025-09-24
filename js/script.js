@@ -269,7 +269,7 @@ document.querySelectorAll('.value-card-modern').forEach(card => {
                 navTitle: '03 Expanding Horizons',
                 title: 'Versatility in a Dynamic Market',
                 text: 'We are actively engaged in diverse sectors, from crude oil refining and trade to pioneering new supply chain strategies. Our versatility ensures we thrive in the ever-changing international energy landscape.',
-                image: 'images/f91dd928e4a110edd2c07c88550a1184 2.jpg' // Replace with your image path
+                image: 'images/f91dd928e4a110edd2c07c88550a1184.jpg' // Replace with your image path
             },
             {
                 navTitle: '04 Looking to the Future',
