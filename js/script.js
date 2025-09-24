@@ -257,13 +257,13 @@ document.querySelectorAll('.value-card-modern').forEach(card => {
                 navTitle: '01 From a Standing Start',
                 title: 'A Vision for Global Trade',
                 text: 'Founded in the UAE in 2021, Falco Corporation was born from a vision to create a more efficient and integrated global energy market. Our journey began with a clear purpose: to connect vital resources to the world.',
-                image: 'images/f91dd928e4a110edd2c07c88550a1184.jpg' // Replace with your image path
+                image: 'images/images/4218ff09-9fe4-4b8e-8a6b-f9a1dd438b17.jpg' // Replace with your image path
             },
             {
                 navTitle: '02 Our Core Operations',
                 title: 'Integrated Energy Solutions',
                 text: 'Our success is built on the seamless integration of oilfield development, overseas terminals, and expert shipping management. This comprehensive approach allows us to manage the entire supply chain with precision and reliability.',
-                image: 'images/IMG_8277.jpg' // Replace with your image path
+                image: 'images/310945bc70f82fbadf19f05e6dec20c8.JPG' // Replace with your image path
             },
             {
                 navTitle: '03 Expanding Horizons',
@@ -275,7 +275,7 @@ document.querySelectorAll('.value-card-modern').forEach(card => {
                 navTitle: '04 Looking to the Future',
                 title: 'A Commitment to Excellence',
                 text: 'At Falco Corporation, we embrace innovation, sustainability, and excellence. We continue to set new standards, forge lasting partnerships, and create a lasting impact in the global energy trading arena.',
-                image: 'images/IMG_3926.jpg' // Replace with your image path
+                image: 'images/images/01feef42-7a30-44ea-aefa-8243d08b99d5.jpg' // Replace with your image path
             }
         ];
 
