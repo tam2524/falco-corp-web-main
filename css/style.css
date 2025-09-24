@@ -1865,7 +1865,7 @@ img.hero-background {
 }
 
 /* Background image for hero section */
-.page-header[style*="IMG_8686.jpg"] {
+.page-header[style*="image1"] {
     position: relative;
     background-size: cover;
     background-position: center;
@@ -1877,7 +1877,7 @@ img.hero-background {
     justify-content: center;
 }
 
-.page-header[style*="IMG_8686.jpg"]::before {
+.page-header[style*="image1"]::before {
     content: '';
     position: absolute;
     top: 0;
