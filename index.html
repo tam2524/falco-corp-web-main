@@ -11,29 +11,29 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #ffffff; /* White background as per example */
+            background-color: #ffffff; 
             color: #1a1a1a;
             overflow: hidden;
             position: relative;
         }
 
-        /* Diagonal stripes pattern */
+        
         .hazard-stripes {
             position: absolute;
-            width: 150%; /* Wider than screen to cover diagonals */
-            height: 150%; /* Taller than screen to cover diagonals */
+            width: 150%;
+            height: 150%; 
             background: repeating-linear-gradient(
                 -45deg,
-                #ffcc00, /* Yellow */
+                #ffcc00, 
                 #ffcc00 50px,
-                #1a1a1a 50px, /* Black */
+                #1a1a1a 50px,
                 #1a1a1a 100px
             );
             z-index: 0;
-            top: -25%; /* Adjust to position the pattern */
-            left: -25%; /* Adjust to position the pattern */
-            opacity: 0.8; /* Slight transparency for background feel */
-            animation: stripe-move 30s linear infinite; /* Subtle movement */
+            top: -25%; 
+            left: -25%; 
+            opacity: 0.8; 
+            animation: stripe-move 30s linear infinite; 
         }
 
         @keyframes stripe-move {
@@ -50,21 +50,21 @@
             justify-content: center;
             min-height: 100vh;
             padding: 1rem;
-            background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white overlay for text */
-            box-shadow: 0 0 50px rgba(0,0,0,0.1); /* Soft shadow for the content area */
+            background-color: rgba(255, 255, 255, 0.9); 
+            box-shadow: 0 0 50px rgba(0,0,0,0.1); 
         }
 
         .logo-container {
             margin-bottom: 2rem;
         }
         .logo-img {
-            max-height: 80px; /* Adjust logo size */
+            max-height: 80px;
             width: auto;
         }
 
         .main-heading {
             font-family: 'Bebas Neue', sans-serif;
-            font-size: 4rem; /* Large size */
+            font-size: 4rem; 
             line-height: 1;
             margin-bottom: 0.5rem;
             color: #1a1a1a;
@@ -74,12 +74,11 @@
             font-family: 'Inter', sans-serif;
             font-size: 1.8rem;
             font-weight: 700;
-            color: #6b7280; /* Gray for "Coming Soon" */
+            color: #6b7280; 
             text-transform: uppercase;
             margin-bottom: 2rem;
         }
 
-        /* Responsive adjustments */
         @media (max-width: 768px) {
             .main-heading {
                 font-size: 3rem;
