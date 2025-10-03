@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Falco Corporation | Welcome</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+        /* BRANDING: Using your main site's color variables */
+        :root {
+            --color-primary-blue: #3b82f6;
+            --color-accent-blue: #6d28d9;
+            --color-accent-yellow: #FBBF24;
+            --color-light-gray: #f8fafc;
+            --color-text: #111827;
+        }
+
+        /* STYLE: Using the animated gradient from your main site's menu */
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            color: var(--color-text);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            box-sizing: border-box;
+            background: linear-gradient(110deg, var(--color-primary-blue), var(--color-accent-blue), var(--color-accent-yellow));
+            background-size: 200% 200%;
+            animation: gradient-pan 15s ease infinite;
+        }
+
+        @keyframes gradient-pan {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* STYLE: Updated card to be clean and light, contrasting with the vibrant background */
+        .container {
+            text-align: center;
+            background-color: var(--color-light-gray);
+            padding: 40px 35px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.2);
+            max-width: 480px;
+            width: 100%;
+            animation: float-animation 6s ease-in-out infinite;
+        }
+        
+        @keyframes float-animation {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .logo {
+            width: 120px; /* Slightly larger logo */
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 1.1em;
+            color: #4b5563; /* text-gray-600 */
+            margin-bottom: 35px;
+            max-width: 350px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        /* STYLE: Applied your 'themed-button-gradient' style to the buttons */
+        .link-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            font-size: 1em;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-radius: 8px;
+            color: white;
+            border: none;
+            cursor: pointer;
+            background-image: linear-gradient(to right, var(--color-primary-blue), var(--color-accent-blue), var(--color-accent-yellow));
+            background-size: 200% auto;
+            transition: all 0.4s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .link-button:hover {
+            background-position: right center;
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(59, 130, 246, 0.3);
+        }
+        
+        .link-button i {
+            font-size: 1.2em;
+        }
+        
+        footer {
+            position: absolute;
+            bottom: 20px;
+            font-size: 0.9em;
+            color: rgba(255, 255, 255, 0.7);
+            text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <img src="images/logo.png" alt="Falco Corporation Logo" class="logo">
+
+        <p>Connect with us and explore what we have to offer.</p>
+
+        <div class="button-container">
+
+            <a href="https://tam2524.github.io/falco-corp-web-main/" target="_blank" class="link-button">
+                <i class="fa-solid fa-globe"></i>
+                <span>Visit Website</span>
+            </a>
+
+            <a href="images/FALCO CORP PROFILE-W_O.pdf" target="_blank" class="link-button">
+                <i class="fa-solid fa-file-lines"></i>
+                <span>Company Profile</span>
+            </a>
+
+            <a href="https://wa.me/639638044001" target="_blank" class="link-button">
+                <i class="fa-brands fa-whatsapp"></i>
+                <span>Chat on WhatsApp</span>
+            </a>
+        </div>
+
+    </div>
+    
+    <footer>
+        &copy; 2025 Falco Corporation. All Rights Reserved.
+    </footer>
+
+</body>
+</html>
