@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
       title: "Global Reach",
       url: "#global-reach",
       content:
-        "In the dynamic landscape of international business, Falco Corporation has not only expanded its operations globally since 2021 but has also excelled in managing complexities inherent in diverse market. Key Achievements: Global Reach: Successfully expanded operations worldwide, establishing a strong presence in Europe, the US, Singapore, China, Malaysia, the Middle East, and South America. Specialization in Challenging Environments: Falco's expertise lies in procuring from complex and politically unstable environments. Deep understanding of appropriate conduct ensures safe and ethical business practices. Optimized Performance: Falco's well-rounded expertise enables the group to navigate challenging environments with safe conduct, ensuring optimized performance in trading various energy products. Strategic Growth Execution: The execution of a successful growth strategy has propelled Falco Corporation into new territories, fostering growth and prosperity. Future Outlook: As we continue to adapt and thrive in diverse markets, Hannon remains committed to setting benchmarks in global energy trading.",
+        "In the dynamic landscape of international business, Falco Corporation has not only expanded its operations globally since 2021 but has also excelled in managing complexities inherent in diverse market. Key Achievements: Global Reach: Successfully expanded operations worldwide, establishing a strong presence in Hongkong, the US, Singapore, China, Malaysia, the Middle East, and South America. Specialization in Challenging Environments: Falco's expertise lies in procuring from complex and politically unstable environments. Deep understanding of appropriate conduct ensures safe and ethical business practices. Optimized Performance: Falco's well-rounded expertise enables the group to navigate challenging environments with safe conduct, ensuring optimized performance in trading various energy products. Strategic Growth Execution: The execution of a successful growth strategy has propelled Falco Corporation into new territories, fostering growth and prosperity. Future Outlook: As we continue to adapt and thrive in diverse markets, Hannon remains committed to setting benchmarks in global energy trading.",
     },
     {
       title: "Future Goals",
@@ -256,7 +256,7 @@ document.querySelectorAll('.value-card-modern').forEach(card => {
             {
                 navTitle: '01 From a Standing Start',
                 title: 'A Vision for Global Trade',
-                text: 'Founded in the UAE in 2021, Falco Corporation was born from a vision to create a more efficient and integrated global energy market. Our journey began with a clear purpose: to connect vital resources to the world.',
+                text: 'Founded in the HK in 2021, Falco Corporation was born from a vision to create a more efficient and integrated global energy market. Our journey began with a clear purpose: to connect vital resources to the world.',
                 image: 'images/4218ff09-9fe4-4b8e-8a6b-f9a1dd438b17.jpg' // Replace with your image path
             },
             {
@@ -416,14 +416,16 @@ storyCloseBtn.addEventListener('click', () => {
         var hqIcon = L.divIcon({ className: 'custom-div-icon', html: '<div style="background-color:#3b82f6; width:20px; height:20px; border-radius:50%; border:3px solid white; box-shadow:0 0 8px rgba(0,0,0,0.5);"></div>', iconSize: [20, 20], iconAnchor: [10, 10] });
         var customIcon = L.divIcon({ className: 'custom-div-icon', html: '<div style="background-color:white; width:15px; height:15px; border-radius:50%; border:2px solid #3b82f6;"></div>', iconSize: [15, 15], iconAnchor: [7.5, 7.5] });
 
-        var hq = { name: 'Headquarters (Middle East)', coords: [25.27, 55.29] };
-        var locations = [
-            { name: 'Europe', coords: [51.50, -0.12] },
-            { name: 'United States', coords: [29.76, -95.36] },
-            { name: 'Singapore', coords: [1.35, 103.81] },
-            { name: 'China', coords: [31.23, 121.47] },
-            { name: 'South America', coords: [-22.90, -43.17] }
-        ];
+var hq = { name: 'Headquarters (Hong Kong)', coords: [22.3193, 114.1694] };
+
+var locations = [
+    { name: 'Europe', coords: [51.50, -0.12] },
+    { name: 'United States', coords: [29.76, -95.36] },
+    { name: 'Singapore', coords: [1.35, 103.81] },
+    { name: 'China', coords: [31.23, 121.47] },
+    { name: 'South America', coords: [-22.90, -43.17] }
+];
+
 
         L.marker(hq.coords, { icon: hqIcon, title: hq.name }).addTo(map).bindPopup('<b>' + hq.name + '</b>');
         locations.forEach(function (location) {
