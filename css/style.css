@@ -1,8 +1,19 @@
 
 :root {
     --color-primary-blue: #3b82f6;   /* Main Blue */
-    --color-accent-blue: #6d28d9;   /* Main Purple */
-    --color-accent-yellow: #FBBF24; /* New Accent Yellow */
+    --color-accent-blue: #00146e;   /* Main Purple */
+    --color-accent-yellow: #001aff; /* New Accent Yellow */
+    --color-light-gray: #f8fafc;
+    --color-medium-gray: #e2e8f0;
+    --color-text: #111827;
+    --color-text-light: #f9fafb;
+        /* New Light Blue & White Palette */
+    --theme-blue-dark: #2958a3; /* A deeper blue for contrast */
+    --theme-blue-medium: #0073ff; /* A vibrant light blue */
+    --theme-blue-light: #00235c; /* An even lighter, softer blue */
+    --theme-whitish: #f0f8ff;   /* AliceBlue - a very pale blue */
+    
+    /* Keeping utility colors */
     --color-light-gray: #f8fafc;
     --color-medium-gray: #e2e8f0;
     --color-text: #111827;
@@ -20,17 +31,9 @@ body {
     background-color: white;
 }
 
-.bg-primary-blue {
-    background-color: var(--color-primary-blue);
-}
-
-.text-primary-blue {
-    color: var(--color-primary-blue);
-}
-
-.border-primary-blue {
-    border-color: var(--color-primary-blue);
-}
+.bg-primary-blue { background-color: var(--theme-blue-medium); }
+.text-primary-blue { color: var(--theme-blue-medium); }
+.border-primary-blue { border-color: var(--theme-blue-medium); }
 
 /* Header */
 #header {
@@ -82,7 +85,7 @@ body {
 .menu-background {
     position: absolute;
     inset: 0;
-    background: linear-gradient(110deg, #3b82f6, #6d28d9, #FBBF24);
+    background: linear-gradient(110deg, #0a2653, #3b82f6, #3b82f6);
     background-size: 200% 200%;
     animation: gradient-pan 15s ease infinite;
     z-index: 1;
@@ -170,7 +173,7 @@ body {
 }
 
 .menu-logo-img {
-    height: 60px; /* Adjust logo size as needed */
+    height: 80px; /* Adjust logo size as needed */
     width: auto;
 }
 
@@ -280,7 +283,7 @@ body {
 }
 
 .themed-button-gradient {
-    background-image: linear-gradient(to right, var(--color-primary-blue), var(--color-accent-blue), var(--color-accent-yellow));
+    background-image: linear-gradient(to right, var(--theme-blue-dark), var(--theme-blue-medium));
     background-size: 200% auto;
     color: white;
     border: none;
@@ -418,7 +421,7 @@ body {
 
 .tab-link-modern.active {
     color: var(--color-text-light);
-    background-image: linear-gradient(to right, var(--color-primary-blue), var(--color-accent-blue));
+    background-image: linear-gradient(to right, var(--theme-blue-dark), var(--theme-blue-medium));
     box-shadow: 0 8px 15px rgba(59, 130, 246, 0.3);
     transform: translateY(-2px);
 }
@@ -465,7 +468,7 @@ body {
     position: absolute;
     inset: -3px;
     border-radius: inherit;
-    background-image: linear-gradient(135deg, var(--color-primary-blue), var(--color-accent-blue), var(--color-accent-yellow));
+    background-image: linear-gradient(135deg, var(--theme-blue-medium), var(--theme-blue-light));
     z-index: -1;
     transition: transform 0.4s ease;
     transform: scale(0.95);
@@ -740,7 +743,20 @@ body {
     left: 0;
     right: 0;
     height: 6px;
-    background-image: linear-gradient(to right, var(--color-primary-blue), var(--color-accent-blue), var(--color-accent-yellow));
+    /* 1. Updated to a richer 3-color gradient */
+    background-image: linear-gradient(to right, 
+        var(--theme-blue-medium), 
+        var(--theme-blue-light), 
+        var(--theme-whitish)
+    );
+    /* 2. Prepare for animation */
+    background-size: 200% auto;
+    transition: background-position 0.5s ease;
+}
+
+/* 3. Adds the animation on hover */
+.grid-card-content:hover::before {
+    background-position: right center;
 }
 .grid-card-content:hover {
     transform: translateY(-8px);
@@ -1182,7 +1198,7 @@ body {
     position: absolute;
     top: 0; left: 0; right: 0;
     height: 5px;
-    background-image: linear-gradient(to right, var(--color-accent-yellow), var(--color-accent-blue), var(--color-primary-blue));
+    background-image: linear-gradient(to right, var(--theme-blue-medium), var(--theme-blue-light));
     background-size: 200% auto;
     transition: background-position 0.5s ease;
 }
@@ -1624,13 +1640,22 @@ img.hero-background {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: linear-gradient(110deg, 
-        rgba(59, 130, 246, 0.7), 
-        rgba(109, 40, 217, 0.65), 
-        rgba(251, 191, 36, 0.6)
-    );
+   background-image: linear-gradient(110deg, 
+        rgba(59, 130, 246, 0.7), 
+        rgba(109, 40, 217, 0.65), 
+        rgba(251, 191, 36, 0.6)
+    );
 }
 
+.animated-gradient-overlay,
+.page-header::before {
+    background: linear-gradient(-45deg, 
+        rgba(59, 130, 246, 0.7), /* theme-blue-dark */
+        rgba(96, 165, 250, 0.6), /* theme-blue-medium */
+        rgba(160, 196, 255, 0.7), /* theme-blue-light */
+        rgba(240, 248, 255, 0.65) /* theme-whitish */
+    );
+}
 /* Timeline Styles */
 .timeline-line {
     position: absolute;
@@ -2536,7 +2561,7 @@ img.hero-background {
 }
 
 .gradient-button {
-     background-image: linear-gradient(to right, var(--color-accent-blue), var(--color-accent-yellow));
+     background-image: linear-gradient(to right, var(--theme-blue-dark), var(--theme-blue-medium));
     color: white;
     border: none;
     border-radius: 9999px; 
@@ -2947,6 +2972,9 @@ img.hero-background {
 .colorful-slider-slide.style-2 { background: linear-gradient(135deg, #8b5cf6, #a78bfa); }
 .colorful-slider-slide.style-3 { background: linear-gradient(135deg, #1f2937, #4b5563); }
 .colorful-slider-slide.style-4 { background: linear-gradient(135deg, #14b8a6, #5eead4); }
+.colorful-slider-slide.style-5 { background: linear-gradient(135deg, #f97316, #fdba74); }
+.colorful-slider-slide.style-6 { background: linear-gradient(135deg, #ef4444, #f87171); }
+.colorful-slider-slide.style-7 { background: linear-gradient(135deg, #10b981, #6ee7b7); }
 .slider-arrow { position: absolute; top: 50%; transform: translateY(-50%); z-index: 10; width: 45px; height: 45px; border-radius: 50%; background-color: white; color: #4b5563; box-shadow: 0 4px 10px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.3s ease; }
 .slider-arrow.prev { left: 1.5rem; }
 .slider-arrow.next { right: 1.5rem; }
@@ -3004,7 +3032,7 @@ img.hero-background {
     border-radius: 0.75rem;
     box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
     border-top: 4px solid transparent;
-    border-image: linear-gradient(to right, var(--color-primary-blue), var(--color-accent-blue)) 1;
+   border-image: linear-gradient(to right, var(--theme-blue-medium), var(--theme-blue-light)) 1;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     /* Properties for 3D tilt */
     transform-style: preserve-3d;
@@ -3386,19 +3414,9 @@ img.hero-background {
     z-index: 0;
 }
 
-.roadmap-content-wrapper[data-active-bg="goal-1"] .content-bg-fx {
-    background-image: linear-gradient(-65deg, #3b82f6, #60a5fa, #2563eb, #1d4ed8);
+.roadmap-content-wrapper[data-active-bg] .content-bg-fx {
+    background-image: linear-gradient(-65deg, var(--theme-blue-dark), var(--theme-blue-medium), var(--theme-blue-light));
 }
-.roadmap-content-wrapper[data-active-bg="goal-2"] .content-bg-fx {
-    background-image: linear-gradient(-65deg, #6d28d9, #8b5cf6, #a78bfa, #7c3aed);
-}
-.roadmap-content-wrapper[data-active-bg="goal-3"] .content-bg-fx {
-    background-image: linear-gradient(-65deg, #db2777, #ec4899, #f472b6, #e11d48);
-}
-.roadmap-content-wrapper[data-active-bg="goal-4"] .content-bg-fx {
-    background-image: linear-gradient(-65deg, #16a34a, #22c55e, #4ade80, #15803d);
-}
-
 
 .roadmap-panel {
     position: absolute;
