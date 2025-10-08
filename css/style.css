@@ -867,23 +867,18 @@ body {
     top: 0;
     left: 0;
 }
-.cycle-node:nth-child(1) { transform: rotate(0deg); }
-.cycle-node:nth-child(2) { transform: rotate(90deg); }
-.cycle-node:nth-child(3) { transform: rotate(180deg); }
-.cycle-node:nth-child(4) { transform: rotate(270deg); }
 
-.cycle-node:nth-child(1) .cycle-item {
-  transform: rotate(-0deg) translateX(-0%) translateY(-50px);
-}
-.cycle-node:nth-child(2) .cycle-item {
-  transform: rotate(-90deg) translateX(-0%) translateY(-50px);
-}
-.cycle-node:nth-child(3) .cycle-item {
-  transform: rotate(-180deg) translateX(-0%) translateY(-50px);
-}
-.cycle-node:nth-child(4) .cycle-item {
-  transform: rotate(-270deg) translateX(-0%) translateY(-50px);
-}
+.cycle-node:nth-child(1) { transform: rotate(0deg); }   /* Top */
+.cycle-node:nth-child(2) { transform: rotate(90deg); }  /* Right */
+.cycle-node:nth-child(3) { transform: rotate(180deg); } /* Bottom */
+.cycle-node:nth-child(4) { transform: rotate(270deg); } /* Left */
+
+
+.cycle-node:nth-child(1) .cycle-item { transform: rotate(-0deg); }   /* Top */
+.cycle-node:nth-child(2) .cycle-item { transform: rotate(-90deg); }  /* Right */
+.cycle-node:nth-child(3)  .cycle-item{ transform: rotate(-180deg); } /* Bottom */
+.cycle-node:nth-child(4)  .cycle-item{ transform: rotate(-270deg); } /* Left */
+
 .cycle-item {
     position: absolute;
     top: -80px;
@@ -927,11 +922,6 @@ body {
     animation: spin-reverse 40s linear infinite;
 }
 
-.cycle-wrapper:hover .cycle-animator,
-.cycle-wrapper:hover .cycle-item,
-.cycle-wrapper:hover .cycle-node::after {
-    animation-play-state: paused;
-}
 
 .cycle-item:hover {
     transform: translateX(-50%) scale(1.1);

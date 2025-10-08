@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", function () {
       title: "History",
       url: "#history",
       content:
-        "In May 2020, initiated the export of asphalt mixtures and fuel oil. Completed the first trade of foreign trade asphalt mixtures in August and September, delivering 500,000 barrels-a major breakthrough in business scope. Market Development and Partnerships: Successfully developed markets in Shandong and Northeast China for fuel oil and bitumen mixture. Established deals with key partners such as PanjinYijiu Petrochemical Co., Ltd. and Baolai Bioenergy. Secured the oil from Hebei Lunt Group. Infrastructure and Export Achievement: Achieved a significant milestone with a monthly export of approximately 600,000 tons.",
+        "In May 2020, initiated the export of asphalt mixtures and fuel oil. Completed the first trade of foreign trade asphalt mixtures in August and September, delivering 500,000 barrels-a major breakthrough in business scope. Market Development and Partnerships: Successfully developed markets in Asia for fuel oil and bitumen mixture. Established deals with key partners such as PanjinYijiu Petrochemical Co., Ltd. and Baolai Bioenergy. Secured the oil from Hebei Lunt Group. Infrastructure and Export Achievement: Achieved a significant milestone with a monthly export of approximately 600,000 tons.",
     },
     {
       title: "Sustainability",
@@ -256,7 +256,7 @@ document.querySelectorAll('.value-card-modern').forEach(card => {
             {
                 navTitle: '01 From a Standing Start',
                 title: 'A Vision for Global Trade',
-                text: 'Founded in the HK in 2021, Falco Corporation was born from a vision to create a more efficient and integrated global energy market. Our journey began with a clear purpose: to connect vital resources to the world.',
+                text: 'Founded in Hong Kong in 2021, Falco Corporation was born from a vision to create a more efficient and integrated global energy market. Our journey began with a clear purpose: to connect vital resources to the world.',
                 image: 'images/4218ff09-9fe4-4b8e-8a6b-f9a1dd438b17.jpg' // Replace with your image path
             },
             {

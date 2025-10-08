@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF--8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Falco Corporation | Welcome</title>
     
@@ -102,6 +102,8 @@
             background-size: 200% auto;
             transition: all 0.4s ease;
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            width: 100%;
+            box-sizing: border-box;
         }
 
         .link-button:hover {
@@ -121,6 +123,81 @@
             color: rgba(255, 255, 255, 0.7);
             text-shadow: 0 1px 3px rgba(0,0,0,0.2);
         }
+
+        /* ===== START: ADDED CSS FOR MODAL ===== */
+        .modal-overlay {
+            display: none; /* Hidden by default */
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.6);
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            padding: 30px 35px;
+            border-radius: 15px;
+            position: relative;
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            animation: slide-down 0.5s ease-out;
+        }
+
+        @keyframes slide-down {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-content h2 {
+            margin-top: 0;
+            margin-bottom: 25px;
+            color: var(--color-primary-blue);
+        }
+
+        .close-btn {
+            color: #aaa;
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close-btn:hover,
+        .close-btn:focus {
+            color: black;
+            text-decoration: none;
+        }
+        
+        .modal-button-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .modal-link {
+            text-transform: none;
+            letter-spacing: normal;
+            font-size: 0.95em;
+            justify-content: center;
+        }
+        /* ===== END: ADDED CSS FOR MODAL ===== */
 
     </style>
 </head>
@@ -144,10 +221,10 @@
                 <span>Company Profile</span>
             </a>
 
-            <a href="https://wa.me/639638044001" target="_blank" class="link-button">
+            <button id="open-modal-btn" class="link-button">
                 <i class="fa-brands fa-whatsapp"></i>
                 <span>Chat on WhatsApp</span>
-            </a>
+            </button>
         </div>
 
     </div>
@@ -156,5 +233,45 @@
         &copy; 2025 Falco Corporation. All Rights Reserved.
     </footer>
 
-</body>
+    <div id="whatsapp-modal" class="modal-overlay">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Choose a Contact</h2>
+            <div class="modal-button-container">
+                <a href="https://wa.me/85265731411" target="_blank" class="link-button modal-link">
+                    <span>Alex Tse (Managing Director)</span>
+                </a>
+                <a href="https://wa.me/85265877580" target="_blank" class="link-button modal-link">
+                    <span>Arwin Amirloo (Chief Executive Officer)</span>
+                </a>
+                <a href="https://wa.me/85259883716" target="_blank" class="link-button modal-link">
+                    <span>Rommel Haque (Head of Trading)</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Get the elements
+        const modal = document.getElementById('whatsapp-modal');
+        const openBtn = document.getElementById('open-modal-btn');
+        const closeBtn = document.querySelector('.close-btn');
+
+        // Open the modal
+        openBtn.addEventListener('click', function() {
+            modal.style.display = 'flex';
+        });
+
+        // Close the modal with the close button
+        closeBtn.addEventListener('click', function() {
+            modal.style.display = 'none';
+        });
+
+        // Close the modal if the user clicks the dark overlay
+        window.addEventListener('click', function(event) {
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        });
+    </script>
+    </body>
 </html>
