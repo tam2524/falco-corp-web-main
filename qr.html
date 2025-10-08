@@ -124,7 +124,7 @@
             text-shadow: 0 1px 3px rgba(0,0,0,0.2);
         }
 
-        /* ===== START: ADDED CSS FOR MODAL ===== */
+        /* ===== START: MODAL CSS ===== */
         .modal-overlay {
             display: none; /* Hidden by default */
             position: fixed;
@@ -192,41 +192,56 @@
         }
 
         .modal-link {
+            justify-content: center;
+            padding-top: 1.2rem; /* Add a bit more padding for the new layout */
+            padding-bottom: 1.2rem;
+        }
+
+        /* ===== NEW: Styles for the vertical name/title layout ===== */
+        .contact-info {
+            display: flex;
+            flex-direction: column; /* Stacks items vertically */
+            align-items: center;
+            line-height: 1.4;
+        }
+
+        .contact-name {
+            font-weight: 600;
+            font-size: 1em;
             text-transform: none;
             letter-spacing: normal;
-            font-size: 0.95em;
-            justify-content: center;
         }
-        /* ===== END: ADDED CSS FOR MODAL ===== */
+
+        .contact-title {
+            font-size: 0.8em;
+            font-weight: 400;
+            opacity: 0.8;
+            text-transform: none;
+            letter-spacing: normal;
+        }
+        /* ===== END: MODAL CSS ===== */
 
     </style>
 </head>
 <body>
 
     <div class="container">
-
         <img src="images/logo.png" alt="Falco Corporation Logo" class="logo">
-
         <p>Connect with us and explore what we have to offer.</p>
-
         <div class="button-container">
-
             <a href="https://tam2524.github.io/falco-corp-web-main/" target="_blank" class="link-button">
                 <i class="fa-solid fa-globe"></i>
                 <span>Visit Website</span>
             </a>
-
             <a href="images/FALCO CORP PROFILE-W_O .pdf" target="_blank" class="link-button">
                 <i class="fa-solid fa-file-lines"></i>
                 <span>Company Profile</span>
             </a>
-
             <button id="open-modal-btn" class="link-button">
                 <i class="fa-brands fa-whatsapp"></i>
                 <span>Chat on WhatsApp</span>
             </button>
         </div>
-
     </div>
     
     <footer>
@@ -238,40 +253,50 @@
             <span class="close-btn">&times;</span>
             <h2>Choose a Contact</h2>
             <div class="modal-button-container">
+
                 <a href="https://wa.me/85265731411" target="_blank" class="link-button modal-link">
-                    <span>Alex Tse (Managing Director)</span>
+                    <div class="contact-info">
+                        <span class="contact-name">Alex Tse</span>
+                        <span class="contact-title">Managing Director</span>
+                    </div>
                 </a>
+
                 <a href="https://wa.me/85265877580" target="_blank" class="link-button modal-link">
-                    <span>Arwin Amirloo (Chief Executive Officer)</span>
+                    <div class="contact-info">
+                        <span class="contact-name">Arwin Amirloo</span>
+                        <span class="contact-title">Chief Executive Officer</span>
+                    </div>
                 </a>
+
                 <a href="https://wa.me/85259883716" target="_blank" class="link-button modal-link">
-                    <span>Rommel Haque (Head of Trading)</span>
+                    <div class="contact-info">
+                        <span class="contact-name">Rommel Haque</span>
+                        <span class="contact-title">Head of Trading</span>
+                    </div>
                 </a>
             </div>
         </div>
     </div>
+    
     <script>
-        // Get the elements
         const modal = document.getElementById('whatsapp-modal');
         const openBtn = document.getElementById('open-modal-btn');
         const closeBtn = document.querySelector('.close-btn');
 
-        // Open the modal
         openBtn.addEventListener('click', function() {
             modal.style.display = 'flex';
         });
 
-        // Close the modal with the close button
         closeBtn.addEventListener('click', function() {
             modal.style.display = 'none';
         });
 
-        // Close the modal if the user clicks the dark overlay
         window.addEventListener('click', function(event) {
             if (event.target == modal) {
                 modal.style.display = 'none';
             }
         });
     </script>
-    </body>
+
+</body>
 </html>
