@@ -423,8 +423,13 @@ var locations = [
     { name: 'United States', coords: [29.76, -95.36] },
     { name: 'Singapore', coords: [1.35, 103.81] },
     { name: 'China', coords: [31.23, 121.47] },
-    { name: 'South America', coords: [-22.90, -43.17] }
+    { name: 'South America', coords: [-22.90, -43.17] },
+    { name: 'Korea', coords: [37.56, 126.97] },        // Seoul, South Korea
+    { name: 'Japan', coords: [35.68, 139.69] },        // Tokyo, Japan
+    { name: 'Bangladesh', coords: [23.81, 90.41] },    // Dhaka, Bangladesh
+    { name: 'India', coords: [28.61, 77.21] }          // New Delhi, India
 ];
+
 
 
         L.marker(hq.coords, { icon: hqIcon, title: hq.name }).addTo(map).bindPopup('<b>' + hq.name + '</b>');
